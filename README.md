@@ -1,4 +1,4 @@
-# **Bjarne - Project Planning Tool**
+# **Sjovt navn Project Planning Tool**
 
 ## **Description**
 
