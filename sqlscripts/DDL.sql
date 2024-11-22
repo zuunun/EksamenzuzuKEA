@@ -6,16 +6,18 @@ USE project_management;
 -- Opret User tabel (fælles for både Worker og Project Leader)
 CREATE TABLE user (
                       user_id INT AUTO_INCREMENT PRIMARY KEY,
-                      username VARCHAR(255) NOT NULL,
                       email VARCHAR(255) NOT NULL UNIQUE,
                       password VARCHAR(255) NOT NULL,
-                      role ENUM('Worker', 'Project Leader') NOT NULL, -- Role angiver typen af bruger
-                      managed_projects INT DEFAULT 0, -- Kun relevant for Project Leader
-                      skills VARCHAR(255), -- Worker
-                      task_comment TEXT, -- Worker
-                      estimated_time INT DEFAULT 0, -- Worker
-                      actual_time INT DEFAULT 0 -- Worker
+                      role_id int NOT NULL -- Role angiver typen af bruger
+
 );
+CREATE TABLE workertask (
+                            workertask_id INT AUTO_INCREMENT PRIMARY KEY,
+                            skills VARCHAR(255),
+                            estimated_time INT DEFAULT 0,
+                            actual_time INT DEFAULT 0
+);
+
 -- Opret Project tabel
 CREATE TABLE project (
                          project_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -40,21 +42,18 @@ CREATE TABLE subproject (
                             FOREIGN KEY (project_id) REFERENCES project(project_id)
 );
 
-
 -- Opret Task tabel
 CREATE TABLE task (
                       task_id INT AUTO_INCREMENT PRIMARY KEY,
                       task_name VARCHAR(255) NOT NULL,
                       startdate DATE NOT NULL,
                       enddate DATE NOT NULL,
-                      deadline DATE NOT NULL,
-                      estimated_time INT NOT NULL,
                       status ENUM('In Progress', 'Complete', 'Overdue') DEFAULT 'In Progress',
                       cost DECIMAL(10, 2) DEFAULT 0,
                       subproject_id INT,
-                      worker_id INT, -- (user-tabel)
+                      user_id INT, -- (user-tabel)
                       FOREIGN KEY (subproject_id) REFERENCES subproject(subproject_id),
-                      FOREIGN KEY (worker_id) REFERENCES user(user_id) -- peger på user-tabel
+                      FOREIGN KEY (user_id) REFERENCES user(user_id) -- peger på user-tabel
 );
 
 
@@ -97,18 +96,6 @@ FROM project p
          LEFT JOIN subproject sp ON p.project_id = sp.project_id
 GROUP BY p.project_id, p.project_name, p.budget;
 
-CREATE VIEW task_budget_view AS
-SELECT
-    t.task_id,
-    t.task_name,
-    t.estimated_time,
-    t.cost AS used_budget,
-    sp.subproject_id,
-    sp.budget AS subproject_budget,
-    (sp.budget - COALESCE(SUM(t.cost), 0)) AS remaining_subproject_budget
-FROM task t
-         LEFT JOIN subproject sp ON t.subproject_id = sp.subproject_id
-GROUP BY t.task_id, t.task_name, t.estimated_time, t.cost, sp.subproject_id, sp.budget;
 
 -- Triggers til budgetvalidering
 DELIMITER $$
