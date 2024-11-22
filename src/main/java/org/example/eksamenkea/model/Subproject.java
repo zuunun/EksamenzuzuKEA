@@ -5,17 +5,13 @@ import java.time.LocalDate;
 public class Subproject {
     private int subproject_id;
     private String subproject_name;
-    private LocalDate startdate;
-    private LocalDate enddate;
-    private double budget;
+    private String subproject_description;
     private int project_id;
 
-    public Subproject(int subproject_id, String subproject_name, LocalDate startdate, LocalDate enddate, double budget, int project_id) {
+    public Subproject(int subproject_id, String subproject_name, String subproject_description, int project_id) {
         this.subproject_id = subproject_id;
         this.subproject_name = subproject_name;
-        this.startdate = startdate;
-        this.enddate = enddate;
-        this.budget = budget;
+        this.subproject_description = subproject_description;
         this.project_id = project_id;
     }
 
@@ -35,20 +31,12 @@ public class Subproject {
         this.subproject_name = subproject_name;
     }
 
-    public LocalDate getStartdate() {
-        return startdate;
+    public String getSubproject_description() {
+        return subproject_description;
     }
 
-    public void setStartdate(LocalDate startdate) {
-        this.startdate = startdate;
-    }
-
-    public LocalDate getEnddate() {
-        return enddate;
-    }
-
-    public void setEnddate(LocalDate enddate) {
-        this.enddate = enddate;
+    public void setSubproject_description(String subproject_description) {
+        this.subproject_description = subproject_description;
     }
 
     public int getProject_id() {
@@ -57,16 +45,5 @@ public class Subproject {
 
     public void setProject_id(int project_id) {
         this.project_id = project_id;
-    }
-
-    @Override
-    public String toString() {
-        return "Subproject{" +
-                "subproject_id=" + subproject_id +
-                ", subproject_name='" + subproject_name + '\'' +
-                ", startdate=" + startdate +
-                ", enddate=" + enddate +
-                ", project_id=" + project_id +
-                '}';
     }
 }
