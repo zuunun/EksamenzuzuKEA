@@ -1,79 +1,40 @@
--- Fjern eksisterende database, hvis den findes
-DROP DATABASE IF EXISTS project_management2;
-CREATE DATABASE project_management2;
-USE project_management2;
+-- Insert data i User tabellen
+INSERT INTO user (email, password, role_id)
+VALUES
+    ('leader1@example.com', 'password123', 'PROJECTLEADER'),
+    ('worker1@example.com', 'password123', 'WORKER'),
+    ('worker2@example.com', 'password123', 'WORKER');
 
--- Opret User tabel (fælles for både Worker og Project Leader)
-CREATE TABLE user (
-                      user_id INT AUTO_INCREMENT PRIMARY KEY,
-                      email VARCHAR(255) NOT NULL UNIQUE,
-                      password VARCHAR(255) NOT NULL,
-                      role_id int NOT NULL -- Role angiver typen af bruger
+-- Insert data i Project tabellen
+INSERT INTO project (project_name, budget, project_description, projectleader_id)
+VALUES
+    ('Website Development', 50000.00, 'Development of a new company website', 1),
+    ('App Development', 75000.00, 'Development of a mobile app', 1);
 
-);
--- Opret Project tabel
-CREATE TABLE project (
-                         project_id INT AUTO_INCREMENT PRIMARY KEY,
-                         project_name VARCHAR(255) NOT NULL,
-                         startdate DATE NOT NULL,
-                         enddate DATE NOT NULL,
-                         budget DECIMAL(10, 2) NOT NULL,
-                         description varChar(255) NOT NULL,
-                         projectleader_id INT NOT NULL,
-                         FOREIGN KEY (projectleader_id) REFERENCES user(user_id) -- peger på user-tabel
-);
+-- Insert data i Subproject tabellen
+INSERT INTO subproject (subproject_name, subproject_description, project_id)
+VALUES
+    ('Frontend Development', 'Develop the user interface for the website', 1),
+    ('Backend Development', 'Build the backend services for the website', 1),
+    ('UI Design', 'Design the user interface for the app', 2);
 
--- Opret Subproject tabel
-CREATE TABLE subproject (
-                            subproject_id INT AUTO_INCREMENT PRIMARY KEY,
-                            subproject_name VARCHAR(255) NOT NULL,
-                            startdate DATE NOT NULL,
-                            enddate DATE NOT NULL,
-                            budget DECIMAL(10, 2) NOT NULL, --  budget
-                            project_id INT NOT NULL,
-                            FOREIGN KEY (project_id) REFERENCES project(project_id)
-);
+-- Insert data i Task tabellen
+INSERT INTO task (task_name, startdate, enddate, status, subproject_id)
+VALUES
+    ('Create Homepage', '2024-11-01', '2024-11-10', 'In Progress', 1),
+    ('Set Up Database', '2024-11-05', '2024-11-15', 'notstartet', 2),
+    ('Prototype App UI', '2024-11-02', '2024-11-12', 'Complete', 3);
 
--- Opret Task tabel
-CREATE TABLE task (
-                      task_id INT AUTO_INCREMENT PRIMARY KEY,
-                      task_name VARCHAR(255) NOT NULL,
-                      startdate DATE NOT NULL,
-                      enddate DATE NOT NULL,
-                      status ENUM('In Progress', 'Complete', 'Overdue') DEFAULT 'In Progress',
-                      cost DECIMAL(10, 2) DEFAULT 0,
-                      subproject_id INT,
-                      FOREIGN KEY (subproject_id) REFERENCES subproject(subproject_id)
-);
+-- Insert data i Workertask tabellen
+INSERT INTO workertask (skills, rate, task_id, user_id)
+VALUES
+    ('HTML, CSS, JavaScript', 300, 1, 2),
+    ('SQL, Database Design', 350, 2, 3),
+    ('Figma, Adobe XD', 400, 3, 2);
 
-CREATE TABLE workertask (
-                            workertask_id INT AUTO_INCREMENT PRIMARY KEY,
-                            skills VARCHAR(255),
-                            estimated_time INT DEFAULT 0,
-                            actual_time INT DEFAULT 0, task_id int,
-                            FOREIGN KEY (task_id) REFERENCES task(task_id)
-);
-
-
-
-
-
--- Opret Ressource tabel
-CREATE TABLE resource (
-                          resource_id INT AUTO_INCREMENT PRIMARY KEY,
-                          materialhardware VARCHAR(255) NOT NULL,
-                          cost DECIMAL(10, 2) NOT NULL
-);
-
--- Mange-til-mange relation mellem Task og Ressourcer
-CREATE TABLE resource_task (
-                               task_id INT,
-                               resource_id INT,
-                               PRIMARY KEY (task_id, resource_id),
-                               FOREIGN KEY (task_id) REFERENCES task(task_id),
-                               FOREIGN KEY (resource_id) REFERENCES resource(resource_id)
-);
-
-
-
-
+-- Insert data i Resource tabellen
+INSERT INTO resource (materialhardware, costrate)
+VALUES
+    ('Server Hosting', 100.00),
+    ('Design Software License', 50.00),
+    ('Cloud Storage', 75.00);

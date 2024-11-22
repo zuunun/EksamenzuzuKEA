@@ -1,7 +1,7 @@
 -- Fjern eksisterende database, hvis den findes
-DROP DATABASE IF EXISTS project_management2;
-CREATE DATABASE project_management2;
-USE project_management2;
+DROP DATABASE IF EXISTS project_management;
+CREATE DATABASE project_management;
+USE project_management;
 
 -- Opret User tabel (fælles for både Worker og Project Leader)
 CREATE TABLE user (
