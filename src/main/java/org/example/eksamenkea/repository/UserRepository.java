@@ -1,6 +1,7 @@
 package org.example.eksamenkea.repository;
 
 import org.example.eksamenkea.model.User;
+import org.example.eksamenkea.service.Errorhandling;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +21,7 @@ public class UserRepository {
     //DB_USER=eksamenkea;DB_PASSWORD=Enstorko!;DB_URL=jdbc:mysql://eksamenkeasql.mysql.database.azure.com:3306
     //DB_USER=root;DB_PASSWORD=amalie;DB_URL=jdbc:mysql://localhost:3306/project_management
 
-    public User signIn(String email, String password) {
+    public User signIn(String email, String password) throws Errorhandling{
         User user = null;
 
         try {
@@ -38,7 +39,7 @@ public class UserRepository {
             }
 
         } catch (SQLException e) {
-            System.out.println("error"); //anden handling kræves
+            throw new Errorhandling("Sign in error");
         }
         return user;
     }

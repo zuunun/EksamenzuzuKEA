@@ -5,7 +5,7 @@ import org.example.eksamenkea.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserService  {
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -13,7 +13,7 @@ public class UserService {
     }
 
     //Sign in
-    public User signIn(String email, String password) {
+    public User signIn(String email, String password) throws Errorhandling{
         return userRepository.signIn(email, password);
     }
 }

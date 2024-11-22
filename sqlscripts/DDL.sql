@@ -11,14 +11,6 @@ CREATE TABLE user (
                       role_id int NOT NULL -- Role angiver typen af bruger
 
 );
-CREATE TABLE workertask (
-                            workertask_id INT AUTO_INCREMENT PRIMARY KEY,
-                            skills VARCHAR(255),
-                            estimated_time INT DEFAULT 0,
-                            actual_time INT DEFAULT 0, user_id int,
-                            FOREIGN KEY (user_id) REFERENCES user(user_id)
-);
-
 -- Opret Project tabel
 CREATE TABLE project (
                          project_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -30,7 +22,6 @@ CREATE TABLE project (
                          projectleader_id INT NOT NULL,
                          FOREIGN KEY (projectleader_id) REFERENCES user(user_id) -- peger på user-tabel
 );
-
 
 -- Opret Subproject tabel
 CREATE TABLE subproject (
@@ -56,6 +47,17 @@ CREATE TABLE task (
                       FOREIGN KEY (subproject_id) REFERENCES subproject(subproject_id),
                       FOREIGN KEY (user_id) REFERENCES user(user_id) -- peger på user-tabel
 );
+
+CREATE TABLE workertask (
+                            workertask_id INT AUTO_INCREMENT PRIMARY KEY,
+                            skills VARCHAR(255),
+                            estimated_time INT DEFAULT 0,
+                            actual_time INT DEFAULT 0, task_id int,
+                            FOREIGN KEY (task_id) REFERENCES task(task_id)
+);
+
+
+
 
 
 -- Opret Ressource tabel
