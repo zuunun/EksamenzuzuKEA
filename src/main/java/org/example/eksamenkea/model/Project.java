@@ -7,17 +7,17 @@ public class Project {
     private String project_name;
     private LocalDate startdate;
     private LocalDate enddate;
-    private double budget; 
-    private String description;
+    private double budget;
+    private String project_description;
     private int projectleader_id;
 
-    public Project(int project_id, String project_name, LocalDate startdate, LocalDate enddate, double budget, String description, int projectleader_id) {
+    public Project(int project_id, String project_name, LocalDate startdate, LocalDate enddate, double budget, String project_description, int projectleader_id) {
         this.project_id = project_id;
         this.project_name = project_name;
         this.startdate = startdate;
         this.enddate = enddate;
         this.budget = budget;
-        this.description = description;
+        this.project_description = project_description;
         this.projectleader_id = projectleader_id;
     }
 
@@ -53,22 +53,27 @@ public class Project {
         this.enddate = enddate;
     }
 
+    public double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(double budget) {
+        this.budget = budget;
+    }
+
+    public String getProject_description() {
+        return project_description;
+    }
+
+    public void setProject_description(String project_description) {
+        this.project_description = project_description;
+    }
+
     public int getProjectleader_id() {
         return projectleader_id;
     }
 
     public void setProjectleader_id(int projectleader_id) {
         this.projectleader_id = projectleader_id;
-    }
-
-    @Override
-    public String toString() {
-        return "Project{" +
-                "project_id=" + project_id +
-                ", project_name='" + project_name + '\'' +
-                ", startdate=" + startdate +
-                ", enddate=" + enddate +
-                ", projectleader_id=" + projectleader_id +
-                '}';
     }
 }

@@ -2,15 +2,36 @@ package org.example.eksamenkea.controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.example.eksamenkea.service.Errorhandling;
+import org.example.eksamenkea.service.ProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 @Controller
 @RequestMapping("/")
 public class ProjectController {
+    private ProjectService projectService;
+
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
+    }
+
+//    @GetMapping("/")
+//    public String index(Model model, HttpSession session) {
+//
+//        if (session.getAttribute("user") != null) {
+//            model.addAttribute("userAvaliable", true);
+//            model.addAttribute("user", session.getAttribute("user"));
+//        } else {
+//            model.addAttribute("userAvaliable", false);
+//        }
+//        return "homepage";
+//    }
 
     @ExceptionHandler(Errorhandling.class) //metoden skal håndterer undtagelser af typen 'Errorhandling'
     public String handleError(Model model, Exception exception, HttpServletRequest request) { //HttpServletRequest request indeholder information om HTTP-forespørgslen
@@ -19,10 +40,9 @@ public class ProjectController {
         if (status != null) {
             Integer statusCode = Integer.valueOf(status.toString());
 
-            if(statusCode == HttpStatus.NOT_FOUND.value()) {
+            if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "404"; //retuner view med navnet 404
-            }
-            else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+            } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 return "500"; //retuner view med navnet 404
             }
         }

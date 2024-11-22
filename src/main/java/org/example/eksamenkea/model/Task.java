@@ -5,20 +5,17 @@ import java.time.LocalDate;
 public class Task {
     private int task_id;
     private String task_name;
-    private String task_description;
     private LocalDate startdate;
     private LocalDate enddate;
-    private LocalDate deadline;
-    private int estimated_time;
-    private String status;
-    private double cost;
+    Status status;
     private int subproject_id; //FK
 
-    public Task(int task_id, String task_name, LocalDate startdate, LocalDate enddate, int subproject_id) {
+    public Task(int task_id, String task_name, LocalDate startdate, LocalDate enddate, Status status, int subproject_id) {
         this.task_id = task_id;
         this.task_name = task_name;
         this.startdate = startdate;
         this.enddate = enddate;
+        this.status = status;
         this.subproject_id = subproject_id;
     }
 
@@ -54,22 +51,19 @@ public class Task {
         this.enddate = enddate;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public int getSubproject_id() {
         return subproject_id;
     }
 
     public void setSubproject_id(int subproject_id) {
         this.subproject_id = subproject_id;
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "task_id=" + task_id +
-                ", task_name='" + task_name + '\'' +
-                ", startdate=" + startdate +
-                ", enddate=" + enddate +
-                ", subproject_id=" + subproject_id +
-                '}';
     }
 }
