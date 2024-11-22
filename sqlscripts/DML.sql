@@ -1,46 +1,79 @@
--- Indsæt brugere
-INSERT INTO user (email, password, role_id)
-VALUES
-    ('worker1@example.com', 'password123', 1),
-    ('worker2@example.com', 'password456', 1),
-    ('leader@example.com', 'securepass', 2);
+-- Fjern eksisterende database, hvis den findes
+DROP DATABASE IF EXISTS project_management2;
+CREATE DATABASE project_management2;
+USE project_management2;
 
--- Indsæt opgaver til arbejderne
-INSERT INTO workertask (skills, estimated_time, actual_time, user_id)
-VALUES
-    ('Programming', 10, 8, 1),
-    ('Testing', 5, 6, 2);
+-- Opret User tabel (fælles for både Worker og Project Leader)
+CREATE TABLE user (
+                      user_id INT AUTO_INCREMENT PRIMARY KEY,
+                      email VARCHAR(255) NOT NULL UNIQUE,
+                      password VARCHAR(255) NOT NULL,
+                      role_id int NOT NULL -- Role angiver typen af bruger
 
--- Indsæt projekter
-INSERT INTO project (project_name, startdate, enddate, budget, description, projectleader_id)
-VALUES
-    ('Website Redesign', '2024-01-01', '2024-06-30', 50000.00, 'Redesign company website', 3),
-    ('Mobile App Development', '2024-02-01', '2024-08-15', 75000.00, 'Develop a mobile app for Android and iOS', 3);
+);
+-- Opret Project tabel
+CREATE TABLE project (
+                         project_id INT AUTO_INCREMENT PRIMARY KEY,
+                         project_name VARCHAR(255) NOT NULL,
+                         startdate DATE NOT NULL,
+                         enddate DATE NOT NULL,
+                         budget DECIMAL(10, 2) NOT NULL,
+                         description varChar(255) NOT NULL,
+                         projectleader_id INT NOT NULL,
+                         FOREIGN KEY (projectleader_id) REFERENCES user(user_id) -- peger på user-tabel
+);
 
--- Indsæt delprojekter
-INSERT INTO subproject (subproject_name, startdate, enddate, budget, project_id)
-VALUES
-    ('Frontend Development', '2024-01-01', '2024-03-31', 20000.00, 1),
-    ('Backend Integration', '2024-04-01', '2024-06-30', 30000.00, 1),
-    ('UI/UX Design', '2024-02-01', '2024-04-15', 15000.00, 2);
+-- Opret Subproject tabel
+CREATE TABLE subproject (
+                            subproject_id INT AUTO_INCREMENT PRIMARY KEY,
+                            subproject_name VARCHAR(255) NOT NULL,
+                            startdate DATE NOT NULL,
+                            enddate DATE NOT NULL,
+                            budget DECIMAL(10, 2) NOT NULL, --  budget
+                            project_id INT NOT NULL,
+                            FOREIGN KEY (project_id) REFERENCES project(project_id)
+);
 
--- Indsæt opgaver
-INSERT INTO task (task_name, startdate, enddate, status, cost, subproject_id, user_id)
-VALUES
-    ('HTML/CSS Development', '2024-01-01', '2024-01-31', 'In Progress', 5000.00, 1, 1),
-    ('Database Setup', '2024-04-01', '2024-04-15', 'Complete', 3000.00, 2, 2),
-    ('Prototype Design', '2024-02-01', '2024-02-15', 'Overdue', 2000.00, 3, 1);
+-- Opret Task tabel
+CREATE TABLE task (
+                      task_id INT AUTO_INCREMENT PRIMARY KEY,
+                      task_name VARCHAR(255) NOT NULL,
+                      startdate DATE NOT NULL,
+                      enddate DATE NOT NULL,
+                      status ENUM('In Progress', 'Complete', 'Overdue') DEFAULT 'In Progress',
+                      cost DECIMAL(10, 2) DEFAULT 0,
+                      subproject_id INT,
+                      FOREIGN KEY (subproject_id) REFERENCES subproject(subproject_id)
+);
 
--- Indsæt ressourcer
-INSERT INTO resource (materialhardware, cost)
-VALUES
-    ('Laptop', 1000.00),
-    ('Cloud Hosting', 500.00),
-    ('Design Software License', 200.00);
+CREATE TABLE workertask (
+                            workertask_id INT AUTO_INCREMENT PRIMARY KEY,
+                            skills VARCHAR(255),
+                            estimated_time INT DEFAULT 0,
+                            actual_time INT DEFAULT 0, task_id int,
+                            FOREIGN KEY (task_id) REFERENCES task(task_id)
+);
 
--- Knyt ressourcer til opgaver
-INSERT INTO resource_task (task_id, resource_id)
-VALUES
-    (1, 1), -- HTML/CSS task bruger Laptop
-    (1, 2), -- HTML/CSS task bruger Cloud Hosting
-    (3, 3); -- Prototype Design bruger Design Software License
+
+
+
+
+-- Opret Ressource tabel
+CREATE TABLE resource (
+                          resource_id INT AUTO_INCREMENT PRIMARY KEY,
+                          materialhardware VARCHAR(255) NOT NULL,
+                          cost DECIMAL(10, 2) NOT NULL
+);
+
+-- Mange-til-mange relation mellem Task og Ressourcer
+CREATE TABLE resource_task (
+                               task_id INT,
+                               resource_id INT,
+                               PRIMARY KEY (task_id, resource_id),
+                               FOREIGN KEY (task_id) REFERENCES task(task_id),
+                               FOREIGN KEY (resource_id) REFERENCES resource(resource_id)
+);
+
+
+
+

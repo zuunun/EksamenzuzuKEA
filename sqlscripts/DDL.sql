@@ -38,33 +38,27 @@ CREATE TABLE subproject (
 CREATE TABLE task (
                       task_id INT AUTO_INCREMENT PRIMARY KEY,
                       task_name VARCHAR(255) NOT NULL,
-                      startdate DATE NOT NULL,
-                      enddate DATE NOT NULL,
+                      startdate DATE ,
+                      enddate DATE ,
                       status ENUM('In Progress', 'Complete', 'Overdue') DEFAULT 'In Progress',
-                      cost DECIMAL(10, 2) DEFAULT 0,
                       subproject_id INT,
-                      user_id INT, -- (user-tabel)
-                      FOREIGN KEY (subproject_id) REFERENCES subproject(subproject_id),
-                      FOREIGN KEY (user_id) REFERENCES user(user_id) -- peger på user-tabel
+                      FOREIGN KEY (subproject_id) REFERENCES subproject(subproject_id)
 );
 
 CREATE TABLE workertask (
                             workertask_id INT AUTO_INCREMENT PRIMARY KEY,
                             skills VARCHAR(255),
-                            estimated_time INT DEFAULT 0,
-                            actual_time INT DEFAULT 0, task_id int,
-                            FOREIGN KEY (task_id) REFERENCES task(task_id)
+                            rate int, task_id int,user_id int,
+                            FOREIGN KEY (task_id) REFERENCES task(task_id),
+                            FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
-
-
-
 
 
 -- Opret Ressource tabel
 CREATE TABLE resource (
                           resource_id INT AUTO_INCREMENT PRIMARY KEY,
                           materialhardware VARCHAR(255) NOT NULL,
-                          cost DECIMAL(10, 2) NOT NULL
+                          costrate DECIMAL(10, 2) NOT NULL
 );
 
 -- Mange-til-mange relation mellem Task og Ressourcer

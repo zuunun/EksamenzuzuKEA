@@ -3,12 +3,12 @@ package org.example.eksamenkea.model;
 public class Ressource {
     private int ressource_id;
     private String materialhardware;
-    private double cost;
+    private double costrate;
 
-    public Ressource(int ressource_id, String materialhardware, int cost) {
+    public Ressource(int ressource_id, String materialhardware, double costrate) {
         this.ressource_id = ressource_id;
         this.materialhardware = materialhardware;
-        this.cost = cost;
+        this.costrate = costrate;
     }
 
     public int getRessource_id() {
@@ -27,20 +27,11 @@ public class Ressource {
         this.materialhardware = materialhardware;
     }
 
-    public double getCost() {
-        return cost;
+    public double getCostrate() {
+        return costrate;
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-
-    @Override
-    public String toString() {
-        return "Ressource{" +
-                "ressource_id=" + ressource_id +
-                ", materialhardware='" + materialhardware + '\'' +
-                ", cost=" + cost +
-                '}';
+    public void setCostrate(double costrate) {
+        this.costrate = costrate;
     }
 }
