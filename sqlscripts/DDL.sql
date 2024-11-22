@@ -1,4 +1,4 @@
---Fjern eksisterende database, hvis den findes
+-- Fjern eksisterende database, hvis den findes
 DROP DATABASE IF EXISTS project_management;
 CREATE DATABASE project_management;
 USE project_management;
@@ -20,7 +20,9 @@ CREATE TABLE worker (
                         worker_skills VARCHAR(255),
                         task_comment TEXT,
                         estimated_time INT DEFAULT 0,
-                        actual_time INT DEFAULT 0
+                        actual_time INT DEFAULT 0,
+                        task_id INT, -- Fremmednøgle til Task
+                        FOREIGN KEY (task_id) REFERENCES task(task_id)
 );
 
 -- Opret Project tabel
@@ -29,8 +31,8 @@ CREATE TABLE project (
                          project_name VARCHAR(255) NOT NULL,
                          startdate DATE NOT NULL,
                          enddate DATE NOT NULL,
-                         budget DECIMAL(10, 2) NOT NULL,
-                         description TEXT,
+                         budget DECIMAL(10, 2) NOT NULL, -- Tilføjet budget
+                         description TEXT NOT NULL,
                          projectleader_id INT NOT NULL,
                          FOREIGN KEY (projectleader_id) REFERENCES projectleader(projectleader_id)
 );
@@ -41,7 +43,7 @@ CREATE TABLE subproject (
                             subproject_name VARCHAR(255) NOT NULL,
                             startdate DATE NOT NULL,
                             enddate DATE NOT NULL,
-                            budget DECIMAL(10, 2) NOT NULL,
+                            budget DECIMAL(10, 2) NOT NULL, -- Tilføjet budget
                             project_id INT NOT NULL,
                             FOREIGN KEY (project_id) REFERENCES project(project_id)
 );
@@ -50,24 +52,22 @@ CREATE TABLE subproject (
 CREATE TABLE task (
                       task_id INT AUTO_INCREMENT PRIMARY KEY,
                       task_name VARCHAR(255) NOT NULL,
-                      task_description TEXT,
-                      deadline DATE NOT NULL,
-                      estimated_time INT NOT NULL,
-                      status ENUM('In Progress', 'Complete', 'Overdue') DEFAULT 'In Progress',
-                      cost DECIMAL(10, 2) DEFAULT 0,
+                      task_description TEXT, -- Tilføjet task_description
+                      startdate DATE NOT NULL, -- Tilføjet startdate
+                      enddate DATE NOT NULL, -- Tilføjet enddate
+                      deadline DATE NOT NULL, -- Tilføjet deadline
+                      estimated_time INT NOT NULL, -- Estimeret tid i timer
+                      status ENUM('In Progress', 'Complete', 'Overdue') DEFAULT 'In Progress', -- Tilføjet status
+                      cost DECIMAL(10, 2) DEFAULT 0, -- Faktisk omkostning for task
                       subproject_id INT,
-                      worker_id INT,
-                      FOREIGN KEY (subproject_id) REFERENCES subproject(subproject_id),
-                      FOREIGN KEY (worker_id) REFERENCES worker(worker_id)
+                      FOREIGN KEY (subproject_id) REFERENCES subproject(subproject_id)
 );
 
 -- Opret Ressource tabel
 CREATE TABLE resource (
                           resource_id INT AUTO_INCREMENT PRIMARY KEY,
-                          resource_name VARCHAR(255) NOT NULL,
-                          materialhardware VARCHAR(255),
-                          cost DECIMAL(10, 2) NOT NULL,
-                          co2 INT NOT NULL
+                          materialhardware VARCHAR(255) NOT NULL, -- Skiftet fra resource_name
+                          cost DECIMAL(10, 2) NOT NULL -- Fjernet co2
 );
 
 -- Mange-til-mange relation mellem Task og Ressourcer
@@ -151,4 +151,3 @@ END IF;
 END$$
 
 DELIMITER ;
-
