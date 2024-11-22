@@ -21,17 +21,17 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    @GetMapping("/")
-    public String index(Model model, HttpSession session) {
-
-        if (session.getAttribute("user") != null) {
-            model.addAttribute("userAvaliable", true);
-            model.addAttribute("user", session.getAttribute("user"));
-        } else {
-            model.addAttribute("userAvaliable", false);
-        }
-        return "homepage";
-    }
+//    @GetMapping("/")
+//    public String index(Model model, HttpSession session) {
+//
+//        if (session.getAttribute("user") != null) {
+//            model.addAttribute("userAvaliable", true);
+//            model.addAttribute("user", session.getAttribute("user"));
+//        } else {
+//            model.addAttribute("userAvaliable", false);
+//        }
+//        return "homepage";
+//    }
 
     @ExceptionHandler(Errorhandling.class) //metoden skal håndterer undtagelser af typen 'Errorhandling'
     public String handleError(Model model, Exception exception, HttpServletRequest request) { //HttpServletRequest request indeholder information om HTTP-forespørgslen

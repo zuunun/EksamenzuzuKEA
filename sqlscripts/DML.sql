@@ -1,44 +1,46 @@
---user
-INSERT INTO user (username, email, password, role, managed_projects, skills, task_comment, estimated_time, actual_time)
+-- Indsæt brugere
+INSERT INTO user (email, password, role_id)
 VALUES
-    ('Alice Manager', 'alice.manager@example.com', 'password123', 'Project Leader', 3, NULL, NULL, NULL, NULL),
-    ('Bob Developer', 'bob.developer@example.com', 'password456', 'Worker', NULL, 'Backend Development', NULL, 0, 0),
-    ('Charlie Designer', 'charlie.designer@example.com', 'password789', 'Worker', NULL, 'Frontend Development', NULL, 0, 0);
+    ('worker1@example.com', 'password123', 1),
+    ('worker2@example.com', 'password456', 1),
+    ('leader@example.com', 'securepass', 2);
 
---projekt
+-- Indsæt opgaver til arbejderne
+INSERT INTO workertask (skills, estimated_time, actual_time, user_id)
+VALUES
+    ('Programming', 10, 8, 1),
+    ('Testing', 5, 6, 2);
+
+-- Indsæt projekter
 INSERT INTO project (project_name, startdate, enddate, budget, description, projectleader_id)
 VALUES
-    ('Website Redesign', '2024-01-01', '2024-12-31', 150000.00, 'Redesigning the company website for better UX.', 1),
-    ('Mobile App Development', '2024-03-01', '2024-09-30', 200000.00, 'Developing a mobile app for the platform.', 1);
+    ('Website Redesign', '2024-01-01', '2024-06-30', 50000.00, 'Redesign company website', 3),
+    ('Mobile App Development', '2024-02-01', '2024-08-15', 75000.00, 'Develop a mobile app for Android and iOS', 3);
 
---subprojekt:))
+-- Indsæt delprojekter
 INSERT INTO subproject (subproject_name, startdate, enddate, budget, project_id)
 VALUES
-    ('Frontend Development', '2024-01-01', '2024-06-30', 50000.00, 1),
-    ('Backend Development', '2024-02-01', '2024-08-31', 75000.00, 1),
-    ('App Design', '2024-03-01', '2024-06-01', 60000.00, 2),
-    ('App Backend', '2024-04-01', '2024-09-30', 90000.00, 2);
+    ('Frontend Development', '2024-01-01', '2024-03-31', 20000.00, 1),
+    ('Backend Integration', '2024-04-01', '2024-06-30', 30000.00, 1),
+    ('UI/UX Design', '2024-02-01', '2024-04-15', 15000.00, 2);
 
---tasks
-INSERT INTO task (task_name, startdate, enddate, deadline, estimated_time, status, cost, subproject_id, worker_id)
+-- Indsæt opgaver
+INSERT INTO task (task_name, startdate, enddate, status, cost, subproject_id, user_id)
 VALUES
-    ('Design Homepage', '2024-01-01', '2024-03-01', '2024-03-01', 40, 'In Progress', 10000.00, 1, 3), -- Tildelt Charlie
-    ('Develop API', '2024-02-01', '2024-06-01', '2024-06-01', 60, 'In Progress', 15000.00, 2, 2), -- Tildelt Bob
-    ('Design App UI', '2024-03-01', '2024-04-01', '2024-04-15', 50, 'In Progress', 12000.00, 3, 3), -- Tildelt Charlie
-    ('Develop App Backend', '2024-04-01', '2024-09-01', '2024-09-01', 80, 'In Progress', 18000.00, 4, 2); -- Tildelt Bob
+    ('HTML/CSS Development', '2024-01-01', '2024-01-31', 'In Progress', 5000.00, 1, 1),
+    ('Database Setup', '2024-04-01', '2024-04-15', 'Complete', 3000.00, 2, 2),
+    ('Prototype Design', '2024-02-01', '2024-02-15', 'Overdue', 2000.00, 3, 1);
 
---resourcer
+-- Indsæt ressourcer
 INSERT INTO resource (materialhardware, cost)
 VALUES
-    ('React Library', 2000.00),
-    ('Database Server', 10000.00),
-    ('Cloud Hosting', 5000.00),
-    ('Design Tool', 1000.00);
+    ('Laptop', 1000.00),
+    ('Cloud Hosting', 500.00),
+    ('Design Software License', 200.00);
 
---indsætter relationer til resource_tasks
+-- Knyt ressourcer til opgaver
 INSERT INTO resource_task (task_id, resource_id)
 VALUES
-    (1, 1), -- React Library til 'Design Homepage'
-    (2, 2), -- Database Server til 'Develop API'
-    (3, 4), -- Design Tool til 'Design App UI'
-    (4, 3); -- Cloud Hosting til 'Develop App Backend'
+    (1, 1), -- HTML/CSS task bruger Laptop
+    (1, 2), -- HTML/CSS task bruger Cloud Hosting
+    (3, 3); -- Prototype Design bruger Design Software License

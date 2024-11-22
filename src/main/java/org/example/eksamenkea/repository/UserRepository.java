@@ -18,6 +18,7 @@ public class UserRepository {
     private String DB_PASSWORD;
 
     //DB_USER=eksamenkea;DB_PASSWORD=Enstorko!;DB_URL=jdbc:mysql://eksamenkeasql.mysql.database.azure.com:3306
+    //DB_USER=root;DB_PASSWORD=amalie;DB_URL=jdbc:mysql://localhost:3306/project_management
 
     public User signIn(String email, String password) {
         User user = null;

@@ -1,9 +1,6 @@
 package org.example.eksamenkea.controller;
 
-import jakarta.servlet.http.HttpSession;
-import org.example.eksamenkea.model.User;
 import org.example.eksamenkea.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +17,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/login")
     public String login() {
         return "login";
     }
