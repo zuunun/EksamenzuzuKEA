@@ -5,15 +5,17 @@ import java.time.LocalDate;
 public class Subproject {
     private int subproject_id;
     private String subproject_name;
-    LocalDate startdate;
-    LocalDate enddate;
+    private LocalDate startdate;
+    private LocalDate enddate;
+    private double budget;
     private int project_id;
 
-    public Subproject(int subproject_id, String subproject_name, LocalDate startdate, LocalDate enddate, int project_id) {
+    public Subproject(int subproject_id, String subproject_name, LocalDate startdate, LocalDate enddate, double budget, int project_id) {
         this.subproject_id = subproject_id;
         this.subproject_name = subproject_name;
         this.startdate = startdate;
         this.enddate = enddate;
+        this.budget = budget;
         this.project_id = project_id;
     }
 

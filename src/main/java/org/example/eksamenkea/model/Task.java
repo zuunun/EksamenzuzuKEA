@@ -5,8 +5,13 @@ import java.time.LocalDate;
 public class Task {
     private int task_id;
     private String task_name;
-    LocalDate startdate;
-    LocalDate enddate;
+    private String task_description;
+    private LocalDate startdate;
+    private LocalDate enddate;
+    private LocalDate deadline;
+    private int estimated_time;
+    private String status;
+    private double cost;
     private int subproject_id; //FK
 
     public Task(int task_id, String task_name, LocalDate startdate, LocalDate enddate, int subproject_id) {
