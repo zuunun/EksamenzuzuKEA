@@ -1,6 +1,7 @@
 package org.example.eksamenkea.controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.example.eksamenkea.model.Role;
 import org.example.eksamenkea.model.User;
 import org.example.eksamenkea.service.Errorhandling;
 import org.example.eksamenkea.service.UserService;
@@ -43,23 +44,45 @@ public class UserController {
         User user = userService.signIn(email, password);
         if (user != null) {
             session.setAttribute("user", user);
-          return "redirect:/logged_in";
+            session.setAttribute("userRole", user.getRole_id()); // Tilføj denne linje
+            return "redirect:/logged_in";
         } else {
             return "login";
         }
     }
+
+//    @GetMapping("/logged_in")
+//    public String loggedIn(HttpSession session, Model model) {
+//        // Henter "user" fra sessionen.
+//        User user = (User) session.getAttribute("user");
+//
+//        // Tilføjer "user" til modellen for Thymeleaf-skabelonen.
+//        model.addAttribute("user", user);
+//
+//        // Returnerer skabelonen "logged_in.html".
+//        return "logged_in";
+//    }
 
     @GetMapping("/logged_in")
     public String loggedIn(HttpSession session, Model model) {
         // Henter "user" fra sessionen.
         User user = (User) session.getAttribute("user");
 
-        // Tilføjer "user" til modellen for Thymeleaf-skabelonen.
-        model.addAttribute("user", user);
+        if (user == null) {
+            return "redirect:/login"; // Hvis ikke logget ind, send til login
+        }
 
-        // Returnerer skabelonen "logged_in.html".
-        return "logged_in";
+        // Tjek brugerens rolle
+        if (user.getRole_id() == Role.PROJECTLEADER) {
+            return "redirect:/project-leader-overview";
+        } else if (user.getRole_id() == Role.WORKER) {
+            return "redirect:/worker-overview";//ikke lavet endnu
+        }
+
+        // Hvis ingen rolle:
+        return "error/error";
     }
+
 
 
 

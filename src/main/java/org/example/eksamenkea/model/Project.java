@@ -5,17 +5,13 @@ import java.time.LocalDate;
 public class Project {
     private int project_id;
     private String project_name;
-    private LocalDate startdate;
-    private LocalDate enddate;
     private double budget;
     private String project_description;
     private int projectleader_id;
 
-    public Project(int project_id, String project_name, LocalDate startdate, LocalDate enddate, double budget, String project_description, int projectleader_id) {
+    public Project(int project_id, String project_name,double budget, String project_description, int projectleader_id) {
         this.project_id = project_id;
         this.project_name = project_name;
-        this.startdate = startdate;
-        this.enddate = enddate;
         this.budget = budget;
         this.project_description = project_description;
         this.projectleader_id = projectleader_id;
@@ -37,21 +33,6 @@ public class Project {
         this.project_name = project_name;
     }
 
-    public LocalDate getStartdate() {
-        return startdate;
-    }
-
-    public void setStartdate(LocalDate startdate) {
-        this.startdate = startdate;
-    }
-
-    public LocalDate getEnddate() {
-        return enddate;
-    }
-
-    public void setEnddate(LocalDate enddate) {
-        this.enddate = enddate;
-    }
 
     public double getBudget() {
         return budget;

@@ -1,6 +1,7 @@
--- Insert data i User tabellen
+-- Indsæt data i User tabellen
 INSERT INTO user (email, password, role_id)
 VALUES
+    ('zuzu@zuzu.com', '1234', 'PROJECTLEADER'),
     ('amalie@example.com', '123', 'PROJECTLEADER'),
     ('worker1@example.com', 'password123', 'WORKER'),
     ('worker2@example.com', 'password123', 'WORKER');
@@ -25,16 +26,16 @@ VALUES
     ('Set Up Database', '2024-11-05', '2024-11-15', 'NOTSTARTET', 2),
     ('Prototype App UI', '2024-11-02', '2024-11-12', 'COMPLETE', 3);
 
-INSERT INTO workertask (skills, hourly_rate, task_id, user_id)
+-- Insert data i Workertask tabellen
+INSERT INTO workertask (skills, rate, task_id, user_id)
 VALUES
     ('HTML, CSS, JavaScript', 300, 1, 2),
     ('SQL, Database Design', 350, 2, 3),
     ('Figma, Adobe XD', 400, 3, 2);
 
-
+-- Insert data i Resource tabellen
 INSERT INTO resource (materialhardware, costrate, task_id)
 VALUES
     ('Server Hosting', 100.00, 1),
     ('Design Software License', 50.00, 2),
     ('Cloud Storage', 75.00, 3);
-

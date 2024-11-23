@@ -7,6 +7,7 @@ import org.example.eksamenkea.service.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLException;
@@ -20,28 +21,11 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-//    @GetMapping("/overview")
-//    public String showTaskOverview(@RequestParam(value = "projectId", required = false) Integer projectId,
-//                                   @RequestParam(value = "subprojectId", required = false) Integer subprojectId,
-//                                   HttpSession session,
-//                                   Model model) throws SQLException {
-//        Role userRole = (Role) session.getAttribute("userRole");
-//        if (userRole != Role.PROJECTLEADER) {
-//            return "error/access-denied"; // Kun projektleder kan se denne side
-//        }
+//    @GetMapping("/project-leader-tasks/{projectId}")
+//    public String showProjectTasks(@PathVariable int projectId, Model model) {
 //
-//        // Vis tasks baseret på projekt eller subprojekt
-//        List<Task> tasks = taskService.getTaskByProjectOrSubProject(
-//                projectId != null ? projectId : 0,
-//                subprojectId != null ? subprojectId : 0
-//        );
-//
-//        model.addAttribute("tasks", tasks);
-//        model.addAttribute("projectId", projectId);
-//        model.addAttribute("subprojectId", subprojectId);
-//        return "task-overview";
+//        return "project-leader-task-overview";
 //    }
-
 
 
 }
