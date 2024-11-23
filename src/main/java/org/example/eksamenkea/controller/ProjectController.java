@@ -62,23 +62,23 @@ public class ProjectController {
         return "error";
     }
 
-    @GetMapping("/project-leader-overview")
-    public String showProjectLeaderOverview(HttpSession session, Model model) throws SQLException {
-        Role userRole = (Role) session.getAttribute("userRole");
-
-        if (userRole != Role.PROJECTLEADER) {
-            return "error/access-denied"; // Peg på din 403-side (eller brug en eksisterende 404-side som en nødløsning)
-        }
-
-        // Hent projekter og subprojekter
-        List<Project> projects = projectService.getAllProjects();
-        List<Subproject> subprojects = projectService.getAllSubprojects();
-
-        model.addAttribute("projects", projects);
-        model.addAttribute("subprojects", subprojects);
-
-        return "project-leader-overview";
-    }
+//    @GetMapping("/project-leader-overview")
+//    public String showProjectLeaderOverview(HttpSession session, Model model) throws SQLException {
+//        Role userRole = (Role) session.getAttribute("userRole");
+//
+//        if (userRole != Role.PROJECTLEADER) {
+//            return "404";
+//        }
+//
+//        // Hent projekter og subprojekter
+//        List<Project> projects = projectService.getAllProjects();
+//        List<Subproject> subprojects = projectService.getAllSubprojects();
+//
+//        model.addAttribute("projects", projects);
+//        model.addAttribute("subprojects", subprojects);
+//
+//        return "project-leader-overview";
+//    }
 
 
 }
