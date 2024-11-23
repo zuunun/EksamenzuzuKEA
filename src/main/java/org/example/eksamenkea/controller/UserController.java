@@ -48,12 +48,20 @@ public class UserController {
             return "login";
         }
     }
+
     @GetMapping("/logged_in")
     public String loggedIn(HttpSession session, Model model) {
+        // Henter "user" fra sessionen.
         User user = (User) session.getAttribute("user");
+
+        // Tilføjer "user" til modellen for Thymeleaf-skabelonen.
         model.addAttribute("user", user);
+
+        // Returnerer skabelonen "logged_in.html".
         return "logged_in";
     }
+
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
