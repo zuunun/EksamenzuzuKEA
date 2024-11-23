@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.sql.SQLException;
-import java.util.List;
-
 @Controller
 @RequestMapping("/vedikke")
 public class ProjectController {
