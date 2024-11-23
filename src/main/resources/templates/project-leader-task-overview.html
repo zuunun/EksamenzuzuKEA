@@ -1,0 +1,37 @@
+<!--<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Worker Task Overview</title>
+  <link th:href="@{/main.css}" rel="stylesheet">
+</head>
+<body>
+<header>
+  <h1>Your Tasks</h1>
+</header>
+<main>
+  <h2>Tasks Assigned to You</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Task Name</th>
+      <th>Deadline</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+      <td th:text="${task.taskName}"></td>
+      <td th:text="${task.deadline}"></td>
+      <td th:text="${task.status}"></td>
+      <td>
+         <a th:href="@{'/mark-task-complete/' + ${task.taskId}}">Mark as Complete</a> |
+         <a th:href="@{'/comment-task/' + ${task.taskId}}">Comment</a>
+       </td>
+     </tr>
+     </tbody>
+   </table>
+ </main>
+ </body>
+ </html>
+-->
