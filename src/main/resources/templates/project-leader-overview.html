@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Project Leader Overview</title>
+    <link th:href="@{/main.css}" rel="stylesheet">
 </head>
 <body>
 <h1>Project Leader Overview</h1>
@@ -11,8 +12,6 @@
     <thead>
     <tr>
         <th>Project Name</th>
-        <th>Start Date</th>
-        <th>End Date</th>
         <th>Budget</th>
         <th>Description</th>
     </tr>
@@ -20,8 +19,6 @@
     <tbody>
     <tr th:each="project : ${projects}">
         <td th:text="${project.project_name}"></td>
-        <td th:text="${project.startdate}"></td>
-        <td th:text="${project.enddate}"></td>
         <td th:text="${project.budget}"></td>
         <td th:text="${project.project_description}"></td>
     </tr>
@@ -42,9 +39,12 @@
         <td th:text="${subproject.subproject_name}"></td>
         <td th:text="${subproject.subproject_description}"></td>
         <td th:text="${subproject.project_id}"></td>
-    </tr>
-    </tbody>
-</table>
+        <!-- <td>
+             <a th:href="@{'/tasks-for-project/' + ${project.project_id}}">View Tasks</a>
+         </td> -->
+     </tr>
+     </tbody>
+ </table>
 
-</body>
-</html>
+ </body>
+ </html>

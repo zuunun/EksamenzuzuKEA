@@ -16,9 +16,10 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-//    public List<Task> getTaskByProjectOrSubProject(int projectId, int subProjectId) throws SQLException {
-//        return taskRepository.getTaskByProjectOrSubProject(projectId,subProjectId);
-//    }
+
+    public List<Task> getTasksByProjectId(int projectId) throws SQLException {
+        return taskRepository.getTasksByProjectId(projectId);
+    }
 
 
 }

@@ -19,19 +19,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Controller
-@RequestMapping("/vedikke")
+//@RequestMapping("/vedikke")
 public class ProjectController {
     private ProjectService projectService;
 
     public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
-    }
-
-
-    @GetMapping("/simulate-login")
-    public String simulateLogin(HttpSession session) {
-        session.setAttribute("userRole", Role.PROJECTLEADER);
-        return "redirect:/project-leader-overview";
     }
 
 
@@ -51,23 +44,26 @@ public class ProjectController {
         return "error";
     }
 
-//    @GetMapping("/project-leader-overview")
-//    public String showProjectLeaderOverview(HttpSession session, Model model) throws SQLException {
-//        Role userRole = (Role) session.getAttribute("userRole");
-//
-//        if (userRole != Role.PROJECTLEADER) {
-//            return "404";
-//        }
-//
-//        // Hent projekter og subprojekter
-//        List<Project> projects = projectService.getAllProjects();
-//        List<Subproject> subprojects = projectService.getAllSubprojects();
-//
-//        model.addAttribute("projects", projects);
-//        model.addAttribute("subprojects", subprojects);
-//
-//        return "project-leader-overview";
-//    }
+    @GetMapping("/project-leader-overview")
+    public String showProjectLeaderOverview(HttpSession session, Model model) throws SQLException {
+        // Henter brugerens rolle fra sessionen
+        Role userRole = (Role) session.getAttribute("userRole");
+
+        System.out.println("User role: " + userRole); // ekstra info
+
+        if (userRole != Role.PROJECTLEADER) {//hvis bruger ik har rolle som PL returnes error
+            return "error/error";
+        }
+
+        List<Project> projects = projectService.getAllProjects();//henter alle projekter fra service
+        List<Subproject> subprojects = projectService.getAllSubprojects();//henter subprojekter
+
+        //tilføjes til model så det kan vises i thyme..
+        model.addAttribute("projects", projects);
+        model.addAttribute("subprojects", subprojects);
+
+        return "project-leader-overview";//returner view
+    }
 
 
 }
