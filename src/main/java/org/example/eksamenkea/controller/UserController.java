@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("")
 @Controller
 public class UserController {
-//  ('amalie@example.com', '123', 'PROJECTLEADER'),
+
     private UserService userService;
 
     public UserController(UserService userService) {
@@ -26,7 +26,7 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/") //hvad gør den??
+    @GetMapping("/")
     public String index(Model model, HttpSession session) {
         if (session.getAttribute("user") != null) {
             model.addAttribute("userAvaliable", true);
