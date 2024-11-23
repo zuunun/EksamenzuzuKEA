@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/vedikke")
 public class ProjectController {
     private ProjectService projectService;
 
@@ -27,17 +27,6 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-//    @GetMapping("/")
-//    public String index(Model model, HttpSession session) {
-//
-//        if (session.getAttribute("user") != null) {
-//            model.addAttribute("userAvaliable", true);
-//            model.addAttribute("user", session.getAttribute("user"));
-//        } else {
-//            model.addAttribute("userAvaliable", false);
-//        }
-//        return "homepage";
-//    }
 
     @GetMapping("/simulate-login")
     public String simulateLogin(HttpSession session) {

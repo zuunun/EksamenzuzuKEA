@@ -1,7 +1,7 @@
 -- Insert data i User tabellen
 INSERT INTO user (email, password, role_id)
 VALUES
-    ('leader1@example.com', 'password123', 'PROJECTLEADER'),
+    ('amalie@example.com', '123', 'PROJECTLEADER'),
     ('worker1@example.com', 'password123', 'WORKER'),
     ('worker2@example.com', 'password123', 'WORKER');
 

@@ -34,29 +34,33 @@ CREATE TABLE subproject (
 CREATE TABLE task (
                       task_id INT AUTO_INCREMENT PRIMARY KEY,
                       task_name VARCHAR(255) NOT NULL,
-                      startdate DATE,
-                      enddate DATE,
-                      status ENUM('INPROGRESS', 'COMPLETE', 'OVERDUE', 'NOTSTARTET') DEFAULT 'INPROGRESS',
+                      startdate DATE ,
+                      enddate DATE ,
+                      status ENUM('In Progress', 'Complete', 'Overdue','notstartet') DEFAULT 'In Progress',
                       subproject_id INT,
                       FOREIGN KEY (subproject_id) REFERENCES subproject(subproject_id)
 );
 
-
 CREATE TABLE workertask (
                             workertask_id INT AUTO_INCREMENT PRIMARY KEY,
                             skills VARCHAR(255),
-                            hourly_rate INT, -- Skift 'rate' til mere beskrivende
-                            task_id INT,
-                            user_id INT,
+                            rate int,
+                            task_id int,
+                            user_id int,
                             FOREIGN KEY (task_id) REFERENCES task(task_id),
-                            FOREIGN KEY (user_id) REFERENCES user(user_id) -- Sørg for, at 'user' tabel eksisterer
+                            FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 
 
+-- Opret Ressource tabel
 CREATE TABLE resource (
                           resource_id INT AUTO_INCREMENT PRIMARY KEY,
                           materialhardware VARCHAR(255) NOT NULL,
-                          costrate DECIMAL(10, 2) NOT NULL,
-                          task_id INT, -- Tilføj task_id-kolonne
+                          costrate DECIMAL(10, 2) NOT NULL, task_id int,
                           FOREIGN KEY (task_id) REFERENCES task(task_id)
 );
+
+
+
+
+

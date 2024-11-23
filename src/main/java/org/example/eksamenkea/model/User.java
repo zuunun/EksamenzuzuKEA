@@ -2,11 +2,11 @@ package org.example.eksamenkea.model;
 
 public class User {
     private int user_id;
-    private String email;
+    private String email; //fungerer som username
     private String password;
-    private int role_id;
+    Role role_id;
 
-    public User(int user_id, String email, String password, int role_id) {
+    public User(int user_id, String email, String password, Role role_id) {
         this.user_id = user_id;
         this.email = email;
         this.password = password;
@@ -37,11 +37,11 @@ public class User {
         this.password = password;
     }
 
-    public int getRole_id() {
+    public Role getRole_id() {
         return role_id;
     }
 
-    public void setRole_id(int role_id) {
+    public void setRole_id(Role role_id) {
         this.role_id = role_id;
     }
 
