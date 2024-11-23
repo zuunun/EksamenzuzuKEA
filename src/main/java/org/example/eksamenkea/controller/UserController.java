@@ -43,10 +43,22 @@ public class UserController {
         User user = userService.signIn(email, password);
         if (user != null) {
             session.setAttribute("user", user);
-          //  return "redirect:/logged_in";
-          return "redirect:/";
+          return "redirect:/logged_in";
         } else {
             return "login";
         }
     }
+    @GetMapping("/logged_in")
+    public String loggedIn(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+        return "logged_in";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
+
 }
