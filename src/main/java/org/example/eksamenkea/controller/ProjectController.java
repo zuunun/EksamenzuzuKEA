@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/vedikke")
 public class ProjectController {
     private ProjectService projectService;
 
@@ -21,17 +21,6 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-//    @GetMapping("/")
-//    public String index(Model model, HttpSession session) {
-//
-//        if (session.getAttribute("user") != null) {
-//            model.addAttribute("userAvaliable", true);
-//            model.addAttribute("user", session.getAttribute("user"));
-//        } else {
-//            model.addAttribute("userAvaliable", false);
-//        }
-//        return "homepage";
-//    }
 
     @ExceptionHandler(Errorhandling.class) //metoden skal håndterer undtagelser af typen 'Errorhandling'
     public String handleError(Model model, Exception exception, HttpServletRequest request) { //HttpServletRequest request indeholder information om HTTP-forespørgslen

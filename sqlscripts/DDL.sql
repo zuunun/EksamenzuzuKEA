@@ -56,7 +56,7 @@ CREATE TABLE workertask (
 CREATE TABLE resource (
                           resource_id INT AUTO_INCREMENT PRIMARY KEY,
                           materialhardware VARCHAR(255) NOT NULL,
-                          costrate DECIMAL(10, 2) NOT NULL,
+                          costrate DECIMAL(10, 2) NOT NULL, task_id int,
                           FOREIGN KEY (task_id) REFERENCES task(task_id)
 );
 
