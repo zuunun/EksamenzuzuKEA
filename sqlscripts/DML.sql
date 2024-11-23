@@ -21,20 +21,20 @@ VALUES
 -- Insert data i Task tabellen
 INSERT INTO task (task_name, startdate, enddate, status, subproject_id)
 VALUES
-    ('Create Homepage', '2024-11-01', '2024-11-10', 'In Progress', 1),
-    ('Set Up Database', '2024-11-05', '2024-11-15', 'notstartet', 2),
-    ('Prototype App UI', '2024-11-02', '2024-11-12', 'Complete', 3);
+    ('Create Homepage', '2024-11-01', '2024-11-10', 'INPROGRESS', 1),
+    ('Set Up Database', '2024-11-05', '2024-11-15', 'NOTSTARTET', 2),
+    ('Prototype App UI', '2024-11-02', '2024-11-12', 'COMPLETE', 3);
 
--- Insert data i Workertask tabellen
-INSERT INTO workertask (skills, rate, task_id, user_id)
+INSERT INTO workertask (skills, hourly_rate, task_id, user_id)
 VALUES
     ('HTML, CSS, JavaScript', 300, 1, 2),
     ('SQL, Database Design', 350, 2, 3),
     ('Figma, Adobe XD', 400, 3, 2);
 
--- Insert data i Resource tabellen
-INSERT INTO resource (materialhardware, costrate)
+
+INSERT INTO resource (materialhardware, costrate, task_id)
 VALUES
-    ('Server Hosting', 100.00),
-    ('Design Software License', 50.00),
-    ('Cloud Storage', 75.00);
+    ('Server Hosting', 100.00, 1),
+    ('Design Software License', 50.00, 2),
+    ('Cloud Storage', 75.00, 3);
+
