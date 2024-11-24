@@ -21,11 +21,19 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-//    @GetMapping("/project-leader-tasks/{projectId}")
-//    public String showProjectTasks(@PathVariable int projectId, Model model) {
-//
-//        return "project-leader-task-overview";
-//    }
+    @GetMapping("/project-leader-tasks/{projectId}")
+    public String getTasksForSpecificProject(@PathVariable int projectId, HttpSession session, Model model) throws SQLException {
+        Role userRole = (Role) session.getAttribute("userRole");
+        if (userRole != Role.PROJECTLEADER) {//hvis bruger ik har rolle som PL returnes error
+            return "error/error";
+        }
+        List<Task> tasks = taskService.getTasksByProjectId(projectId);
+
+        model.addAttribute("tasks", tasks);
+        model.addAttribute("project_id", projectId);
+
+        return "project-leader-task-overview";
+    }
 
 
 }
