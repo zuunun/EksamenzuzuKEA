@@ -39,12 +39,12 @@
         <td th:text="${subproject.subproject_name}"></td>
         <td th:text="${subproject.subproject_description}"></td>
         <td th:text="${subproject.project_id}"></td>
-        <!-- <td>
-             <a th:href="@{'/tasks-for-project/' + ${project.project_id}}">View Tasks</a>
-         </td> -->
-     </tr>
-     </tbody>
- </table>
+        <td>
+            <a th:href="@{'/tasks-for-project/' + ${subproject.project_id}}">View Tasks</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
- </body>
- </html>
+</body>
+</html>
