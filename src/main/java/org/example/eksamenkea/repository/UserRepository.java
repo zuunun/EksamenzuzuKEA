@@ -7,11 +7,10 @@ import org.example.eksamenkea.service.Errorhandling;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
-
 import java.sql.*;
 
-@Repository("DEPARTMENT_REPOSITORY_STUB")
-@Lazy
+@Repository("IUSERREPOSITORY")
+@Lazy //angiver at denne bean kun bliver initialiseret når den er nødvendig, og ikke ved opstart
 public class UserRepository implements IUserRepository {
     @Value("${spring.datasource.url}")
     private String DB_URL;
@@ -34,7 +33,7 @@ public class UserRepository implements IUserRepository {
         try {
             Connection con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             String SQLUser = "SELECT * FROM user WHERE email = ? AND password = ?;";
-            PreparedStatement pstmt = con.prepareStatement(SQLUser);
+            PreparedStatement pstmt = con.prepareStatement(SQLUser); //brug af prepared stmt for at undgå sql injection
             pstmt.setString(1, email);
             pstmt.setString(2, password);
             ResultSet resultSet = pstmt.executeQuery();
@@ -46,9 +45,8 @@ public class UserRepository implements IUserRepository {
             }
 
         } catch (SQLException e) {
-            throw new Errorhandling("Sign in error");
+            throw new Errorhandling("Sign in error"); //brugerdefineret exception
         }
         return user;
     }
-
 }
