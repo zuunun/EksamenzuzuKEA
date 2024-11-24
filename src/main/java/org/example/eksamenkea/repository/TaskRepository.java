@@ -2,6 +2,7 @@ package org.example.eksamenkea.repository;
 
 import org.example.eksamenkea.model.Status;
 import org.example.eksamenkea.model.Task;
+import org.example.eksamenkea.repository.interfaces.ITaskRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class TaskRepository {
+public class TaskRepository implements ITaskRepository {
 
     @Value("${spring.datasource.url}")
     private String DB_URL;
