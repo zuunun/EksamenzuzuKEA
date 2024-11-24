@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class UserService  {
     private final IUserRepository iuserRepository;
 
-    public UserService(ApplicationContext context, @Value("DEPARTMENT_REPOSITORY_STUB") String impl) {
+    public UserService(ApplicationContext context, @Value("IUSERREPOSITORY") String impl) {
         this.iuserRepository = (IUserRepository) context.getBean(impl);
     }
 

@@ -1,26 +1,26 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+    font-family: Arial, sans-serif;  /* Angiver skrifttypen */
+    margin: 20px;  /* Angiver afstand fra kanten */
     background-color: #f9f9f9;
 }
 
 h1 {
     color: #333;
-    text-align: center;
+    text-align: center;  /* Centrerer overskriften */
 }
 
 h2 {
     color: #444;
-    margin-top: 40px;
+    margin-top: 40px; /* tilføjer ekstra plads ovenover sektionen */
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+    width: 100%; /* tabellens bredde strækker sig over hele containeren */
+    border-collapse: collapse; /* sammenfletter kanterne */
     margin-bottom: 20px;
     background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; /* afrundede hjørner */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* tilføjelse af skygge */
 }
 
 thead {
@@ -30,11 +30,11 @@ thead {
 
 th, td {
     text-align: left;
-    padding: 12px 15px;
+    padding: 12px 15px; /* indre afstand */
     border: 1px solid #ddd;
 }
 
-tbody tr:nth-child(even) {
+tbody tr:nth-child(even) { /* ændrer baggrundsfarve når man holder musen over en række */
     background-color: #f2f2f2;
 }
 
