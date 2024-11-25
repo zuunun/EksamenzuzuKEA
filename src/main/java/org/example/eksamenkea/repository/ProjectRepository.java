@@ -3,6 +3,7 @@ package org.example.eksamenkea.repository;
 import org.example.eksamenkea.model.Project;
 import org.example.eksamenkea.model.Subproject;
 import org.example.eksamenkea.repository.interfaces.IProjectRepository;
+import org.example.eksamenkea.service.Errorhandling;
 import org.example.eksamenkea.util.ConnectionManager;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @Repository
 public class ProjectRepository implements IProjectRepository {
 
-    public List<Project> getAllProjects() throws SQLException {
+    public List<Project> getAllProjects() throws Errorhandling {
         List<Project> projects = new ArrayList<>();
         String query = "SELECT project_id, project_name, budget, project_description, user_id FROM project";
 
@@ -33,13 +34,13 @@ public class ProjectRepository implements IProjectRepository {
             }
             return projects;
         } catch (SQLException e) {
-            throw new SQLException();
+            throw new Errorhandling("failed to get all projects");
         }
     }
 
 
 
-        public List<Subproject> getAllSubprojects () throws SQLException {
+        public List<Subproject> getAllSubprojects () throws Errorhandling {
             List<Subproject> subprojects = new ArrayList<>();
             String query = "SELECT * FROM subproject";
 
@@ -58,7 +59,7 @@ public class ProjectRepository implements IProjectRepository {
                 }
                 return subprojects;
             } catch (SQLException e) {
-                throw new SQLException();
+                throw new Errorhandling("failed to get all subprojects ");
             }
         }
 

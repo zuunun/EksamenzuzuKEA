@@ -3,6 +3,7 @@ package org.example.eksamenkea.repository;
 import org.example.eksamenkea.model.Status;
 import org.example.eksamenkea.model.Task;
 import org.example.eksamenkea.repository.interfaces.ITaskRepository;
+import org.example.eksamenkea.service.Errorhandling;
 import org.example.eksamenkea.util.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,7 @@ public class TaskRepository implements ITaskRepository {
 
 
     // Hent tasks for et specifikt projekt
-    public List<Task> getTasksByProjectId(int projectId) throws SQLException {
+    public List<Task> getTasksByProjectId(int projectId) throws Errorhandling {
         List<Task> tasks = new ArrayList<>();
         String query = "SELECT t.task_id, t.task_name, t.startdate, t.enddate, t.status, sp.subproject_id " +
                 "FROM task t " +
@@ -44,7 +45,7 @@ public class TaskRepository implements ITaskRepository {
 
             return tasks;
         } catch (SQLException e) {
-            throw new SQLException();
+            throw new Errorhandling("error");
         }
     }
 }
