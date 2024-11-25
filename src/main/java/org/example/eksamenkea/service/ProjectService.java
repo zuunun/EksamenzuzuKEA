@@ -16,11 +16,11 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    public List<Project> getAllProjects() throws SQLException {
+    public List<Project> getAllProjects() throws Errorhandling {
         return projectRepository.getAllProjects();
     }
 
-    public List<Subproject> getAllSubprojects() throws SQLException {
+    public List<Subproject> getAllSubprojects() throws Errorhandling {
         return projectRepository.getAllSubprojects();
     }
 }
