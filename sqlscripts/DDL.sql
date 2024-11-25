@@ -36,7 +36,7 @@ CREATE TABLE task (
                       task_name VARCHAR(255) NOT NULL,
                       startdate DATE ,
                       enddate DATE ,
-                      status ENUM('In Progress', 'Complete', 'Overdue','notstartet') DEFAULT 'In Progress',
+                      status ENUM('INPROGRESS', 'COMPLETE', 'OVERDUE', 'NOTSTARTET') DEFAULT 'INPROGRESS',
                       subproject_id INT,
                       FOREIGN KEY (subproject_id) REFERENCES subproject(subproject_id)
 );

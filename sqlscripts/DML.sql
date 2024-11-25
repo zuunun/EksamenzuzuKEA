@@ -21,9 +21,9 @@ VALUES
 -- Insert data i Task tabellen
 INSERT INTO task (task_name, startdate, enddate, status, subproject_id)
 VALUES
-    ('Create Homepage', '2024-11-01', '2024-11-10', 'In Progress', 1),
-    ('Set Up Database', '2024-11-05', '2024-11-15', 'notstartet', 2),
-    ('Prototype App UI', '2024-11-02', '2024-11-12', 'Complete', 3);
+    ('Create Homepage', '2024-11-01', '2024-11-10', 'INPROGRESS', 1),
+    ('Set Up Database', '2024-11-05', '2024-11-15', 'NOTSTARTED', 2),
+    ('Prototype App UI', '2024-11-02', '2024-11-12', 'COMPLETE', 3);
 
 -- Insert data i Workertask tabellen
 INSERT INTO workertask (skills, rate, task_id, user_id)
