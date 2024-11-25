@@ -63,7 +63,7 @@ public class ProjectRepository implements IProjectRepository {
         }
     }
 
-    public void addProject(Project project) throws Errorhandling {
+    public void addProject(Project project) throws Errorhandling { //Amalie
         System.out.println(project.getUser_id()); //test
         String sqlAddProject = "INSERT INTO project(project_name, budget, project_description, user_id) VALUES (?,?,?,?)";
         try{

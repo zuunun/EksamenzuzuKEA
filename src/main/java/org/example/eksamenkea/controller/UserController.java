@@ -22,8 +22,8 @@ public class UserController {
     public String login() {
         return "login"; //retunerer til login view
     }
-
-    @GetMapping("/") //håndterer GET-forespørgsler til"/"
+    //håndterer GET-forespørgsler til"/"
+    @GetMapping("/") //Amalie
     public String index(Model model, HttpSession session) {
         if (session.getAttribute("user") != null) { //tjekker om en bruger er logget ind
             model.addAttribute("userAvaliable", true); //angiver at brugeren er tilgængelig
@@ -34,7 +34,7 @@ public class UserController {
         return "homepage";
     }
 
-    @PostMapping("/validate_login")
+    @PostMapping("/validate_login") //Amalie
     public String validateLogin(HttpSession session, @RequestParam String email, @RequestParam String password) throws Errorhandling {
         User user = userService.signIn(email, password); //metodekald til userrepository
         if (user != null) {
@@ -49,7 +49,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/logged_in")
+    @GetMapping("/logged_in") //Amalie
     public String loggedIn(HttpSession session, Model model) throws Exception {
         User user = (User) session.getAttribute("user");  // Henter "user" fra sessionen.
 
@@ -65,7 +65,7 @@ public class UserController {
         throw new Errorhandling("no role found"); //
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/logout") //Amalie
     public String logout(HttpSession session) {
         session.invalidate(); //invaliderer sessionen for at logge ud
         return "redirect:/"; //return til front pagen ved log out

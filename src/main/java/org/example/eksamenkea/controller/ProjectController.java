@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-//@RequestMapping("/vedikke")
 public class ProjectController {
     private ProjectService projectService;
 
@@ -42,7 +41,7 @@ public class ProjectController {
         throw new Errorhandling("error");
     }
 
-    @GetMapping("/add-project")
+    @GetMapping("/add-project") //Amalie
     public String addNewProject(HttpSession session, Model model) throws Errorhandling {
         Project project = new Project();
         Role userRole = (Role) session.getAttribute("userRole");  // Henter "userrole" fra sessionen.
@@ -57,7 +56,7 @@ public class ProjectController {
         throw new Errorhandling("cant add project");
     }
 
-    @PostMapping("/project-added")
+    @PostMapping("/project-added") //Amalie
     public String addedProject(@ModelAttribute Project project) throws Errorhandling {
         projectService.addProject(project);
         return "redirect:/project-leader-overview";
