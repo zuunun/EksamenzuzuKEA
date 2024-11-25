@@ -3,14 +3,17 @@ package org.example.eksamenkea.repository;
 import org.example.eksamenkea.model.Project;
 import org.example.eksamenkea.model.Subproject;
 import org.example.eksamenkea.repository.interfaces.IProjectRepository;
+import org.example.eksamenkea.service.Errorhandling;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Repository("IPROJECTREPOSITORY")
+@Lazy
 public class ProjectRepository implements IProjectRepository {
     @Value("${spring.datasource.url}")
     private String DB_URL;
@@ -21,7 +24,7 @@ public class ProjectRepository implements IProjectRepository {
     @Value("${spring.datasource.password}")
     private String DB_PASSWORD;
 
-    public List<Project> getAllProjects() throws SQLException {
+    public List<Project> getAllProjects() throws Errorhandling {//ZUZU
         List<Project> projects = new ArrayList<>();
         String query = "SELECT project_id, project_name, budget, project_description, projectleader_id FROM project";
 
@@ -38,12 +41,16 @@ public class ProjectRepository implements IProjectRepository {
                         resultSet.getInt("projectleader_id")
                 ));
             }
+        } catch (SQLException e) {
+            // Brug Errorhandling med en meningsfuld besked
+            throw new Errorhandling("Failed to fetch projects from the database: " + e.getMessage());
         }
         return projects;
     }
 
 
-    public List<Subproject> getAllSubprojects() throws SQLException {
+
+    public List<Subproject> getAllSubprojects() throws Errorhandling {//ZUZU
         List<Subproject> subprojects = new ArrayList<>();
         String query = "SELECT * FROM subproject";
 
@@ -59,6 +66,8 @@ public class ProjectRepository implements IProjectRepository {
                         resultSet.getInt("project_id")
                 ));
             }
+        } catch (SQLException e) {
+            throw new  Errorhandling("Failed to fetch projects from the database: " + e.getMessage());
         }
         return subprojects;
     }

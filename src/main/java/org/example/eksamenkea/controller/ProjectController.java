@@ -22,7 +22,7 @@ public class ProjectController {
 
 
     @GetMapping("/project-leader-overview")
-    public String showProjectLeaderOverview(HttpSession session, Model model) throws SQLException{
+    public String showProjectLeaderOverview(HttpSession session, Model model) throws Errorhandling {
         Role userRole = (Role) session.getAttribute("userRole"); // Henter brugerens rolle fra sessionen
 
         if (userRole== Role.PROJECTLEADER) {
@@ -35,7 +35,7 @@ public class ProjectController {
 
             return "project-leader-overview";//returner view
         }
-        throw new SQLException("error");
+        throw new Errorhandling("error");
     }
 
 }
