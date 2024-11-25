@@ -38,6 +38,9 @@ public class UserController {
     public String validateLogin(HttpSession session, @RequestParam String email, @RequestParam String password) throws Errorhandling {
         User user = userService.signIn(email, password); //metodekald til userrepository
         if (user != null) {
+            //Koden er designet til at håndtere sessioner og brugerroller.
+            // Brugerens rolle og ID gemmes i sessionen og bruges til at vise relevante
+            // sider og udføre handlinger
             session.setAttribute("user", user); //gemmer brugeren i sessionen
             session.setAttribute("userRole", user.getRole_id()); // Tilføj denne linje
             return "redirect:/logged_in";

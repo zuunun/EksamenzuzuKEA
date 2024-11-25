@@ -8,7 +8,9 @@
 <body>
 <h1>Add Project</h1>
 <form th:action="@{/project-added}" th:object="${project}" method="post">
-    <label for="project_name">Project name:</label>
+    <!-- Formularens action angiver endpoint "/project-added", hvor data sendes via POST -->
+    <!-- Formularen er bundet til backend-objektet "project" -->
+    <label for="project_name">Project name:</label> <!--Skærmlæsere kan bruge etiketten til at beskrive inputfeltet for brugere med synshandicap.-->
     <input id="project_name" class="form-control"
            type="text"
            th:field="*{project_name}"
@@ -17,8 +19,9 @@
     <label for="project_description">Description:</label>
     <input id="project_description" class="form-control"
            type="text"
-           th:field="*{project_description}"
-           placeholder="Enter project description" />
+           th:field="*{project_description}" placeholder="Enter project description" />
+    <!-- Binder feltet til "project_description" i Project-objektet -->
+
     <br>
     <label for="budget">Budget (in DKK):</label>
     <input id="budget" class="form-control"
@@ -27,6 +30,7 @@
            placeholder="Enter your project's budget" />
     <br>
     <input type="hidden" name="user_id" th:value="${userId}" />
+    <!-- Feltet er skjult og bruges til at overføre brugerens ID fra sessionen -->
     <button type="submit">Submit</button>
 </form>
 </body>
