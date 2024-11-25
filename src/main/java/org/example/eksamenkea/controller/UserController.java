@@ -18,7 +18,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/login")
+    @GetMapping("/login") //Amalie
     public String login() {
         return "login"; //retunerer til login view
     }
