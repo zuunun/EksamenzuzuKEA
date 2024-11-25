@@ -63,4 +63,27 @@ public class ProjectRepository implements IProjectRepository {
             }
         }
 
+        public Project getProjetByUserId (int userId) throws Errorhandling {
+        Project project = null;
+        String sqlQuery = "SELECT project_id, project_name, budget, project_description, user_id FROM project WHERE user_id = " + userId;
+
+        try {Connection connection = ConnectionManager.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sqlQuery);
+
+        while (resultSet.next()) {
+           project = new Project(
+                   resultSet.getInt("project_id"),
+                   resultSet.getString("project_name"),
+                   resultSet.getDouble("budget"),
+                   resultSet.getString("project_description"),
+                   resultSet.getInt("user_id")
+           );
+        }
+
+        }catch (SQLException e) {
+            throw new Errorhandling("failed to get all subprojects ");
+        }
+            return project;
+    }
     }

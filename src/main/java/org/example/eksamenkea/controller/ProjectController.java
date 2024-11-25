@@ -29,7 +29,7 @@ public class ProjectController {
     public String showProjectLeaderOverview(HttpSession session, Model model) throws Errorhandling {
         Role userRole = (Role) session.getAttribute("userRole"); // Henter brugerens rolle fra sessionen
 
-        if (userRole== Role.PROJECTLEADER) {
+        if (userRole == Role.PROJECTLEADER) {
             List<Project> projects = projectService.getAllProjects();//henter alle projekter fra service
             List<Subproject> subprojects = projectService.getAllSubprojects();//henter subprojekter
 
@@ -42,6 +42,19 @@ public class ProjectController {
         throw new Errorhandling("error");
     }
 
+    @GetMapping("/worker-overview")
+    public String showWokerOverview(HttpSession session, Model model) throws Errorhandling {
+        Role userRole = (Role) session.getAttribute("userRole");
 
+        if (userRole == Role.WORKER) {
+            List<Project> projects = projectService.getAllProjects();
+            List<Subproject> subprojects = projectService.getAllSubprojects();
 
+            model.addAttribute("projects", projects);
+            model.addAttribute("subprojects", subprojects);
+
+            return "worker-overview";
+        }
+        throw new Errorhandling("error");
+    }
 }
