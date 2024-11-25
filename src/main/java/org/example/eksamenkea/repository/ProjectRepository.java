@@ -3,6 +3,7 @@ package org.example.eksamenkea.repository;
 import org.example.eksamenkea.model.Project;
 import org.example.eksamenkea.model.Subproject;
 import org.example.eksamenkea.model.User;
+import org.example.eksamenkea.repository.interfaces.IProjectRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ProjectRepository {
+public class ProjectRepository implements IProjectRepository {
     @Value("${spring.datasource.url}")
     private String DB_URL;
 
