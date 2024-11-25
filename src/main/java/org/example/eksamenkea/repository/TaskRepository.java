@@ -3,6 +3,7 @@ package org.example.eksamenkea.repository;
 import org.example.eksamenkea.model.Status;
 import org.example.eksamenkea.model.Task;
 import org.example.eksamenkea.repository.interfaces.ITaskRepository;
+import org.example.eksamenkea.util.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -13,15 +14,6 @@ import java.util.List;
 @Repository
 public class TaskRepository implements ITaskRepository {
 
-    @Value("${spring.datasource.url}")
-    private String DB_URL;
-
-    @Value("${spring.datasource.username}")
-    private String DB_USER;
-
-    @Value("${spring.datasource.password}")
-    private String DB_PASSWORD;
-
 
     // Hent tasks for et specifikt projekt
     public List<Task> getTasksByProjectId(int projectId) throws SQLException {
@@ -31,9 +23,9 @@ public class TaskRepository implements ITaskRepository {
                 "JOIN subproject sp ON sp.subproject_id = t.subproject_id " +
                 "WHERE sp.project_id = ?";
 
-
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try {
+            Connection con = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement(query);
             preparedStatement.setInt(1, projectId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -49,11 +41,10 @@ public class TaskRepository implements ITaskRepository {
                 ));
 
             }
+
+            return tasks;
+        } catch (SQLException e) {
+            throw new SQLException();
         }
-
-
-        return tasks;
     }
-
-
 }

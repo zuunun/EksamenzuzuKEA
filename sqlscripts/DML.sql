@@ -1,13 +1,12 @@
--- Indsæt data i User tabellen
+-- Insert data i User tabellen
 INSERT INTO user (email, password, role_id)
 VALUES
-    ('zuzu@zuzu.com', '1234', 'PROJECTLEADER'),
     ('amalie@example.com', '123', 'PROJECTLEADER'),
     ('worker1@example.com', 'password123', 'WORKER'),
     ('worker2@example.com', 'password123', 'WORKER');
 
 -- Insert data i Project tabellen
-INSERT INTO project (project_name, budget, project_description, projectleader_id)
+INSERT INTO project (project_name, budget, project_description, user_id)
 VALUES
     ('Website Development', 50000.00, 'Development of a new company website', 1),
     ('App Development', 75000.00, 'Development of a mobile app', 1);
@@ -22,9 +21,9 @@ VALUES
 -- Insert data i Task tabellen
 INSERT INTO task (task_name, startdate, enddate, status, subproject_id)
 VALUES
-    ('Create Homepage', '2024-11-01', '2024-11-10', 'INPROGRESS', 1),
-    ('Set Up Database', '2024-11-05', '2024-11-15', 'NOTSTARTET', 2),
-    ('Prototype App UI', '2024-11-02', '2024-11-12', 'COMPLETE', 3);
+    ('Create Homepage', '2024-11-01', '2024-11-10', 'In Progress', 1),
+    ('Set Up Database', '2024-11-05', '2024-11-15', 'notstartet', 2),
+    ('Prototype App UI', '2024-11-02', '2024-11-12', 'Complete', 3);
 
 -- Insert data i Workertask tabellen
 INSERT INTO workertask (skills, rate, task_id, user_id)
@@ -34,8 +33,11 @@ VALUES
     ('Figma, Adobe XD', 400, 3, 2);
 
 -- Insert data i Resource tabellen
-INSERT INTO resource (materialhardware, costrate, task_id)
+INSERT INTO resource (materialhardware, costrate)
 VALUES
-    ('Server Hosting', 100.00, 1),
-    ('Design Software License', 50.00, 2),
-    ('Cloud Storage', 75.00, 3);
+    ('Server Hosting', 100.00),
+    ('Design Software License', 50.00),
+    ('Cloud Storage', 75.00);
+
+
+

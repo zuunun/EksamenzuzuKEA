@@ -4,7 +4,7 @@ import org.example.eksamenkea.model.Role;
 import org.example.eksamenkea.model.User;
 import org.example.eksamenkea.repository.interfaces.IUserRepository;
 import org.example.eksamenkea.service.Errorhandling;
-import org.springframework.beans.factory.annotation.Value;
+import org.example.eksamenkea.util.ConnectionManager;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import java.sql.*;
@@ -12,14 +12,6 @@ import java.sql.*;
 @Repository("IUSERREPOSITORY")
 @Lazy //angiver at denne bean kun bliver initialiseret når den er nødvendig, og ikke ved opstart
 public class UserRepository implements IUserRepository {
-    @Value("${spring.datasource.url}")
-    private String DB_URL;
-
-    @Value("${spring.datasource.username}")
-    private String DB_USER;
-
-    @Value("${spring.datasource.password}")
-    private String DB_PASSWORD;
 
     //DB_USER=eksamenkea;DB_PASSWORD=Enstorko!;DB_URL=jdbc:mysql://eksamenkeasql.mysql.database.azure.com:3306
     //DB_USER=root;DB_PASSWORD=amalie;DB_URL=jdbc:mysql://localhost:3306/project_management
@@ -31,7 +23,7 @@ public class UserRepository implements IUserRepository {
     public User signIn(String email, String password) throws Errorhandling {
         User user = null;
         try {
-            Connection con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            Connection con = ConnectionManager.getConnection();
             String SQLUser = "SELECT * FROM user WHERE email = ? AND password = ?;";
             PreparedStatement pstmt = con.prepareStatement(SQLUser); //brug af prepared stmt for at undgå sql injection
             pstmt.setString(1, email);
