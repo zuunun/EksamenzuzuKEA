@@ -17,7 +17,7 @@ public class TaskService {
     }
 
 
-    public List<Task> getTasksByProjectId(int projectId) throws SQLException {
+    public List<Task> getTasksByProjectId(int projectId) throws Errorhandling {
         return taskRepository.getTasksByProjectId(projectId);
     }
 
