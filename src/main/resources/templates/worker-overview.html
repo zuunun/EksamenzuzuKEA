@@ -5,12 +5,23 @@
     <link th:href="@{/main.css}" rel="stylesheet">
 </head>
 <body>
-<h1>Worker Overview</h1>
 
-<h2 th:text="${project.project_name}"></h2>
+<h2>Showing details for user: </h2>
+<h1 th:text="${user.email}"></h1>
+
+<div>
+    <p>Current project: </p>
+    <h2 th:text="${project.project_name}"></h2>
+</div>
 <h3>Deadline</h3>
+<h3>Tasks:</h3>
+<div th:each="task : ${tasks}">
+    <h2 th:text="task"></h2>
+</div>
 <h3>Estimated Time</h3>
-<h3 th:text="${}">Status</h3>
+<h3>Project description></h3>
+<div>
 <h3 th:text="${project.project_description}">Description</h3>
+</div>
 </body>
 </html>

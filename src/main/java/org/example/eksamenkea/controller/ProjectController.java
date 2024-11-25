@@ -1,10 +1,10 @@
 package org.example.eksamenkea.controller;
+
 import jakarta.servlet.http.HttpSession;
-import org.example.eksamenkea.model.Project;
-import org.example.eksamenkea.model.Role;
-import org.example.eksamenkea.model.Subproject;
+import org.example.eksamenkea.model.*;
 import org.example.eksamenkea.service.Errorhandling;
 import org.example.eksamenkea.service.ProjectService;
+import org.example.eksamenkea.service.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +16,7 @@ import java.util.List;
 //@RequestMapping("/vedikke")
 public class ProjectController {
     private ProjectService projectService;
+    private TaskService taskService;
 
     public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
@@ -39,16 +40,24 @@ public class ProjectController {
         throw new Errorhandling("error");
     }
 
+
+    //HAR JEG GJORT NOGET FORKERT VED AT INSTANSIERE TASKCONTROLER OG TASKSERVICE HER??
     @GetMapping("/worker-overview")
-    public String showWokerOverview(HttpSession session, Model model, @RequestParam int userId) throws Errorhandling {
+    public String showWokerOverview(HttpSession session, Model model) throws Errorhandling {
+
         Role userRole = (Role) session.getAttribute("userRole");
+        User user = (User) session.getAttribute("user");
+        Project project = null;
 
         if (userRole == Role.WORKER) {
-            Project project = projectService.getProjectByUserId(userId);
-            List<Subproject> subprojects = projectService.getAllSubprojects();
+           project = projectService.getProjectByUserId(user.getUser_id());
+            //List<Subproject> subprojects = projectService.getAllSubprojects();
+            List<Task> taskList = taskService.getTasksByProjectId(project.getProject_id());
 
             model.addAttribute("project", project);
-            model.addAttribute("subprojects", subprojects);
+            model.addAttribute("tasks", taskList);
+            //model.addAttribute("subprojects", subprojects);
+            model.addAttribute("user", user);
 
             return "worker-overview";
         }

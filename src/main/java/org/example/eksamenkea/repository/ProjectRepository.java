@@ -38,8 +38,6 @@ public class ProjectRepository implements IProjectRepository {
         }
     }
 
-
-
         public List<Subproject> getAllSubprojects () throws Errorhandling {
             List<Subproject> subprojects = new ArrayList<>();
             String query = "SELECT * FROM subproject";
@@ -63,27 +61,29 @@ public class ProjectRepository implements IProjectRepository {
             }
         }
 
-        public Project getProjectByUserId (int userId) throws Errorhandling {
+    public Project getWorkerProjectFromUserId(int userId) throws Errorhandling {
         Project project = null;
-        String sqlQuery = "SELECT project_id, project_name, budget, project_description, user_id FROM project WHERE user_id = " + userId;
+        String query = "SELECT project_id, project_name, budget, project_description, user_id FROM project WHERE user_id = ?";
 
-        try {Connection connection = ConnectionManager.getConnection();
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sqlQuery);
+        try (Connection con = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
-        while (resultSet.next()) {
-           project = new Project(
-                   resultSet.getInt("project_id"),
-                   resultSet.getString("project_name"),
-                   resultSet.getDouble("budget"),
-                   resultSet.getString("project_description"),
-                   resultSet.getInt("user_id")
-           );
+            preparedStatement.setInt(1, userId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    project = new Project(
+                            resultSet.getInt("project_id"),
+                            resultSet.getString("project_name"),
+                            resultSet.getDouble("budget"),
+                            resultSet.getString("project_description"),
+                            resultSet.getInt("user_id")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            throw new Errorhandling("Failed to fetch project for user ID " + userId + ": " + e.getMessage());
         }
-
-        }catch (SQLException e) {
-            throw new Errorhandling("failed to get all subprojects ");
-        }
-            return project;
+        return project;
     }
     }
