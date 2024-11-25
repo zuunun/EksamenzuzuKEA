@@ -1,12 +1,9 @@
 package org.example.eksamenkea.controller;
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.example.eksamenkea.model.Role;
 import org.example.eksamenkea.model.User;
 import org.example.eksamenkea.service.Errorhandling;
 import org.example.eksamenkea.service.UserService;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
