@@ -1,8 +1,10 @@
 package org.example.eksamenkea.controller;
+
 import jakarta.servlet.http.HttpSession;
 import org.example.eksamenkea.model.Project;
 import org.example.eksamenkea.model.Role;
 import org.example.eksamenkea.model.Subproject;
+import org.example.eksamenkea.model.User;
 import org.example.eksamenkea.service.Errorhandling;
 import org.example.eksamenkea.service.ProjectService;
 import org.springframework.stereotype.Controller;
@@ -25,7 +27,7 @@ public class ProjectController {
     public String showProjectLeaderOverview(HttpSession session, Model model) throws Errorhandling {
         Role userRole = (Role) session.getAttribute("userRole"); // Henter brugerens rolle fra sessionen
 
-        if (userRole== Role.PROJECTLEADER) {
+        if (userRole == Role.PROJECTLEADER) {
             List<Project> projects = projectService.getAllProjects();//henter alle projekter fra service
             List<Subproject> subprojects = projectService.getAllSubprojects();//henter subprojekter
 
@@ -38,6 +40,14 @@ public class ProjectController {
         throw new Errorhandling("error");
     }
 
+    @GetMapping("/add-project")
+    public String addNewProject(HttpSession session, Model model) throws Errorhandling {
+        Role userRole = (Role) session.getAttribute("userRole");  // Henter "user" fra sessionen.
+        if (userRole == Role.PROJECTLEADER) {
+            return "add-project-form";
+        }
+        throw new Errorhandling("cant add project");
+    }
 
 
 }
