@@ -63,7 +63,8 @@ public class ProjectRepository implements IProjectRepository {
         }
     }
 
-    public void addProject(Project project, User user) throws Errorhandling {
+    public void addProject(Project project) throws Errorhandling {
+        System.out.println(project.getUser_id()); //test
         String sqlAddProject = "INSERT INTO project(project_name, budget, project_description, user_id) VALUES (?,?,?,?)";
         try{
             Connection con = ConnectionManager.getConnection();
@@ -71,9 +72,9 @@ public class ProjectRepository implements IProjectRepository {
             statement.setString(1, project.getProject_name());
             statement.setDouble(2, project.getBudget());
             statement.setString(3, project.getProject_description());
-            statement.setInt(4, user.getUser_id());
+            statement.setInt(4, project.getUser_id());
 
-            statement.executeUpdate(sqlAddProject); //bruger excecuteupdate da vi indsætter
+            statement.executeUpdate(); //bruger excecuteupdate da vi indsætter
 
         }catch (SQLException e) {
             throw new Errorhandling("failed to add project");

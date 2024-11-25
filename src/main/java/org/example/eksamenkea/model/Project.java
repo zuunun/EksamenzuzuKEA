@@ -7,16 +7,19 @@ public class Project {
     private String project_name;
     private double budget;
     private String project_description;
-    private int projectleader_id;
+    private int user_id;
 
-    public Project(int project_id, String project_name,double budget, String project_description, int projectleader_id) {
+    public Project(int project_id, String project_name, double budget, String project_description, int user_id) {
         this.project_id = project_id;
         this.project_name = project_name;
         this.budget = budget;
         this.project_description = project_description;
-        this.projectleader_id = projectleader_id;
+        this.user_id = user_id;
     }
 
+    public Project() {
+
+    }
     public int getProject_id() {
         return project_id;
     }
@@ -32,7 +35,6 @@ public class Project {
     public void setProject_name(String project_name) {
         this.project_name = project_name;
     }
-
 
     public double getBudget() {
         return budget;
@@ -50,11 +52,22 @@ public class Project {
         this.project_description = project_description;
     }
 
-    public int getProjectleader_id() {
-        return projectleader_id;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setProjectleader_id(int projectleader_id) {
-        this.projectleader_id = projectleader_id;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "project_id=" + project_id +
+                ", project_name='" + project_name + '\'' +
+                ", budget=" + budget +
+                ", project_description='" + project_description + '\'' +
+                ", user_id=" + user_id +
+                '}';
     }
 }

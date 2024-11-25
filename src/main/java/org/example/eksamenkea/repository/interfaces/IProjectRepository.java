@@ -12,5 +12,5 @@ public interface IProjectRepository {
 
     List<Subproject> getAllSubprojects() throws Errorhandling;
 
-    public void addProject(Project project, User user) throws Errorhandling;
+    public void addProject(Project project) throws Errorhandling;
 }

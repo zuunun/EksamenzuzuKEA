@@ -1,10 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+<link th:href="@{/main.css}" rel="stylesheet">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h1>Add Project</h1>
+<form th:action="@{/project-added}" th:object="${project}" method="post">
+    <label for="project_name">Project name:</label>
+    <input id="project_name" class="form-control"
+           type="text"
+           th:field="*{project_name}"
+           placeholder="Enter project name" />
+    <br>
+    <label for="project_description">Description:</label>
+    <input id="project_description" class="form-control"
+           type="text"
+           th:field="*{project_description}"
+           placeholder="Enter project description" />
+    <br>
+    <label for="budget">Budget (in DKK):</label>
+    <input id="budget" class="form-control"
+           type="number"
+           th:field="*{budget}"
+           placeholder="Enter your project's budget" />
+    <br>
+    <input type="hidden" name="user_id" th:value="${userId}" />
+    <button type="submit">Submit</button>
+</form>
 </body>
 </html>
