@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import org.example.eksamenkea.model.Project;
 import org.example.eksamenkea.model.Role;
 import org.example.eksamenkea.model.Subproject;
+import org.example.eksamenkea.model.Task;
 import org.example.eksamenkea.service.Errorhandling;
 import org.example.eksamenkea.service.ProjectService;
 import org.springframework.http.HttpStatus;
@@ -63,6 +64,22 @@ public class ProjectController {
         model.addAttribute("subprojects", subprojects);
 
         return "project-leader-overview";//returner view
+    }
+
+    @GetMapping("/worker-overview")
+    public String showWorkerOverview (HttpSession session, Model model) throws SQLException {
+        Role userRole = (Role) session.getAttribute("userRole");
+
+        if (userRole != Role.WORKER) {
+            return "error";
+        }
+        List<Project> projects //Lav en gettermetode for en workers eneste projekt, de er tilknyttet.
+        List<Subproject> subprojects //lav en gettermetode for en workers subprojects.
+        List<Task> tasks //lav gettermetode for en workers tasks
+
+        model.addAttribute("project", projects);
+        model.addAttribute("subProjects", subprojects);
+        model.addAttribute("tasks", tasks);
     }
 
 

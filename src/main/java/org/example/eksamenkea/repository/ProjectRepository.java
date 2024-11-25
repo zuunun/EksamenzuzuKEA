@@ -2,6 +2,7 @@ package org.example.eksamenkea.repository;
 
 import org.example.eksamenkea.model.Project;
 import org.example.eksamenkea.model.Subproject;
+import org.example.eksamenkea.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -62,4 +63,20 @@ public class ProjectRepository {
         return subprojects;
     }
 
+    public List<Project> getAllProjectsByWorkerID(User user) throws SQLException{
+        List<Project> projects = new ArrayList<>();
+        String sqlQuery ="SELECT * FROM project WHERE user_id = ?";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sqlQuery)) {
+
+            while (resultSet.next()) {
+                projects.add(new Project(
+                        resultSet.getInt
+                ))
+            }
+    }
+return projects;
+    }
 }
