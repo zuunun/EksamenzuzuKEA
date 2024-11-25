@@ -2,7 +2,7 @@
 INSERT INTO user (email, password, role_id)
 VALUES
     ('zuzu@zuzu.com', '1234', 'PROJECTLEADER'), -- Projektleder
-    ('amalie@example.com', '123', 'PROJECTLEADER'), -- Projektleder
+    ('ama', '123', 'PROJECTLEADER'), -- Projektleder
     ('worker1@example.com', 'password123', 'WORKER'), -- Arbejder
     ('worker2@example.com', 'password123', 'WORKER'); -- Arbejder
 

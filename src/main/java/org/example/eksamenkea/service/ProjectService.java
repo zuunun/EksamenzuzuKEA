@@ -2,6 +2,7 @@ package org.example.eksamenkea.service;
 
 import org.example.eksamenkea.model.Project;
 import org.example.eksamenkea.model.Subproject;
+import org.example.eksamenkea.model.User;
 import org.example.eksamenkea.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,8 @@ public class ProjectService {
 
     public List<Subproject> getAllSubprojects() throws Errorhandling {
         return projectRepository.getAllSubprojects();
+    }
+    public void addProject(Project project) throws Errorhandling {
+         projectRepository.addProject(project);
     }
 }
