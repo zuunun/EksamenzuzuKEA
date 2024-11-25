@@ -1,12 +1,8 @@
 package org.example.eksamenkea.controller;
-
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.example.eksamenkea.model.Project;
 import org.example.eksamenkea.model.Role;
 import org.example.eksamenkea.model.Subproject;
-import org.example.eksamenkea.model.Task;
 import org.example.eksamenkea.service.Errorhandling;
 import org.example.eksamenkea.service.ProjectService;
 import org.springframework.stereotype.Controller;

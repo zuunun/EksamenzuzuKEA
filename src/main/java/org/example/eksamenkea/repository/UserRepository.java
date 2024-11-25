@@ -37,7 +37,7 @@ public class UserRepository implements IUserRepository {
             }
 
         } catch (SQLException e) {
-            throw new Errorhandling("Sign in error"); //brugerdefineret exception
+            throw new Errorhandling("Sign in error" + e.getMessage()); //brugerdefineret exception
         }
         return user;
     }
