@@ -5,9 +5,12 @@
     <link th:href="@{/main.css}" rel="stylesheet">
 </head>
 <body>
-<h1 th:text="${projects}">Worker overview"</h1>
+<h1>Worker Overview</h1>
 
-<h2>Project - th:text="@{project.name}"</h2>
-<h3>t</h3>
+<h2 th:text="${project.project_name}"></h2>
+<h3>Deadline</h3>
+<h3>Estimated Time</h3>
+<h3 th:text="${}">Status</h3>
+<h3 th:text="${project.project_description}">Description</h3>
 </body>
 </html>

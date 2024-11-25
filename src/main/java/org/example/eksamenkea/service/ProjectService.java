@@ -23,4 +23,8 @@ public class ProjectService {
     public List<Subproject> getAllSubprojects() throws Errorhandling {
         return projectRepository.getAllSubprojects();
     }
+
+    public Project getProjectByUserId(int userId) throws Errorhandling{
+        return projectRepository.getProjectByUserId(userId);
+    }
 }

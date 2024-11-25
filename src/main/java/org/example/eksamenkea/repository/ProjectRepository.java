@@ -63,7 +63,7 @@ public class ProjectRepository implements IProjectRepository {
             }
         }
 
-        public Project getProjetByUserId (int userId) throws Errorhandling {
+        public Project getProjectByUserId (int userId) throws Errorhandling {
         Project project = null;
         String sqlQuery = "SELECT project_id, project_name, budget, project_description, user_id FROM project WHERE user_id = " + userId;
 

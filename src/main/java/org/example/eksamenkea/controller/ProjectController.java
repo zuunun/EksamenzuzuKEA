@@ -8,6 +8,7 @@ import org.example.eksamenkea.service.ProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -39,14 +40,14 @@ public class ProjectController {
     }
 
     @GetMapping("/worker-overview")
-    public String showWokerOverview(HttpSession session, Model model) throws Errorhandling {
+    public String showWokerOverview(HttpSession session, Model model, @RequestParam int userId) throws Errorhandling {
         Role userRole = (Role) session.getAttribute("userRole");
 
         if (userRole == Role.WORKER) {
-            List<Project> projects = projectService.getAllProjects();
+            Project project = projectService.getProjectByUserId(userId);
             List<Subproject> subprojects = projectService.getAllSubprojects();
 
-            model.addAttribute("projects", projects);
+            model.addAttribute("project", project);
             model.addAttribute("subprojects", subprojects);
 
             return "worker-overview";
