@@ -5,7 +5,6 @@ import org.example.eksamenkea.model.Task;
 import org.example.eksamenkea.repository.interfaces.ITaskRepository;
 import org.example.eksamenkea.service.Errorhandling;
 import org.example.eksamenkea.util.ConnectionManager;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;

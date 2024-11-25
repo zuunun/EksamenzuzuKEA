@@ -59,7 +59,7 @@ public class UserController {
         } else if (user.getRole_id() == Role.WORKER) {
             return "redirect:/worker-overview";//ikke lavet endnu
         }
-       throw new Errorhandling("no role found"); //
+        throw new Errorhandling("no role found"); //
     }
 
     @GetMapping("/logout")
@@ -67,4 +67,5 @@ public class UserController {
         session.invalidate(); //invaliderer sessionen for at logge ud
         return "redirect:/"; //return til front pagen ved log out
     }
+
 }
