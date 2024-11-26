@@ -23,11 +23,12 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-
     @GetMapping("/project-leader-overview")
     public String showProjectLeaderOverview(HttpSession session, Model model) throws Errorhandling {
         Role userRole = (Role) session.getAttribute("userRole");
         Employee employee = (Employee) session.getAttribute("employee");
+        System.out.println("Employee in session: " + session.getAttribute("employee"));
+        System.out.println("UserRole in session: " + session.getAttribute("userRole"));
 
         if (userRole == null || employee == null) {
             throw new Errorhandling("Session attributes are missing. Please log in again.");
