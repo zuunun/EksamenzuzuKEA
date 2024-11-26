@@ -1,27 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link th:href="@{/main.css}" rel="stylesheet">
 <head>
     <title>Project Leader Overview</title>
     <link th:href="@{/main.css}" rel="stylesheet">
 </head>
 <body>
+<h1 th:text="${user.getEmail()}">Worker Overview</h1>
 
-<h2>Showing details for user: </h2>
-<h1 th:text="${user.email}"></h1>
+<h2>Projects</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Project Name</th>
+        <th>Budget</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${project.getProject_name()}"></td>
+        <td th:text="${project.budget}"></td>
+        <td th:text="${project.project_description}"></td>
+    </tr>
+    </tbody>
+</table>
 
-<div>
-    <p>Current project: </p>
-    <h2 th:text="${project.project_name}"></h2>
-</div>
-<h3>Deadline</h3>
-<h3>Tasks:</h3>
-<div th:each="task : ${tasks}">
-    <h2 th:text="task"></h2>
-</div>
-<h3>Estimated Time</h3>
-<h3>Project description></h3>
-<div>
-<h3 th:text="${project.project_description}">Description</h3>
-</div>
+<h2>Subprojects</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Subproject Name</th>
+        <th>Description</th>
+        <th>Parent Project ID</th>
+    </tr>
+    </thead>
+    <tbody>
+   <tr th:each="subproject : ${subprojects}">
+        <td th:text="${subproject.subproject_name}"></td>
+        <td th:text="${subproject.subproject_description}"></td>
+        <td th:text="${subproject.project_id}"></td>
+        <td>
+            <a th:href="@{'/worker-task/' + ${subproject.project_id}}">View Tasks</a>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+<form action="/logout" method="get">
+    <button type="submit">Log out</button>
+</form>
 </body>
 </html>
