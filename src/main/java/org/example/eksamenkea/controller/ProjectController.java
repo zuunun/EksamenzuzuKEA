@@ -29,11 +29,7 @@ public class ProjectController {
         Employee employee = (Employee) session.getAttribute("employee");
         System.out.println("Employee in session: " + session.getAttribute("employee"));
         System.out.println("UserRole in session: " + session.getAttribute("userRole"));
-
-        if (userRole == null || employee == null) {
-            throw new Errorhandling("Session attributes are missing. Please log in again.");
-        }
-
+        System.out.println(employee.getEmployee_id());
         if (userRole == Role.PROJECTLEADER) {
             List<Project> projects = projectService.getAllProjectsByEmployeeId(employee.getEmployee_id());
             model.addAttribute("projects", projects);
@@ -50,7 +46,7 @@ public class ProjectController {
 
         if (employeeRole == Role.PROJECTLEADER) {
             List<Project> projects = projectService.getAllProjectsByEmployeeId(employee.getEmployee_id());//henter alle projekter fra service
-            List<Subproject> subprojects = projectService.getAllSubprojects();//henter subprojekter
+            List<Subproject> subprojects = projectService.getSubjectsByProjectId(employee.getEmployee_id());//henter subprojekter by projectid
 
             //tilføjes til model så det kan vises i thyme
             model.addAttribute("projects", projects);

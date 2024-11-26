@@ -15,6 +15,7 @@ import java.util.List;
 public class ProjectRepository implements IProjectRepository {
 
 
+
     public List<Project> getProjectsByEmployeeId(int employeeId) throws Errorhandling{
         List<Project> projects = new ArrayList<>();
         String query ="SELECT * FROM project WHERE employee_id = ?";
@@ -36,11 +37,14 @@ public class ProjectRepository implements IProjectRepository {
                 ));
 
             }
+            return projects;
         } catch (SQLException e) {
             throw new Errorhandling("failed to get project by employee id ");
 
         }
-        return projects;
+
+
+
     }
 
 

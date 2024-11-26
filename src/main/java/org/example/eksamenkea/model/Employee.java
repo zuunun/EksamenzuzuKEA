@@ -6,7 +6,7 @@ public class Employee {
     private String password;
     Role role;
 
-    public Employee(int user_id, String email, String password, Role role) {
+    public Employee(int employee_id, String email, String password, Role role) {
         this.employee_id = employee_id;
         this.email = email;
         this.password = password;
