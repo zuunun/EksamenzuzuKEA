@@ -47,4 +47,36 @@ public class TaskRepository implements ITaskRepository {
             throw new Errorhandling("error");
         }
     }
+
+    public List<Task> getTasksWorkerTasksFromTaskId(int userId) throws Errorhandling {
+        List<Task> taskList = null;
+        String sqlQuery = "SELECET task_name, startdate, enddate, status, subproject_id" +
+                " FROM Task t " +
+                "JOIN workertask wt ON wt.task_id = t.task_id" +
+                "WHERE wt.user_id = ?";
+
+        try {
+            Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preSta = connection.prepareStatement(sqlQuery);
+            preSta.setInt(1, userId);
+            ResultSet resultSet = preSta.executeQuery();
+
+            while (resultSet.next()){
+                taskList.add(new Task(
+                        resultSet.getInt("task_id"),
+                        resultSet.getString("task_name"),
+                        resultSet.getDate("startdate").toLocalDate(),
+                        resultSet.getDate("enddate").toLocalDate(),
+                        Status.valueOf(resultSet.getString("status").toUpperCase()),
+                        resultSet.getInt("subproject_id")
+                ));
+            }
+            return taskList;
+
+
+        } catch (SQLException e) {
+            throw new Errorhandling("error");
+        }
+
+    }
 }
