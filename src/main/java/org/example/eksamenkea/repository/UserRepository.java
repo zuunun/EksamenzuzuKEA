@@ -21,7 +21,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public Employee signIn(String email, String password) throws Errorhandling { //Amalie
-        Employee user = null;
+        Employee employee = null;
         try {
             Connection con = ConnectionManager.getConnection();
             String SQLUser = "SELECT * FROM user WHERE email = ? AND password = ?;";
@@ -30,10 +30,9 @@ public class UserRepository implements IUserRepository {
             pstmt.setString(2, password);
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.next()) {
-                int user_id = resultSet.getInt("user_id");
-                String roleStr = resultSet.getString("role_id"); //da role er enum hentes ind som string
-                Role role_id = Role.valueOf(roleStr);
-                user = new Employee(user_id, email, password, role_id);
+                int employee_id = resultSet.getInt("employee_id");
+                Boolean role_id = resultSet.getBoolean("role_id");
+                Employee = new Employee(employee_id, email, password, role_id);
             }
 
         } catch (SQLException e) {
