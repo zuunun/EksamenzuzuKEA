@@ -4,13 +4,13 @@ public class Employee {
     private int employee_id;
     private String email; //fungerer som username
     private String password;
-    Role role_id;
+    Role role;
 
-    public Employee(int user_id, String email, String password, Role role_id) {
+    public Employee(int user_id, String email, String password, Role role) {
         this.employee_id = employee_id;
         this.email = email;
         this.password = password;
-        this.role_id = role_id;
+        this.role = role;
     }
 
     public int getEmployee_id() {
@@ -37,12 +37,12 @@ public class Employee {
         this.password = password;
     }
 
-    public Role getRole_id() {
-        return role_id;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRole_id(Role role_id) {
-        this.role_id = role_id;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Employee {
                 "employee_id=" + employee_id +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", role_id=" + role_id +
+                ", role=" + role +
                 '}';
     }
 }

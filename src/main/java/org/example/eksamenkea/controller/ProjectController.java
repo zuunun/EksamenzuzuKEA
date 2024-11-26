@@ -24,22 +24,24 @@ public class ProjectController {
     }
 
 
-    @GetMapping("/project-leader-overview") //Zuhur
+    @GetMapping("/project-leader-overview")
     public String showProjectLeaderOverview(HttpSession session, Model model) throws Errorhandling {
-        Role userRole = (Role) session.getAttribute("userRole"); // Henter brugerens rolle fra sessionen
+        Role userRole = (Role) session.getAttribute("userRole");
+        Employee employee = (Employee) session.getAttribute("employee");
+
+        if (userRole == null || employee == null) {
+            throw new Errorhandling("Session attributes are missing. Please log in again.");
+        }
 
         if (userRole == Role.PROJECTLEADER) {
-            List<Project> projects = projectService.getAllProjectsByEmployeeId(employee.getEmployee_id());//henter alle projekter fra service
-            List<Subproject> subprojects = projectService.getAllSubprojects();//henter subprojekter
-
-            //tilføjes til model så det kan vises i thyme
+            List<Project> projects = projectService.getAllProjectsByEmployeeId(employee.getEmployee_id());
             model.addAttribute("projects", projects);
-            model.addAttribute("subprojects", subprojects);
-
-            return "project-leader-overview";//returner view
+            return "project-leader-overview";
         }
-        throw new Errorhandling("error");
+        throw new Errorhandling("User is not authorized to view this page.");
     }
+
+
     @GetMapping("/project-leader-subproject-overview") //Amalie
     public String showProjectLeaderSubprojectOverview(HttpSession session, Model model) throws Errorhandling {
         Role userRole = (Role) session.getAttribute("userRole"); // Henter brugerens rolle fra sessionen

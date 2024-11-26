@@ -22,10 +22,11 @@ public class ProjectRepository implements IProjectRepository {
         try{
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, employeeId);
 
-            ResultSet resultSet = preparedStatement.getResultSet();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 projects.add(new Project(
                         resultSet.getInt("project_id"),
                         resultSet.getString("project_name"),

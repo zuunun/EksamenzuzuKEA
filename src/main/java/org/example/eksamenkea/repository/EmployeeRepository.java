@@ -32,7 +32,7 @@ public class EmployeeRepository implements IEmployeeRepository {
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.next()) {
                 int employee_id = resultSet.getInt("employee_id");
-                String roleString = resultSet.getString("role_id");
+                String roleString = resultSet.getString("role");
                 Role role = Role.valueOf(roleString); // Konvertering fra String til ENUM
                 employee = new Employee(employee_id, email, password, role);
             }

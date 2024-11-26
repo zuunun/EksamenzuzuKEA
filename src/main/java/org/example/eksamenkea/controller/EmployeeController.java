@@ -44,7 +44,7 @@ public class UserController {
             // Brugerens rolle og ID gemmes i sessionen og bruges til at vise relevante
             // sider og udføre handlinger
             session.setAttribute("employee", employee); //gemmer brugeren i sessionen
-            session.setAttribute("employeeRole", employee.getRole_id()); // Tilføj denne linje
+            session.setAttribute("userRole", employee.getRole()); // Tilføj denne linje
             return "redirect:/logged_in";
         } else {
             throw new Errorhandling("Enter valid username and password");
@@ -58,9 +58,9 @@ public class UserController {
         if (employee == null) {
             return "redirect:/login"; // Hvis ikke logget ind, send til login
         }
-        if (employee.getRole_id() == Role.PROJECTLEADER) {    // Tjek brugerens rolle
+        if (employee.getRole() == Role.PROJECTLEADER) {    // Tjek brugerens rolle
             return "redirect:/project-leader-overview"; //retuner til skabelonen
-        } else if (employee.getRole_id() == Role.WORKER) {
+        } else if (employee.getRole() == Role.WORKER) {
             return "redirect:/worker-overview";//ikke lavet endnu
         }
         throw new Errorhandling("no role found"); //
