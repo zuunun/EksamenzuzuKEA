@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-//@RequestMapping("/vedikke")
 public class ProjectController {
     private ProjectService projectService;
 
@@ -25,7 +24,7 @@ public class ProjectController {
     }
 
 
-    @GetMapping("/project-leader-overview")
+    @GetMapping("/project-leader-overview") //Zuhur
     public String showProjectLeaderOverview(HttpSession session, Model model) throws Errorhandling {
         Role userRole = (Role) session.getAttribute("userRole"); // Henter brugerens rolle fra sessionen
 
@@ -41,8 +40,24 @@ public class ProjectController {
         }
         throw new Errorhandling("error");
     }
+    @GetMapping("/project-leader-subproject-overview") //Amalie
+    public String showProjectLeaderSubprojectOverview(HttpSession session, Model model) throws Errorhandling {
+        Role userRole = (Role) session.getAttribute("userRole"); // Henter brugerens rolle fra sessionen
 
-    @GetMapping("/add-project")
+        if (userRole == Role.PROJECTLEADER) {
+            List<Project> projects = projectService.getAllProjects();//henter alle projekter fra service
+            List<Subproject> subprojects = projectService.getAllSubprojects();//henter subprojekter
+
+            //tilføjes til model så det kan vises i thyme
+            model.addAttribute("projects", projects);
+            model.addAttribute("subprojects", subprojects);
+
+            return "project-leader-subproject-overview";//returner view
+        }
+        throw new Errorhandling("error");
+    }
+
+    @GetMapping("/add-project") //Amalie
     public String addNewProject(HttpSession session, Model model) throws Errorhandling {
         Project project = new Project();
         Role userRole = (Role) session.getAttribute("userRole");  // Henter "userrole" fra sessionen.
@@ -57,7 +72,7 @@ public class ProjectController {
         throw new Errorhandling("cant add project");
     }
 
-    @PostMapping("/project-added")
+    @PostMapping("/project-added") //Amalie
     public String addedProject(@ModelAttribute Project project) throws Errorhandling {
         projectService.addProject(project);
         return "redirect:/project-leader-overview";

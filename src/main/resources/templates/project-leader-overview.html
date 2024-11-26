@@ -25,28 +25,11 @@
     </tr>
     </tbody>
 </table>
-
-<h2>Subprojects</h2>
-<table>
-    <thead>
     <tr>
-        <th>Subproject Name</th>
-        <th>Description</th>
-        <th>Parent Project ID</th>
+        <form action="/project-leader-subproject-overview" method="get">
+            <button type="submit">See subprojects</button>
+        </form>
     </tr>
-    </thead>
-    <tbody>
-    <tr th:each="subproject : ${subprojects}">
-        <td th:text="${subproject.subproject_name}"></td>
-        <td th:text="${subproject.subproject_description}"></td>
-        <td th:text="${subproject.project_id}"></td>
-        <td>
-            <a th:href="@{'/project-leader-tasks/' + ${subproject.project_id}}">View Tasks</a>
-
-        </td>
-    </tr>
-    </tbody>
-</table>
 <form action="/add-project" method="get">
     <button type="submit">Add project</button>
 </form>

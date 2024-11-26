@@ -20,7 +20,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public User signIn(String email, String password) throws Errorhandling {
+    public User signIn(String email, String password) throws Errorhandling { //Amalie
         User user = null;
         try {
             Connection con = ConnectionManager.getConnection();
