@@ -1,7 +1,6 @@
 package org.example.eksamenkea.service;
 
 import org.example.eksamenkea.model.User;
-import org.example.eksamenkea.repository.UserRepository;
 import org.example.eksamenkea.repository.interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
