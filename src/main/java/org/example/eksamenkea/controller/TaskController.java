@@ -22,15 +22,17 @@ public class TaskController {
 
     @GetMapping("/project-leader-tasks/{projectId}")
     public String getTasksForSpecificProject(@PathVariable int projectId, HttpSession session, Model model) throws Errorhandling {
-        Role userRole = (Role) session.getAttribute("userRole");
-        if (userRole != Role.PROJECTLEADER) {
-            return "error/error"; // Sørg for, at der er en skabelon i `templates/error/`
+        Role employeeRole = (Role) session.getAttribute("userRole");
+        if (employeeRole != Role.PROJECTLEADER) {
+            return "error/error";
         }
         List<Task> tasks = taskService.getTasksByProjectId(projectId);
         model.addAttribute("tasks", tasks);
         model.addAttribute("project_id", projectId);
-        return "project-leader-task-overview"; // Korrekt sti til skabelon
+        return "project-leader-task-overview";
     }
+
+
 
 
 

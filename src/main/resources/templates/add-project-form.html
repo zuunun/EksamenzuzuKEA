@@ -29,7 +29,7 @@
            th:field="*{budget}"
            placeholder="Enter your project's budget" />
     <br>
-    <input type="hidden" name="user_id" th:value="${userId}" />
+    <input type="hidden" name="employee_id" th:value="${project.employee_id}" />
     <!-- Feltet er skjult og bruges til at overføre brugerens ID fra sessionen -->
     <button type="submit">Submit</button>
 </form>

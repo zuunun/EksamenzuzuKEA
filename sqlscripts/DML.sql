@@ -1,45 +1,46 @@
--- Indsæt data i User tabellen
-INSERT INTO user (email, password, role_id)
+-- Indsæt data i Employee-tabellen
+INSERT INTO employee (email, password, role, employee_rate)
 VALUES
-    ('zuzu@zuzu.com', '1234', 'PROJECTLEADER'), -- Projektleder
-    ('ama', '123', 'PROJECTLEADER'), -- Projektleder
-    ('worker1@example.com', 'password123', 'WORKER'), -- Arbejder
-    ('worker2@example.com', 'password123', 'WORKER'); -- Arbejder
+    ('zuzu', '1234', 'PROJECTLEADER', 500),
+    ('ama', '123', 'PROJECTLEADER', 500),
+    ('worker1@example.com', 'password123', 'WORKER', 300),
+    ('worker2@example.com', 'password123', 'WORKER', 300);
 
--- Indsæt data i Project tabellen
-INSERT INTO project (project_name, budget, project_description, user_id)
+-- Indsæt data i Project-tabellen
+INSERT INTO project (project_name, budget, project_description, employee_id)
 VALUES
-    ('Website Development', 50000.00, 'Development of a new company website', 1), -- Projekt tilknyttet første projektleder
-    ('App Development', 75000.00, 'Development of a mobile app', 1); -- Projekt tilknyttet første projektleder
+    ('Project Alpha', 100000.00, 'Development of a new software', 1),
+    ('Project Beta', 75000.00, 'Improvement of existing product', 1),
+    ('Project Gamma', 50000.00, 'Research and development initiative', 2),
+    ('Project Delta', 120000.00, 'Infrastructure upgrade project', 2),
+    ('Project Epsilon', 85000.00, 'Marketing campaign launch', 1),
+    ('Project Zeta', 60000.00, 'Customer support system enhancement', 2);
 
--- Indsæt data i Subproject tabellen
+
+-- Indsæt data i Subproject-tabellen
 INSERT INTO subproject (subproject_name, subproject_description, project_id)
 VALUES
-    ('Frontend Development', 'Develop the user interface for the website', 1), -- Subprojekt til første projekt
-    ('Backend Development', 'Build the backend services for the website', 1), -- Subprojekt til første projekt
-    ('UI Design', 'Design the user interface for the app', 2); -- Subprojekt til andet projekt
+    ('Frontend Development', 'Building user interface for Alpha', 1),
+    ('Backend Development', 'Creating backend services for Alpha', 1),
+    ('Optimization', 'Enhancing features for Beta', 2);
 
--- Indsæt data i Task tabellen
-INSERT INTO task (task_name, startdate, enddate, status, subproject_id)
+-- Indsæt data i Task-tabellen
+INSERT INTO task (task_name, start_date, end_date, status, duration, subproject_id, employee_id)
 VALUES
-    ('Create Homepage', '2024-11-01', '2024-11-10', 'INPROGRESS', 1), -- Opgave under frontend-udvikling
-    ('Set Up Database', '2024-11-05', '2024-11-15', 'NOTSTARTED', 2), -- Opgave under backend-udvikling
-    ('Prototype App UI', '2024-11-02', '2024-11-12', 'COMPLETE', 3); -- Opgave under app-UI design
+    ('Create UI Components', '2024-11-01', '2024-11-15', 'INPROGRESS', 15, 1, 2),
+    ('Develop APIs', '2024-11-01', '2024-11-20', 'NOTSTARTED', 20, 2, 3),
+    ('Optimize Performance', '2024-11-01', '2024-11-10', 'COMPLETE', 10, 3, 2);
 
-
--- Indsæt data i WorkerTask tabellen
-INSERT INTO workertask (skills, rate, task_id, user_id)
+-- Indsæt data i Resource-tabellen
+INSERT INTO resource (material_hardware, task_id)
 VALUES
-    ('HTML, CSS, JavaScript', 300, 1, 3), -- Arbejder 1 arbejder på Create Homepage
-    ('SQL, Database Design', 350, 2, 4), -- Arbejder 2 arbejder på Set Up Database
-    ('Figma, Adobe XD', 400, 3, 3); -- Arbejder 1 arbejder på Prototype App UI
+    ('ReactJS Framework', 1),
+    ('Spring Boot Framework', 2),
+    ('Performance Monitoring Tool', 3);
 
--- Indsæt data i Resource tabellen
-INSERT INTO resource (materialhardware, costrate, task_id)
+-- Indsæt data i Resource_Task-tabellen
+INSERT INTO resource_task (resource_id, task_id)
 VALUES
-    ('Server Hosting', 100.00, 1), -- Ressource tilknyttet Create Homepage
-    ('Design Software License', 50.00, 2), -- Ressource tilknyttet Set Up Database
-    ('Cloud Storage', 75.00, 3); -- Ressource tilknyttet Prototype App UI
-
-
-
+    (1, 1),
+    (2, 2),
+    (3, 3);

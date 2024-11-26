@@ -1,20 +1,19 @@
 package org.example.eksamenkea.model;
 
-import java.time.LocalDate;
 
 public class Project {
     private int project_id;
     private String project_name;
     private double budget;
     private String project_description;
-    private int user_id;
+    private int employee_id;
 
-    public Project(int project_id, String project_name, double budget, String project_description, int user_id) {
+    public Project(int project_id, String project_name, double budget, String project_description, int employee_id) {
         this.project_id = project_id;
         this.project_name = project_name;
         this.budget = budget;
         this.project_description = project_description;
-        this.user_id = user_id;
+        this.employee_id = employee_id;
     }
 
     public Project() {
@@ -52,12 +51,12 @@ public class Project {
         this.project_description = project_description;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getEmployee_id() {
+        return employee_id;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setEmployee_id(int employee_id) {
+        this.employee_id = employee_id;
     }
 
     @Override
@@ -67,7 +66,7 @@ public class Project {
                 ", project_name='" + project_name + '\'' +
                 ", budget=" + budget +
                 ", project_description='" + project_description + '\'' +
-                ", user_id=" + user_id +
+                ", employee_id=" + employee_id +
                 '}';
     }
 }
