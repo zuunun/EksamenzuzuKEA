@@ -14,37 +14,37 @@ import java.util.List;
 @Repository
 public class TaskRepository implements ITaskRepository {
 
-
     // Hent tasks for et specifikt projekt
     public List<Task> getTasksByProjectId(int projectId) throws Errorhandling {
         List<Task> tasks = new ArrayList<>();
-        String query = "SELECT t.task_id, t.task_name, t.startdate, t.enddate, t.duration, t.status, sp.subproject_id, t. " +
+        String query = "SELECT t.task_id, t.task_name, t.start_date, t.end_date, t.duration, t.status, t.subproject_id, t.employee_id " +
                 "FROM task t " +
                 "JOIN subproject sp ON sp.subproject_id = t.subproject_id " +
                 "WHERE sp.project_id = ?";
 
-        try {
-            Connection con = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = con.prepareStatement(query);
+        try (Connection con = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
+
             preparedStatement.setInt(1, projectId);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                tasks.add(new Task(resultSet.getInt("task_id"),
-                        resultSet.getString("task_name"),
-                        resultSet.getDate("startdate").toLocalDate(),
-                        resultSet.getDate("enddate").toLocalDate(),
-                        Status.valueOf(resultSet.getString("status").toUpperCase()),
-                        resultSet.getInt("duration"),
-                        resultSet.getInt("subproject_id"),
-                        resultSet.getInt("employee_id")));
-
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    tasks.add(new Task(
+                            resultSet.getInt("task_id"),
+                            resultSet.getString("task_name"),
+                            resultSet.getDate("start_date") != null ? resultSet.getDate("start_date").toLocalDate() : null,
+                            resultSet.getDate("end_date") != null ? resultSet.getDate("end_date").toLocalDate() : null,
+                            Status.valueOf(resultSet.getString("status").toUpperCase()),
+                            resultSet.getInt("duration"),
+                            resultSet.getInt("subproject_id"),
+                            resultSet.getInt("employee_id")
+                    ));
+                }
             }
-
-            return tasks;
         } catch (SQLException e) {
-            throw new Errorhandling("error");
+            throw new Errorhandling("Failed to fetch tasks for project ID " + projectId + ": " + e.getMessage());
         }
+
+        return tasks;
     }
 }
