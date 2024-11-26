@@ -1,6 +1,6 @@
 package org.example.eksamenkea.service;
 
-import org.example.eksamenkea.model.User;
+import org.example.eksamenkea.model.Employee;
 import org.example.eksamenkea.repository.interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -15,7 +15,7 @@ public class UserService  {
     }
 
     //Sign in
-    public User signIn(String email, String password) throws Errorhandling{
+    public Employee signIn(String email, String password) throws Errorhandling{
         return iuserRepository.signIn(email, password);
     }
 }

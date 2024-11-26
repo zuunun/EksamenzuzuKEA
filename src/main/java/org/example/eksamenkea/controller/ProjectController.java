@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import org.example.eksamenkea.model.Project;
 import org.example.eksamenkea.model.Role;
 import org.example.eksamenkea.model.Subproject;
-import org.example.eksamenkea.model.User;
+import org.example.eksamenkea.model.Employee;
 import org.example.eksamenkea.service.Errorhandling;
 import org.example.eksamenkea.service.ProjectService;
 import org.springframework.stereotype.Controller;
@@ -61,7 +61,7 @@ public class ProjectController {
     public String addNewProject(HttpSession session, Model model) throws Errorhandling {
         Project project = new Project();
         Role userRole = (Role) session.getAttribute("userRole");  // Henter "userrole" fra sessionen.
-        User user = (User) session.getAttribute("user");  // Henter "user" fra sessionen.
+        Employee user = (Employee) session.getAttribute("user");  // Henter "user" fra sessionen.
         System.out.println("User ID fra session: " + user.getUser_id());
 
         if (userRole == Role.PROJECTLEADER) {

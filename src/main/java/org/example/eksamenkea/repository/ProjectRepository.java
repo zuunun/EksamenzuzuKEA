@@ -2,7 +2,6 @@ package org.example.eksamenkea.repository;
 
 import org.example.eksamenkea.model.Project;
 import org.example.eksamenkea.model.Subproject;
-import org.example.eksamenkea.model.User;
 import org.example.eksamenkea.repository.interfaces.IProjectRepository;
 import org.example.eksamenkea.service.Errorhandling;
 import org.example.eksamenkea.util.ConnectionManager;
@@ -40,6 +39,7 @@ public class ProjectRepository implements IProjectRepository {
     }
 
 
+
     public List<Subproject> getAllSubprojects() throws Errorhandling {
         List<Subproject> subprojects = new ArrayList<>();
         String query = "SELECT * FROM subproject";
@@ -48,6 +48,7 @@ public class ProjectRepository implements IProjectRepository {
             Connection con = ConnectionManager.getConnection();
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
+
 
             while (resultSet.next()) {
                 subprojects.add(new Subproject(
@@ -66,19 +67,43 @@ public class ProjectRepository implements IProjectRepository {
     public void addProject(Project project) throws Errorhandling { //Amalie
         System.out.println(project.getUser_id()); //test
         String sqlAddProject = "INSERT INTO project(project_name, budget, project_description, user_id) VALUES (?,?,?,?)";
-        try{
+        try {
             Connection con = ConnectionManager.getConnection();
             PreparedStatement statement = con.prepareStatement(sqlAddProject);
             statement.setString(1, project.getProject_name());
             statement.setDouble(2, project.getBudget());
             statement.setString(3, project.getProject_description());
             statement.setInt(4, project.getUser_id());
-
-            statement.executeUpdate(); //bruger excecuteupdate da vi indsætter
-
-        }catch (SQLException e) {
-            throw new Errorhandling("failed to add project");
+        } catch (SQLException e) {
+            throw new Errorhandling("Failed to add project: " + e.getMessage());
         }
     }
 
-}
+            public Project getWorkerProjectFromUserId ( int userId) throws Errorhandling {
+                Project project = null;
+                String query = "SELECT project_id, project_name, budget, project_description, user_id FROM project WHERE user_id = ?";
+
+                try (Connection con = ConnectionManager.getConnection();
+                     PreparedStatement preparedStatement = con.prepareStatement(query)) {
+
+                    preparedStatement.setInt(1, userId);
+
+                    try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                        if (resultSet.next()) {
+                            project = new Project(
+                                    resultSet.getInt("project_id"),
+                                    resultSet.getString("project_name"),
+                                    resultSet.getDouble("budget"),
+                                    resultSet.getString("project_description"),
+                                    resultSet.getInt("user_id")
+                            );
+                        }
+                    }
+                } catch (SQLException e) {
+                    throw new Errorhandling("Failed to fetch project for user ID " + userId + ": " + e.getMessage());
+                }
+                return project;
+            }
+
+        }
+

@@ -2,7 +2,7 @@ package org.example.eksamenkea;
 
 import org.example.eksamenkea.controller.UserController;
 import org.example.eksamenkea.model.Role;
-import org.example.eksamenkea.model.User;
+import org.example.eksamenkea.model.Employee;
 import org.example.eksamenkea.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class UserControllerTests {
     public void testHomePage_UserLoggedIn() throws Exception { //Amalie
         // Simuler session med en bruger
         mockMvc.perform(get("/")
-                        .sessionAttr("user", new User(1, "test@example.com", "password", Role.WORKER)))
+                        .sessionAttr("user", new Employee(1, "test@example.com", "password", Role.WORKER)))
                 .andExpect(status().isOk())
                 .andExpect(view().name("homepage"))
                 .andExpect(model().attribute("userAvaliable", true))

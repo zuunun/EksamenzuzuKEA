@@ -1,7 +1,7 @@
 package org.example.eksamenkea.controller;
 import jakarta.servlet.http.HttpSession;
 import org.example.eksamenkea.model.Role;
-import org.example.eksamenkea.model.User;
+import org.example.eksamenkea.model.Employee;
 import org.example.eksamenkea.service.Errorhandling;
 import org.example.eksamenkea.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -36,7 +36,7 @@ public class UserController {
 
     @PostMapping("/validate_login") //Amalie
     public String validateLogin(HttpSession session, @RequestParam String email, @RequestParam String password) throws Errorhandling {
-        User user = userService.signIn(email, password); //metodekald til userrepository
+        Employee user = userService.signIn(email, password); //metodekald til userrepository
         if (user != null) {
             //Koden er designet til at håndtere sessioner og brugerroller.
             // Brugerens rolle og ID gemmes i sessionen og bruges til at vise relevante
@@ -51,7 +51,7 @@ public class UserController {
 
     @GetMapping("/logged_in") //Amalie
     public String loggedIn(HttpSession session, Model model) throws Exception {
-        User user = (User) session.getAttribute("user");  // Henter "user" fra sessionen.
+        Employee user = (Employee) session.getAttribute("user");  // Henter "user" fra sessionen.
 
         if (user == null) {
             return "redirect:/login"; // Hvis ikke logget ind, send til login

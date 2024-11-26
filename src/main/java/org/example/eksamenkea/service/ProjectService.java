@@ -2,11 +2,9 @@ package org.example.eksamenkea.service;
 
 import org.example.eksamenkea.model.Project;
 import org.example.eksamenkea.model.Subproject;
-import org.example.eksamenkea.model.User;
 import org.example.eksamenkea.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Service

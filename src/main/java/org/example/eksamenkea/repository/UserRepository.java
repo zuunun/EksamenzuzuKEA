@@ -1,7 +1,7 @@
 package org.example.eksamenkea.repository;
 
 import org.example.eksamenkea.model.Role;
-import org.example.eksamenkea.model.User;
+import org.example.eksamenkea.model.Employee;
 import org.example.eksamenkea.repository.interfaces.IUserRepository;
 import org.example.eksamenkea.service.Errorhandling;
 import org.example.eksamenkea.util.ConnectionManager;
@@ -20,8 +20,8 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public User signIn(String email, String password) throws Errorhandling { //Amalie
-        User user = null;
+    public Employee signIn(String email, String password) throws Errorhandling { //Amalie
+        Employee user = null;
         try {
             Connection con = ConnectionManager.getConnection();
             String SQLUser = "SELECT * FROM user WHERE email = ? AND password = ?;";
@@ -33,7 +33,7 @@ public class UserRepository implements IUserRepository {
                 int user_id = resultSet.getInt("user_id");
                 String roleStr = resultSet.getString("role_id"); //da role er enum hentes ind som string
                 Role role_id = Role.valueOf(roleStr);
-                user = new User(user_id, email, password, role_id);
+                user = new Employee(user_id, email, password, role_id);
             }
 
         } catch (SQLException e) {
