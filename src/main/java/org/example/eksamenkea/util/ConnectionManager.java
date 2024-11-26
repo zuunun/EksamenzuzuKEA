@@ -1,10 +1,9 @@
 package org.example.eksamenkea.util;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionManager {
+public class ConnectionManager { //Amalie
         private static Connection conn;
 
         private ConnectionManager() {// Private constructor to prevent instantiation

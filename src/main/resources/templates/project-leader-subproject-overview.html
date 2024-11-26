@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<link th:href="@{/main.css}" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Project Leader Overview</h1>
+
+<h2>Projects</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Project Name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!--  <td th:text="${project.project_name}"></td> skal laves om til den enkelte projekts navn-->
+  </tbody>
+</table>
+
+<h2>Subprojects</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Subproject Name</th>
+    <th>Description</th>
+    <th>Parent Project ID</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="subproject : ${subprojects}">
+    <td th:text="${subproject.subproject_name}"></td>
+    <td th:text="${subproject.subproject_description}"></td>
+    <td th:text="${subproject.project_id}"></td>
+    <td>
+      <a th:href="@{'/project-leader-tasks/' + ${subproject.project_id}}">View Tasks</a>
+
+    </td>
+  </tr>
+  </tbody>
+</table>
+<form action="/add-project" method="get"><!--rettes-->
+  <button type="submit">Add subproject</button>
+</form>
+<form action="/logout" method="get">
+  <button type="submit">Log out</button>
+</form>
+
+</body>
+</html>

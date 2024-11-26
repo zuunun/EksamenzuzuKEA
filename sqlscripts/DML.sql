@@ -1,11 +1,12 @@
 -- Indsæt data i User tabellen
 INSERT INTO user (email, password, role_id)
+
 VALUES ('zuzu@zuzu.com', '1234', 'PROJECTLEADER'),       -- Projektleder
        ('amalie@example.com', '123', 'PROJECTLEADER'),   -- Projektleder
        ('worker1@example.com', 'password123', 'WORKER'), -- Arbejder
        ('worker2@example.com', 'password123', 'WORKER'),
-       ('asd', '123', 'WORKER');
--- Arbejder
+       ('asd', '123', 'WORKER'); -- Arbejder
+
 
 -- Indsæt data i Project tabellen
 INSERT INTO project (project_name, budget, project_description, user_id)

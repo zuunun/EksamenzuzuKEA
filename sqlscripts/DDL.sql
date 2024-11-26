@@ -15,7 +15,7 @@ CREATE TABLE user (
 CREATE TABLE project (
                          project_id INT AUTO_INCREMENT PRIMARY KEY,
                          project_name VARCHAR(255) NOT NULL,
-                         budget DECIMAL(10, 2) NOT NULL,
+                         budget double NOT NULL,
                          project_description VARCHAR(255) NOT NULL,
                          user_id INT, -- Reference til user_id fra User tabellen (projektlederen)
                          FOREIGN KEY (user_id) REFERENCES user(user_id)
