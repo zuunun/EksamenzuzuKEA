@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Project Leader Overview over Subprojects</h1>
+<h1>Project Leader Overview over Subpro</h1>
 
 <h2>Projects</h2>
 <table>
@@ -16,7 +16,7 @@
   </tr>
   </thead>
   <tbody>
-  <!--  <td th:text="${project.project_name}"></td> skal laves om til den enkelte projekts navn-->
+  <td th:text="*{projectName}"></td>
   </tbody>
 </table>
 
@@ -47,6 +47,6 @@
 <form action="/logout" method="get">
   <button type="submit">Log out</button>
 </form>
-
+<a th:href="@{'/project-leader-overview'}" class="btn">Back to Project Overview</a>
 </body>
 </html>

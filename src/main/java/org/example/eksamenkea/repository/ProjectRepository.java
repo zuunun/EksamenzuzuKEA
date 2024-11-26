@@ -45,17 +45,16 @@ public class ProjectRepository implements IProjectRepository {
 
     }
 
-
-
-    public List<Subproject> getAllSubprojects() throws Errorhandling {
+    public List<Subproject> getSubjectsByProjectId(int projectId) throws Errorhandling {
         List<Subproject> subprojects = new ArrayList<>();
-        String query = "SELECT * FROM subproject";
+        String query = "SELECT * FROM subproject WHERE project_id = ?";
 
-        try {
-            Connection con = ConnectionManager.getConnection();
-            Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+        try (Connection con = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
+            preparedStatement.setInt(1, projectId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 subprojects.add(new Subproject(
@@ -67,9 +66,12 @@ public class ProjectRepository implements IProjectRepository {
             }
             return subprojects;
         } catch (SQLException e) {
-            throw new Errorhandling("failed to get all subprojects ");
+            throw new Errorhandling("");
         }
     }
+
+   
+
 
     public void addProject(Project project) throws Errorhandling { //Amalie
         System.out.println(project.getEmployee_id()); //test

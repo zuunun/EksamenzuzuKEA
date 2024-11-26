@@ -21,10 +21,14 @@ public class ProjectService {
 
     }
 
-    public List<Subproject> getAllSubprojects() throws Errorhandling {
-        return projectRepository.getAllSubprojects();
+
+
+
+    public List<Subproject> getSubjectsByProjectId(int projectId) throws Errorhandling {
+        return projectRepository.getSubjectsByProjectId(projectId);
     }
-    public void addProject(Project project) throws Errorhandling {
+
+        public void addProject(Project project) throws Errorhandling {
          projectRepository.addProject(project);
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -40,14 +41,16 @@ public class ProjectController {
 
 
     @GetMapping("/project-leader-subproject-overview") //Amalie
-    public String showProjectLeaderSubprojectOverview(HttpSession session, Model model) throws Errorhandling {
+    public String showProjectLeaderSubprojectOverview(@RequestParam("projectId") int projectId, @RequestParam("projectName") String projectName, HttpSession session, Model model) throws Errorhandling {
         Role employeeRole = (Role) session.getAttribute("userRole"); // Henter brugerens rolle fra sessionen
         Employee employee = (Employee) session.getAttribute("employee");
 
         if (employeeRole == Role.PROJECTLEADER) {
-            List<Subproject> subprojects = projectService.getSubjectsByProjectId(employee.getEmployee_id());//henter subprojekter by projectid
+            //String name = projectService.getProjectByProjectName;
+            List<Subproject> subprojects = projectService.getSubjectsByProjectId(projectId);//HENT MED DIT PROJECTID
 
             model.addAttribute("subprojects", subprojects);
+            model.addAttribute("projectName", projectName);
 
             return "project-leader-subproject-overview";//returner view
         }

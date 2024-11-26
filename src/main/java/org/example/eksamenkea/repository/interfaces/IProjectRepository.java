@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface IProjectRepository {
 
-    List<Subproject> getAllSubprojects() throws Errorhandling;
 
     public void addProject(Project project) throws Errorhandling;
+
+    public List<Subproject> getSubjectsByProjectId(int projectId) throws Errorhandling;
+
 }
