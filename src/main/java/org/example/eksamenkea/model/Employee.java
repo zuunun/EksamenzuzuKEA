@@ -4,10 +4,10 @@ public class Employee {
     private int employee_id;
     private String email; //fungerer som username
     private String password;
-    Boolean role_id;
+    Role role_id;
 
-    public Employee(int user_id, String email, String password, Boolean role_id) {
-       this.employee_id = employee_id;
+    public Employee(int user_id, String email, String password, Role role_id) {
+        this.employee_id = employee_id;
         this.email = email;
         this.password = password;
         this.role_id = role_id;
@@ -37,11 +37,11 @@ public class Employee {
         this.password = password;
     }
 
-    public Boolean getRole_id() {
+    public Role getRole_id() {
         return role_id;
     }
 
-    public void setRole_id(Boolean role_id) {
+    public void setRole_id(Role role_id) {
         this.role_id = role_id;
     }
 
