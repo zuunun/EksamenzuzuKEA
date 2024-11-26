@@ -25,14 +25,16 @@
         <td th:text="${project.project_name}"></td>
         <td th:text="${project.budget}"></td>
         <td th:text="${project.project_description}"></td>
-    </tr>
-    </tbody>
-</table>
-    <tr>
+    <td>
         <form action="/project-leader-subproject-overview" method="get">
             <button type="submit">See subprojects</button>
         </form>
+    </td>
     </tr>
+
+    </tbody>
+</table>
+
 <form action="/add-project" method="get">
     <button type="submit">Add project</button>
 </form>

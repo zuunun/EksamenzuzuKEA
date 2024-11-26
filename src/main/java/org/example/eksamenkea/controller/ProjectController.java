@@ -45,11 +45,8 @@ public class ProjectController {
         Employee employee = (Employee) session.getAttribute("employee");
 
         if (employeeRole == Role.PROJECTLEADER) {
-            List<Project> projects = projectService.getAllProjectsByEmployeeId(employee.getEmployee_id());//henter alle projekter fra service
             List<Subproject> subprojects = projectService.getSubjectsByProjectId(employee.getEmployee_id());//henter subprojekter by projectid
 
-            //tilføjes til model så det kan vises i thyme
-            model.addAttribute("projects", projects);
             model.addAttribute("subprojects", subprojects);
 
             return "project-leader-subproject-overview";//returner view

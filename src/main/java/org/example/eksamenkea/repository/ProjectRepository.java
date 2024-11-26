@@ -15,12 +15,11 @@ import java.util.List;
 public class ProjectRepository implements IProjectRepository {
 
 
-
-    public List<Project> getProjectsByEmployeeId(int employeeId) throws Errorhandling{
+    public List<Project> getProjectsByEmployeeId(int employeeId) throws Errorhandling {
         List<Project> projects = new ArrayList<>();
-        String query ="SELECT * FROM project WHERE employee_id = ?";
+        String query = "SELECT * FROM project WHERE employee_id = ?";
 
-        try{
+        try {
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, employeeId);
@@ -42,7 +41,6 @@ public class ProjectRepository implements IProjectRepository {
             throw new Errorhandling("failed to get project by employee id ");
 
         }
-
 
 
     }
@@ -88,31 +86,31 @@ public class ProjectRepository implements IProjectRepository {
         }
     }
 
-            public Project getWorkerProjectFromEmployeeId ( int employeeId) throws Errorhandling {
-                Project project = null;
-                String query = "SELECT project_id, project_name, budget, project_description, employee_id FROM project WHERE employee_id = ?";
+    public Project getWorkerProjectFromEmployeeId(int employeeId) throws Errorhandling {
+        Project project = null;
+        String query = "SELECT project_id, project_name, budget, project_description, employee_id FROM project WHERE employee_id = ?";
 
-                try (Connection con = ConnectionManager.getConnection();
-                     PreparedStatement preparedStatement = con.prepareStatement(query)) {
+        try (Connection con = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
-                    preparedStatement.setInt(1, employeeId);
+            preparedStatement.setInt(1, employeeId);
 
-                    try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                        if (resultSet.next()) {
-                            project = new Project(
-                                    resultSet.getInt("project_id"),
-                                    resultSet.getString("project_name"),
-                                    resultSet.getDouble("budget"),
-                                    resultSet.getString("project_description"),
-                                    resultSet.getInt("employee_id")
-                            );
-                        }
-                    }
-                } catch (SQLException e) {
-                    throw new Errorhandling("Failed to fetch project for user ID " + employeeId + ": " + e.getMessage());
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    project = new Project(
+                            resultSet.getInt("project_id"),
+                            resultSet.getString("project_name"),
+                            resultSet.getDouble("budget"),
+                            resultSet.getString("project_description"),
+                            resultSet.getInt("employee_id")
+                    );
                 }
-                return project;
             }
-
+        } catch (SQLException e) {
+            throw new Errorhandling("Failed to fetch project for user ID " + employeeId + ": " + e.getMessage());
         }
+        return project;
+    }
+
+}
 
