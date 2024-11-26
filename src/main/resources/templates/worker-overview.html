@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <link th:href="@{/main.css}" rel="stylesheet">
 <head>
-    <title>Project Leader Overview</title>
+    <title>Worker Overview</title>
     <link th:href="@{/main.css}" rel="stylesheet">
 </head>
 <body>
 <h1 th:text="${user.getEmail()}">Worker Overview</h1>
 
-<h2>Projects</h2>
+<h2>Project</h2>
 <table>
     <thead>
     <tr>
@@ -36,15 +36,6 @@
     </tr>
     </thead>
     <tbody>
-   <tr th:each="subproject : ${subprojects}">
-        <td th:text="${subproject.subproject_name}"></td>
-        <td th:text="${subproject.subproject_description}"></td>
-        <td th:text="${subproject.project_id}"></td>
-        <td>
-            <a th:href="@{'/worker-task/' + ${subproject.project_id}}">View Tasks</a>
-
-        </td>
-    </tr>
     </tbody>
 </table>
 <form action="/logout" method="get">

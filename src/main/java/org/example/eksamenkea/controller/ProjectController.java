@@ -30,11 +30,11 @@ public class ProjectController {
 
         if (userRole == Role.PROJECTLEADER) {
             List<Project> projects = projectService.getAllProjects();//henter alle projekter fra service
-            List<Subproject> subprojects = projectService.getAllSubprojects();//henter subprojekter
+            //List<Subproject> subprojects = projectService.getAllSubprojects();//henter subprojekter
 
             //tilføjes til model så det kan vises i thyme..
             model.addAttribute("projects", projects);
-            model.addAttribute("subprojects", subprojects);
+           // model.addAttribute("subprojects", subprojects);
 
             return "project-leader-overview";//returner view
         }
@@ -53,13 +53,13 @@ public class ProjectController {
         }
 
         Project project = projectService.getProjectByUserId(user.getUser_id());
-        List<Subproject> subprojects = projectService.getAllSubprojects();
+        //List<Subproject> subprojects = projectService.getAllSubprojects();
 
         //Task skal muligvis hentes fra taskcontroller
         //List<Task> tasks = taskService.getTasksByUserId(user.getUser_id());
 
         model.addAttribute("project", project);
-        model.addAttribute("subprojects", subprojects);
+        //model.addAttribute("subprojects", subprojects);
         model.addAttribute("user", user);
         //        model.addAttribute("tasks", tasks);
 
