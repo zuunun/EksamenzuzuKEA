@@ -16,7 +16,7 @@ public class ProjectRepository implements IProjectRepository {
 
     public List<Project> getAllProjects() throws Errorhandling {
         List<Project> projects = new ArrayList<>();
-        String query = "SELECT project_id, project_name, budget, project_description, user_id FROM project";
+        String query = "SELECT project_id, project_name, budget, project_description, employee_id FROM project";
 
         try {
             Connection con = ConnectionManager.getConnection();
@@ -65,7 +65,7 @@ public class ProjectRepository implements IProjectRepository {
     }
 
     public void addProject(Project project) throws Errorhandling { //Amalie
-        System.out.println(project.getUser_id()); //test
+        System.out.println(project.getEmployee_id()); //test
         String sqlAddProject = "INSERT INTO project(project_name, budget, project_description, user_id) VALUES (?,?,?,?)";
         try {
             Connection con = ConnectionManager.getConnection();
@@ -73,20 +73,20 @@ public class ProjectRepository implements IProjectRepository {
             statement.setString(1, project.getProject_name());
             statement.setDouble(2, project.getBudget());
             statement.setString(3, project.getProject_description());
-            statement.setInt(4, project.getUser_id());
+            statement.setInt(4, project.getEmployee_id());
         } catch (SQLException e) {
             throw new Errorhandling("Failed to add project: " + e.getMessage());
         }
     }
 
-            public Project getWorkerProjectFromUserId ( int userId) throws Errorhandling {
+            public Project getWorkerProjectFromUserId ( int employeeId) throws Errorhandling {
                 Project project = null;
-                String query = "SELECT project_id, project_name, budget, project_description, user_id FROM project WHERE user_id = ?";
+                String query = "SELECT project_id, project_name, budget, project_description, user_id FROM project WHERE employeeId = ?";
 
                 try (Connection con = ConnectionManager.getConnection();
                      PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
-                    preparedStatement.setInt(1, userId);
+                    preparedStatement.setInt(1, employeeId);
 
                     try (ResultSet resultSet = preparedStatement.executeQuery()) {
                         if (resultSet.next()) {
@@ -100,7 +100,7 @@ public class ProjectRepository implements IProjectRepository {
                         }
                     }
                 } catch (SQLException e) {
-                    throw new Errorhandling("Failed to fetch project for user ID " + userId + ": " + e.getMessage());
+                    throw new Errorhandling("Failed to fetch project for user ID " + employeeId + ": " + e.getMessage());
                 }
                 return project;
             }
