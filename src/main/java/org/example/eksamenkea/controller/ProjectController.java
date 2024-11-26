@@ -62,11 +62,11 @@ public class ProjectController {
         Project project = new Project();
         Role userRole = (Role) session.getAttribute("userRole");  // Henter "userrole" fra sessionen.
         Employee user = (Employee) session.getAttribute("user");  // Henter "user" fra sessionen.
-        System.out.println("User ID fra session: " + user.getUser_id());
+        System.out.println("User ID fra session: " + user.getEmployee_id());
 
         if (userRole == Role.PROJECTLEADER) {
             model.addAttribute("project", project);
-            model.addAttribute("userId", user.getUser_id());
+            model.addAttribute("userId", user.getEmployee_id());
             return "add-project-form";
         }
         throw new Errorhandling("cant add project");
