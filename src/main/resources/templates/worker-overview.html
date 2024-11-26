@@ -1,45 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link th:href="@{/main.css}" rel="stylesheet">
 <head>
-    <title>Worker Overview</title>
+    <title>Project Leader Overview</title>
     <link th:href="@{/main.css}" rel="stylesheet">
 </head>
 <body>
-<h1 th:text="${user.getEmail()}">Worker Overview</h1>
 
-<h2>Project</h2>
-<table>
-    <thead>
-    <tr>
-        <th>Project Name</th>
-        <th>Budget</th>
-        <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text="${project.getProject_name()}"></td>
-        <td th:text="${project.budget}"></td>
-        <td th:text="${project.project_description}"></td>
-    </tr>
-    </tbody>
-</table>
-
-<h2>Subprojects</h2>
-<table>
-    <thead>
-    <tr>
-        <th>Subproject Name</th>
-        <th>Description</th>
-        <th>Parent Project ID</th>
-    </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-<form action="/logout" method="get">
-    <button type="submit">Log out</button>
-</form>
 </body>
 </html>
