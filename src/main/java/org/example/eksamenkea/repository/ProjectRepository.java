@@ -70,15 +70,15 @@ public class ProjectRepository implements IProjectRepository {
     }
 
     public void addProject(Project project) throws Errorhandling { //Amalie
-        System.out.println(project.getUser_id()); //test
-        String sqlAddProject = "INSERT INTO project(project_name, budget, project_description, user_id) VALUES (?,?,?,?)";
+        System.out.println(project.getEmployee_id()); //test
+        String sqlAddProject = "INSERT INTO project(project_name, budget, project_description, employee_id) VALUES (?,?,?,?)";
         try {
             Connection con = ConnectionManager.getConnection();
             PreparedStatement statement = con.prepareStatement(sqlAddProject);
             statement.setString(1, project.getProject_name());
             statement.setDouble(2, project.getBudget());
             statement.setString(3, project.getProject_description());
-            statement.setInt(4, project.getUser_id());
+            statement.setInt(4, project.getEmployee_id());
         } catch (SQLException e) {
             throw new Errorhandling("Failed to add project: " + e.getMessage());
         }

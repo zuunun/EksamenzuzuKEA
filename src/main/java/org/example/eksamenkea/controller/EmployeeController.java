@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("")
 @Controller
-public class UserController {
+public class EmployeeController {
 
     private EmployeeService employeeService;
 
@@ -38,7 +38,7 @@ public class UserController {
 
     @PostMapping("/validate_login") //Amalie
     public String validateLogin(HttpSession session, @RequestParam String email, @RequestParam String password) throws Errorhandling {
-        Employee employee = employeeService.signIn(email, password); //metodekald til userrepository
+        Employee employee = employeeService.signIn(email, password); //metodekald til employeerepository
         if (employee != null) {
             //Koden er designet til at håndtere sessioner og brugerroller.
             // Brugerens rolle og ID gemmes i sessionen og bruges til at vise relevante

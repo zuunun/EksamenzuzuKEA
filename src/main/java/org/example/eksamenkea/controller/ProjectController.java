@@ -44,10 +44,11 @@ public class ProjectController {
 
     @GetMapping("/project-leader-subproject-overview") //Amalie
     public String showProjectLeaderSubprojectOverview(HttpSession session, Model model) throws Errorhandling {
-        Role userRole = (Role) session.getAttribute("userRole"); // Henter brugerens rolle fra sessionen
+        Role employeeRole = (Role) session.getAttribute("userRole"); // Henter brugerens rolle fra sessionen
+        Employee employee = (Employee) session.getAttribute("employee");
 
-        if (userRole == Role.PROJECTLEADER) {
-            List<Project> projects = projectService.getAllProjects();//henter alle projekter fra service
+        if (employeeRole == Role.PROJECTLEADER) {
+            List<Project> projects = projectService.getAllProjectsByEmployeeId(employee.getEmployee_id());//henter alle projekter fra service
             List<Subproject> subprojects = projectService.getAllSubprojects();//henter subprojekter
 
             //tilføjes til model så det kan vises i thyme
@@ -63,12 +64,12 @@ public class ProjectController {
     public String addNewProject(HttpSession session, Model model) throws Errorhandling {
         Project project = new Project();
         Role userRole = (Role) session.getAttribute("userRole");  // Henter "userrole" fra sessionen.
-        Employee user = (Employee) session.getAttribute("user");  // Henter "user" fra sessionen.
-        System.out.println("User ID fra session: " + user.getUser_id());
+        Employee employee = (Employee) session.getAttribute("user");  // Henter "user" fra sessionen.
+        System.out.println("User ID fra session: " + employee.getEmployee_id());
 
         if (userRole == Role.PROJECTLEADER) {
             model.addAttribute("project", project);
-            model.addAttribute("userId", user.getUser_id());
+            model.addAttribute("userId", employee.getEmployee_id());
             return "add-project-form";
         }
         throw new Errorhandling("cant add project");

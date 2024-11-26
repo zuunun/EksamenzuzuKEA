@@ -18,6 +18,9 @@
     </tr>
     </thead>
     <tbody>
+    <tr th:if="${#lists.isEmpty(projects)}">
+        <td colspan="3">No projects available.</td>
+    </tr>
     <tr th:each="project : ${projects}">
         <td th:text="${project.project_name}"></td>
         <td th:text="${project.budget}"></td>

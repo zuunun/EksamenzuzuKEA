@@ -15,8 +15,10 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    public List<Project> getAllProjects() throws Errorhandling {
-        return projectRepository.getAllProjects();
+
+    public List<Project> getAllProjectsByEmployeeId(int employeeId) throws Errorhandling {
+        return projectRepository.getProjectsByEmployeeId(employeeId);
+
     }
 
     public List<Subproject> getAllSubprojects() throws Errorhandling {

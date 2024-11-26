@@ -25,7 +25,7 @@ public class EmployeeRepository implements IEmployeeRepository {
         Employee employee = null;
         try {
             Connection con = ConnectionManager.getConnection();
-            String SQLUser = "SELECT * FROM user WHERE email = ? AND password = ?;";
+            String SQLUser = "SELECT * FROM employee WHERE email = ? AND password = ?;";
             PreparedStatement pstmt = con.prepareStatement(SQLUser); //brug af prepared stmt for at undgå sql injection
             pstmt.setString(1, email);
             pstmt.setString(2, password);
