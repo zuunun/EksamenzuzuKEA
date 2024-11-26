@@ -38,7 +38,7 @@ public class ProjectController {
         }
         throw new Errorhandling("User is not authorized to view this page.");
     }
-
+//sletmig
 
     @GetMapping("/project-leader-subproject-overview") //Amalie
     public String showProjectLeaderSubprojectOverview(@RequestParam("projectId") int projectId, @RequestParam("projectName") String projectName, HttpSession session, Model model) throws Errorhandling {
