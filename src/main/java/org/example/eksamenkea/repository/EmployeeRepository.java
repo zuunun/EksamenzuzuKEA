@@ -1,6 +1,7 @@
 package org.example.eksamenkea.repository;
 
 import org.example.eksamenkea.model.Employee;
+import org.example.eksamenkea.model.Role;
 import org.example.eksamenkea.repository.interfaces.IEmployeeRepository;
 import org.example.eksamenkea.service.Errorhandling;
 import org.example.eksamenkea.util.ConnectionManager;
@@ -16,7 +17,7 @@ public class EmployeeRepository implements IEmployeeRepository {
     //DB_USER=eksamenkea;DB_PASSWORD=Enstorko!;DB_URL=jdbc:mysql://eksamenkeasql.mysql.database.azure.com:3306
     //DB_USER=root;DB_PASSWORD=amalie;DB_URL=jdbc:mysql://localhost:3306/project_management
 
-    public Employeerepository() {
+    public EmployeeRepository() {
     }
 
     @Override
@@ -31,8 +32,9 @@ public class EmployeeRepository implements IEmployeeRepository {
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.next()) {
                 int employee_id = resultSet.getInt("employee_id");
-                Boolean role_id = resultSet.getBoolean("role_id");
-                employee = new Employee(employee_id, email, password, role_id);
+                String roleString = resultSet.getString("role_id");
+                Role role = Role.valueOf(roleString); // Konvertering fra String til ENUM
+                employee = new Employee(employee_id, email, password, role);
             }
 
         } catch (SQLException e) {

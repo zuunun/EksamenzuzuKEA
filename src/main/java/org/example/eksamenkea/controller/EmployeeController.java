@@ -1,10 +1,10 @@
 package org.example.eksamenkea.controller;
+
 import jakarta.servlet.http.HttpSession;
 import org.example.eksamenkea.model.Role;
 import org.example.eksamenkea.model.Employee;
 import org.example.eksamenkea.service.EmployeeService;
 import org.example.eksamenkea.service.Errorhandling;
-import org.example.eksamenkea.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ public class UserController {
 
     private EmployeeService employeeService;
 
-    public UserController(EmployeeService employeeService) { //konstruktor injection af userservice
+    public EmployeeController(EmployeeService employeeService) { //konstruktor injection af employeeservice
         this.employeeService = employeeService;
     }
 
@@ -23,6 +23,7 @@ public class UserController {
     public String login() {
         return "login"; //retunerer til login view
     }
+
     //håndterer GET-forespørgsler til"/"
     @GetMapping("/") //Amalie
     public String index(Model model, HttpSession session) {
@@ -43,7 +44,7 @@ public class UserController {
             // Brugerens rolle og ID gemmes i sessionen og bruges til at vise relevante
             // sider og udføre handlinger
             session.setAttribute("employee", employee); //gemmer brugeren i sessionen
-            session.setAttribute("userRole", employee.getRole_id()); // Tilføj denne linje
+            session.setAttribute("employeeRole", employee.getRole_id()); // Tilføj denne linje
             return "redirect:/logged_in";
         } else {
             throw new Errorhandling("Enter valid username and password");
@@ -57,10 +58,9 @@ public class UserController {
         if (employee == null) {
             return "redirect:/login"; // Hvis ikke logget ind, send til login
         }
-
-        if (employee.getRole_id()) {    // Tjek brugerens rolle
+        if (employee.getRole_id() == Role.PROJECTLEADER) {    // Tjek brugerens rolle
             return "redirect:/project-leader-overview"; //retuner til skabelonen
-        } else if (user.getRole_id() == Role.WORKER) {
+        } else if (employee.getRole_id() == Role.WORKER) {
             return "redirect:/worker-overview";//ikke lavet endnu
         }
         throw new Errorhandling("no role found"); //
