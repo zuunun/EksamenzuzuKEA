@@ -29,7 +29,7 @@ public class ProjectController {
         Role userRole = (Role) session.getAttribute("userRole"); // Henter brugerens rolle fra sessionen
 
         if (userRole == Role.PROJECTLEADER) {
-            List<Project> projects = projectService.getAllProjects();//henter alle projekter fra service
+            List<Project> projects = projectService.getAllProjectsByEmployeeId(employee.getEmployee_id());//henter alle projekter fra service
             List<Subproject> subprojects = projectService.getAllSubprojects();//henter subprojekter
 
             //tilføjes til model så det kan vises i thyme

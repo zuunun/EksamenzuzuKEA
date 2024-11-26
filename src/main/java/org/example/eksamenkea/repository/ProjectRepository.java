@@ -14,28 +14,32 @@ import java.util.List;
 @Repository
 public class ProjectRepository implements IProjectRepository {
 
-    public List<Project> getAllProjects() throws Errorhandling {
+
+    public List<Project> getProjectsByEmployeeId(int employeeId) throws Errorhandling{
         List<Project> projects = new ArrayList<>();
-        String query = "SELECT project_id, project_name, budget, project_description, user_id FROM project";
+        String query ="SELECT * FROM project WHERE employee_id = ?";
 
-        try {
-            Connection con = ConnectionManager.getConnection();
-            Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+        try{
+            Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-            while (resultSet.next()) {
+            ResultSet resultSet = preparedStatement.getResultSet();
+
+            if (resultSet.next()) {
                 projects.add(new Project(
                         resultSet.getInt("project_id"),
                         resultSet.getString("project_name"),
                         resultSet.getDouble("budget"),
                         resultSet.getString("project_description"),
-                        resultSet.getInt("user_id")
+                        resultSet.getInt("employee_id")
                 ));
+
             }
-            return projects;
         } catch (SQLException e) {
-            throw new Errorhandling("failed to get all projects");
+            throw new Errorhandling("failed to get project by employee id ");
+
         }
+        return projects;
     }
 
 
@@ -79,14 +83,14 @@ public class ProjectRepository implements IProjectRepository {
         }
     }
 
-            public Project getWorkerProjectFromUserId ( int userId) throws Errorhandling {
+            public Project getWorkerProjectFromEmployeeId ( int employeeId) throws Errorhandling {
                 Project project = null;
-                String query = "SELECT project_id, project_name, budget, project_description, user_id FROM project WHERE user_id = ?";
+                String query = "SELECT project_id, project_name, budget, project_description, employee_id FROM project WHERE employee_id = ?";
 
                 try (Connection con = ConnectionManager.getConnection();
                      PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
-                    preparedStatement.setInt(1, userId);
+                    preparedStatement.setInt(1, employeeId);
 
                     try (ResultSet resultSet = preparedStatement.executeQuery()) {
                         if (resultSet.next()) {
@@ -95,12 +99,12 @@ public class ProjectRepository implements IProjectRepository {
                                     resultSet.getString("project_name"),
                                     resultSet.getDouble("budget"),
                                     resultSet.getString("project_description"),
-                                    resultSet.getInt("user_id")
+                                    resultSet.getInt("employee_id")
                             );
                         }
                     }
                 } catch (SQLException e) {
-                    throw new Errorhandling("Failed to fetch project for user ID " + userId + ": " + e.getMessage());
+                    throw new Errorhandling("Failed to fetch project for user ID " + employeeId + ": " + e.getMessage());
                 }
                 return project;
             }
