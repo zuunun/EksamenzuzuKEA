@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface ITaskRepository {
 
-    List<Task> getTasksByProjectId(int projectId) throws Errorhandling;
+List<Task> getTasksByProjectId(int projectId) throws Errorhandling;
+    List<Task> getWorkerTasksFromUserId(int userId) throws Errorhandling;
 }

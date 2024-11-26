@@ -40,6 +40,7 @@ public class ProjectRepository implements IProjectRepository {
     }
 
 
+
     public List<Subproject> getAllSubprojects() throws Errorhandling {
         List<Subproject> subprojects = new ArrayList<>();
         String query = "SELECT * FROM subproject";
@@ -48,6 +49,7 @@ public class ProjectRepository implements IProjectRepository {
             Connection con = ConnectionManager.getConnection();
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
+
 
             while (resultSet.next()) {
                 subprojects.add(new Subproject(
@@ -74,11 +76,33 @@ public class ProjectRepository implements IProjectRepository {
             statement.setString(3, project.getProject_description());
             statement.setInt(4, project.getUser_id());
 
-            statement.executeUpdate(); //bruger excecuteupdate da vi indsætter
 
-        }catch (SQLException e) {
-            throw new Errorhandling("failed to add project");
+    public Project getWorkerProjectFromUserId(int userId) throws Errorhandling {
+        Project project = null;
+        String query = "SELECT project_id, project_name, budget, project_description, user_id FROM project WHERE user_id = ?";
+
+        try (Connection con = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, userId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    project = new Project(
+                            resultSet.getInt("project_id"),
+                            resultSet.getString("project_name"),
+                            resultSet.getDouble("budget"),
+                            resultSet.getString("project_description"),
+                            resultSet.getInt("user_id")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            throw new Errorhandling("Failed to fetch project for user ID " + userId + ": " + e.getMessage());
         }
+        return project;
+    }
+      
     }
 
 }

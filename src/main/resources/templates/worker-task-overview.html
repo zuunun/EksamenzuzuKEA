@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link th:href="@{/main.css}" rel="stylesheet">
+<head>
+  <title>Project Task Overview</title>
+  <link th:href="@{/main.css}" rel="stylesheet">
+</head>
+<body>
+<h1>Tasks for Project</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Task Name</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="task : ${tasks}">
+    <td th:text="${task.task_name}"></td>
+    <td th:text="${task.startdate}"></td>
+    <td th:text="${task.enddate}"></td>
+    <td th:text="${task.status}"></td>
+    <td>
+      <a th:href="@{'/mark-task-complete/' + ${task.task_id}}">Mark as Complete</a> |
+      <a th:href="@{'/comment-task/' + ${task.task_id}}">Comment</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a th:href="@{'/worker-overview'}" class="btn">Back to Project Overview</a>
+</body>
+</html>
