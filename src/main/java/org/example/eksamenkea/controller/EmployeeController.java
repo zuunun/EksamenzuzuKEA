@@ -44,7 +44,6 @@ public class EmployeeController {
             // Brugerens rolle og ID gemmes i sessionen og bruges til at vise relevante
             // sider og udføre handlinger
             session.setAttribute("employee", employee); //gemmer brugeren i sessionen
-            System.out.println("Employee saved to session: " + employee);
             session.setAttribute("userRole", employee.getRole()); // Tilføj denne linje
             return "redirect:/logged_in";
         } else {

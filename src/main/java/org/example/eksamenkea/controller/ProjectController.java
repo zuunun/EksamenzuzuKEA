@@ -38,7 +38,6 @@ public class ProjectController {
         }
         throw new Errorhandling("User is not authorized to view this page.");
     }
-//sletmig
 
     @GetMapping("/project-leader-subproject-overview") //Amalie
     public String showProjectLeaderSubprojectOverview(@RequestParam("projectId") int projectId, @RequestParam("projectName") String projectName, HttpSession session, Model model) throws Errorhandling {
@@ -61,12 +60,12 @@ public class ProjectController {
     public String addNewProject(HttpSession session, Model model) throws Errorhandling {
         Project project = new Project();
         Role userRole = (Role) session.getAttribute("userRole");  // Henter "userrole" fra sessionen.
-        Employee employee = (Employee) session.getAttribute("user");  // Henter "user" fra sessionen.
-        System.out.println("User ID fra session: " + employee.getEmployee_id());
+        Employee employee = (Employee) session.getAttribute("employee");  // Henter "user" fra sessionen.
+        System.out.println("Employee in session: " + session.getAttribute("employee"));
 
         if (userRole == Role.PROJECTLEADER) {
             model.addAttribute("project", project);
-            model.addAttribute("userId", employee.getEmployee_id());
+            model.addAttribute("employeeId", employee.getEmployee_id());
             return "add-project-form";
         }
         throw new Errorhandling("cant add project");
