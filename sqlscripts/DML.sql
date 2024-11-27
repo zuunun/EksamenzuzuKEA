@@ -18,9 +18,10 @@ INSERT INTO subproject (subproject_name, subproject_description, project_id) VAL
 
 -- Indsæt data i Task-tabellen
 INSERT INTO task (task_name, start_date, end_date, estimated_hours, status, actual_hours, subproject_id, employee_id) VALUES
-                                                                                                                          ('Task 1', '2024-11-01', '2024-11-05', 10, 'INPROGRESS', 5, 1, 2),
-                                                                                                                          ('Task 2', '2024-11-02', '2024-11-06', 20, 'NOTSTARTED', 0, 2, 3),
-                                                                                                                          ('Task 3', '2024-11-03', '2024-11-07', 15, 'COMPLETE', 15, 3, 2);
+                                                                                                                          ('Task 1', '2024-11-01', '2024-11-05', 10, 'INPROGRESS', 5, 1, 2), -- Duration: 4 dage
+                                                                                                                          ('Task 2', '2024-11-02', '2024-11-06', 20, 'NOTSTARTED', 0, 2, 3), -- Duration: 4 dage
+                                                                                                                          ('Task 3', '2024-11-03', '2024-11-07', 15, 'COMPLETE', 15, 3, 2); -- Duration: 4 dage
+
 
 
 -- Indsæt data i Employee_Task-tabellen

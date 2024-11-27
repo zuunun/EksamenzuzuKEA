@@ -40,6 +40,7 @@ CREATE TABLE task (
                       task_name VARCHAR(255) NOT NULL,
                       start_date DATE,
                       end_date DATE,
+                      duration INT AS (DATEDIFF(end_date, start_date)) STORED, -- Beregnet felt for varighed
                       estimated_hours INT DEFAULT 0, -- Standardværdi for estimerede timer
                       status ENUM('INPROGRESS', 'COMPLETE', 'OVERDUE', 'NOTSTARTED') DEFAULT 'NOTSTARTED', -- Status på opgaven
                       actual_hours INT DEFAULT 0, -- Standardværdi for faktiske timer

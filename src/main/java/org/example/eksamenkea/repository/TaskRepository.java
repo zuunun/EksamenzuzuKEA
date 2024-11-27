@@ -19,10 +19,13 @@ public class TaskRepository implements ITaskRepository {
 
     public List<Task> getTaskBySubprojectId(int subprojectId) throws Errorhandling {
         List<Task> tasks = new ArrayList<>();
-        String query = "SELECT t.task_id, t.task_name, t.start_date, t.end_date, t.status, t.subproject_id, et.employee_id, t.estimated_hours, t.actual_hours " +
+        String query = "SELECT t.task_id, t.task_name, t.start_date, t.end_date, " +
+                "DATEDIFF(t.end_date, t.start_date) AS duration, t.status, " +
+                "t.subproject_id, et.employee_id, t.estimated_hours, t.actual_hours " +
                 "FROM task t " +
                 "LEFT JOIN employee_task et ON t.task_id = et.task_id " +
                 "WHERE t.subproject_id = ?";
+
 
 
         try (Connection connection = ConnectionManager.getConnection();
@@ -38,7 +41,7 @@ public class TaskRepository implements ITaskRepository {
                             resultSet.getDate("start_date") != null ? resultSet.getDate("start_date").toLocalDate() : null,
                             resultSet.getDate("end_date") != null ? resultSet.getDate("end_date").toLocalDate() : null,
                             Status.valueOf(resultSet.getString("status").toUpperCase()),
-                            //resultSet.getInt("duration"),
+                            resultSet.getInt("duration"),
                             resultSet.getInt("subproject_id"),
                             resultSet.getObject("employee_id") != null ? resultSet.getInt("employee_id") : 0, // Returner 0 hvis employee_id er null
                             resultSet.getInt("estimated_hours"),
@@ -75,7 +78,7 @@ public class TaskRepository implements ITaskRepository {
                             resultSet.getDate("start_date") != null ? resultSet.getDate("start_date").toLocalDate() : null,
                             resultSet.getDate("end_date") != null ? resultSet.getDate("end_date").toLocalDate() : null,
                             Status.valueOf(resultSet.getString("status").toUpperCase()),
-                            //resultSet.getInt("duration"),
+                            resultSet.getInt("duration"),
                             resultSet.getInt("subproject_id"),
                             resultSet.getObject("employee_id") != null ? resultSet.getInt("employee_id") : 0,
                             resultSet.getInt("estimated_hours"),
