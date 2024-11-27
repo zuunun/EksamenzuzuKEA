@@ -1,39 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-<link th:href="@{/main.css}" rel="stylesheet">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add Project</title>
+    <link th:href="@{/main.css}" rel="stylesheet">
 </head>
 <body>
 <h1>Add Project</h1>
 <form th:action="@{/project-added}" th:object="${project}" method="post">
     <!-- Formularens action angiver endpoint "/project-added", hvor data sendes via POST -->
     <!-- Formularen er bundet til backend-objektet "project" -->
-    <label for="project_name">Project name:</label> <!--Skærmlæsere kan bruge etiketten til at beskrive inputfeltet for brugere med synshandicap.-->
+
+    <!-- Project Name -->
+    <label for="project_name">Project Name:</label>
     <input id="project_name" class="form-control"
            type="text"
            th:field="*{project_name}"
-           placeholder="Enter project name" />
+           placeholder="Enter project name" required />
     <br>
-    <label for="project_description">Description:</label>
-    <input id="project_description" class="form-control"
-           type="text"
-           th:field="*{project_description}" placeholder="Enter project description" />
-    <!-- Binder feltet til "project_description" i Project-objektet -->
 
+    <!-- Project Description -->
+    <label for="project_description">Description:</label>
+    <textarea id="project_description" class="form-control"
+              th:field="*{project_description}"
+              placeholder="Enter project description"
+              rows="4" required></textarea>
     <br>
+
+    <!-- Budget -->
     <label for="budget">Budget (in DKK):</label>
     <input id="budget" class="form-control"
            type="number"
            th:field="*{budget}"
-           placeholder="Enter your project's budget" />
+           placeholder="Enter your project's budget"
+           min="0" required />
     <br>
 
-    <input type="hidden" name="employee_id" th:value="${employeeId}" />
+    <!-- Material Cost -->
+    <label for="material_cost">Material Cost (in DKK):</label>
+    <input id="material_cost" class="form-control"
+           type="number"
+           th:field="*{material_cost}"
+           placeholder="Enter estimated material cost"
+           min="0" />
+    <br>
 
-    <!-- Feltet er skjult og bruges til at overføre brugerens ID fra sessionen -->
-    <button type="submit">Submit and add project</button>
+    <!-- Employee Cost -->
+    <label for="employee_cost">Employee Cost (in DKK):</label>
+    <input id="employee_cost" class="form-control"
+           type="number"
+           th:field="*{employee_cost}"
+           placeholder="Enter estimated employee cost"
+           min="0" />
+    <br>
+
+    <!-- Hidden Employee ID -->
+    <input type="hidden" name="employee_id" th:value="${employeeId}" />
+    <!-- Feltet bruges til at overføre projektlederens ID fra sessionen -->
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Submit and Add Project</button>
 </form>
+
 </body>
 </html>

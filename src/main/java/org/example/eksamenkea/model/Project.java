@@ -59,6 +59,22 @@ public class Project {
         this.employee_id = employee_id;
     }
 
+    public int getEmployee_cost() {
+        return employee_cost;
+    }
+
+    public void setEmployee_cost(int employee_cost) {
+        this.employee_cost = employee_cost;
+    }
+
+    public int getMaterial_cost() {
+        return material_cost;
+    }
+
+    public void setMaterial_cost(int material_cost) {
+        this.material_cost = material_cost;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
@@ -70,3 +86,4 @@ public class Project {
                 '}';
     }
 }
+
