@@ -35,9 +35,13 @@
     <td th:text="${subproject.subproject_description}"></td>
     <td th:text="${subproject.project_id}"></td>
     <td>
-      <a th:href="@{'/project-leader-tasks/' + ${subproject.project_id}}">View Tasks</a>
-
+      <form action="/project-leader-tasks" method="get">
+        <input type="hidden" name="subproject_id" th:value="${subproject.subproject_id}" />
+        <input type="hidden" name="subprojectName" th:value="${subproject.subproject_name}" />
+        <button type="submit">View Tasks</button>
+      </form>
     </td>
+
   </tr>
   </tbody>
 </table>

@@ -9,7 +9,8 @@ CREATE TABLE employee (
                           email VARCHAR(255) NOT NULL UNIQUE,
                           password VARCHAR(255) NOT NULL,
                           role ENUM('PROJECTLEADER', 'WORKER') DEFAULT 'WORKER', -- Role angiver typen af bruger
-                          employee_rate INT
+                          employee_rate INT DEFAULT 0, -- Angiv en standardværdi for lønsats
+                          max_hours INT DEFAULT 0      -- Angiv en standardværdi for maksimale timer
 );
 
 -- Opret Project tabel
@@ -19,6 +20,8 @@ CREATE TABLE project (
                          budget DECIMAL(10, 2) NOT NULL,
                          project_description VARCHAR(255) NOT NULL,
                          employee_id INT, -- Reference til employee_id fra Employee tabellen (projektlederen)
+                         material_cost DECIMAL(10, 2) DEFAULT 0.00, -- Materialeomkostninger med standardværdi
+                         employee_cost DECIMAL(10, 2) DEFAULT 0.00, -- Ansatteomkostninger med standardværdi
                          FOREIGN KEY (employee_id) REFERENCES employee(employee_id)
 );
 
@@ -37,27 +40,20 @@ CREATE TABLE task (
                       task_name VARCHAR(255) NOT NULL,
                       start_date DATE,
                       end_date DATE,
-                      status ENUM('INPROGRESS', 'COMPLETE', 'OVERDUE', 'NOTSTARTED') DEFAULT 'INPROGRESS', -- Status på opgaven
-                      duration INT,
+                      estimated_hours INT DEFAULT 0, -- Standardværdi for estimerede timer
+                      status ENUM('INPROGRESS', 'COMPLETE', 'OVERDUE', 'NOTSTARTED') DEFAULT 'NOTSTARTED', -- Status på opgaven
+                      actual_hours INT DEFAULT 0, -- Standardværdi for faktiske timer
                       subproject_id INT, -- Reference til subproject_id fra Subproject tabellen
+                      employee_id INT,   -- Reference til employee_id fra Employee tabellen
                       FOREIGN KEY (subproject_id) REFERENCES subproject(subproject_id),
-                      employee_id INT, -- Reference til employee_id fra Employee tabellen
                       FOREIGN KEY (employee_id) REFERENCES employee(employee_id)
 );
 
--- Opret Resource tabel (til at håndtere ressourcer for opgaver)
-CREATE TABLE resource (
-                          resource_id INT AUTO_INCREMENT PRIMARY KEY,
-                          material_hardware VARCHAR(255) NOT NULL, -- Ressourcens navn
-                          task_id INT, -- Reference til task_id fra Task tabellen
-                          FOREIGN KEY (task_id) REFERENCES task(task_id)
-);
-
--- Opret Ressource_Task tabel (til mange-til-mange forhold mellem Resource og Task)
-CREATE TABLE resource_task (
-                               resource_id INT,
-                               task_id INT,
-                               PRIMARY KEY (task_id, resource_id), -- Primær nøgle for mange-til-mange forhold
-                               FOREIGN KEY (task_id) REFERENCES task(task_id),
-                               FOREIGN KEY (resource_id) REFERENCES resource(resource_id)
+-- Opret Employee_Task tabel (til mange-til-mange forhold mellem Employee og Task)
+CREATE TABLE employee_task (
+                               employee_id INT NOT NULL,
+                               task_id INT NOT NULL,
+                               PRIMARY KEY (employee_id, task_id), -- Kombineret primær nøgle
+                               FOREIGN KEY (employee_id) REFERENCES employee(employee_id),
+                               FOREIGN KEY (task_id) REFERENCES task(task_id)
 );

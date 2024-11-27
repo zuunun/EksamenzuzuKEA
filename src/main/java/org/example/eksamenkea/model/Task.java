@@ -11,8 +11,12 @@ public class Task {
     private int duration;
     private int subproject_id; //FK
     private int employee_id; //FK
+    private int estimated_hours; // Antal forventede timer
+    private int actual_hours; // Antal faktiske timer brugt
 
-    public Task(int task_id, String task_name, LocalDate startdate, LocalDate enddate, Status status, int duration, int subproject_id, int employee_id) {
+
+    public Task(int task_id, String task_name, LocalDate startdate, LocalDate enddate, Status status, int duration,
+                int subproject_id, int employee_id, int estimated_hours, int actual_hours) {
         this.task_id = task_id;
         this.task_name = task_name;
         this.startdate = startdate;
@@ -21,7 +25,10 @@ public class Task {
         this.duration = duration;
         this.subproject_id = subproject_id;
         this.employee_id = employee_id;
+        this.estimated_hours = estimated_hours;
+        this.actual_hours = actual_hours;
     }
+
 
     public int getTask_id() {
         return task_id;
@@ -86,4 +93,38 @@ public class Task {
     public void setEmployee_id(int employee_id) {
         this.employee_id = employee_id;
     }
+
+    public int getEstimated_hours() {
+        return estimated_hours;
+    }
+
+    public void setEstimated_hours(int estimated_hours) {
+        this.estimated_hours = estimated_hours;
+    }
+
+    public int getActual_hours() {
+        return actual_hours;
+    }
+
+    public void setActual_hours(int actual_hours) {
+        this.actual_hours = actual_hours;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "task_id=" + task_id +
+                ", task_name='" + task_name + '\'' +
+                ", startdate=" + startdate +
+                ", enddate=" + enddate +
+                ", status=" + status +
+                ", duration=" + duration +
+                ", subproject_id=" + subproject_id +
+                ", employee_id=" + employee_id +
+                ", estimated_hours=" + estimated_hours +
+                ", actual_hours=" + actual_hours +
+                '}';
+    }
+
+
 }

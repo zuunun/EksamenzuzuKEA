@@ -26,18 +26,30 @@ public class ProjectController {
 
     @GetMapping("/project-leader-overview")
     public String showProjectLeaderOverview(HttpSession session, Model model) throws Errorhandling {
+        // Hent brugerens rolle og medarbejderdata fra sessionen
         Role userRole = (Role) session.getAttribute("userRole");
         Employee employee = (Employee) session.getAttribute("employee");
-        System.out.println("Employee in session: " + session.getAttribute("employee"));
-        System.out.println("UserRole in session: " + session.getAttribute("userRole"));
-        System.out.println(employee.getEmployee_id());
+
+        // Debugging
+        System.out.println("Employee in session: " + employee);
+        System.out.println("UserRole in session: " + userRole);
+
+        // Tjek om brugeren er en projektleder
         if (userRole == Role.PROJECTLEADER) {
+            // Hent projekter tilknyttet projektlederen
             List<Project> projects = projectService.getAllProjectsByEmployeeId(employee.getEmployee_id());
+
+            // Tilføj projekter til modellen, så de kan vises i HTML'en
             model.addAttribute("projects", projects);
+
+            // Returnér navnet på Thymeleaf-skabelonen
             return "project-leader-overview";
         }
+
+        // Kaster fejl, hvis brugeren ikke er autoriseret
         throw new Errorhandling("User is not authorized to view this page.");
     }
+
 
     @GetMapping("/project-leader-subproject-overview") //Amalie
     public String showProjectLeaderSubprojectOverview(@RequestParam("projectId") int projectId, @RequestParam("projectName") String projectName, HttpSession session, Model model) throws Errorhandling {
