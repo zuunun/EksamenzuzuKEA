@@ -7,28 +7,22 @@ public class Task {
     private String task_name;
     private LocalDate startdate;
     private LocalDate enddate;
-    Status status;
-    private int duration;
-    private int subproject_id; //FK
-    private int employee_id; //FK
+    private Status status;
+    private int subproject_id; // FK
     private int estimated_hours; // Antal forventede timer
     private int actual_hours; // Antal faktiske timer brugt
 
-
-    public Task(int task_id, String task_name, LocalDate startdate, LocalDate enddate, Status status,int duration,
-                int subproject_id, int employee_id, int estimated_hours, int actual_hours) {
+    public Task(int task_id, String task_name, LocalDate startdate, LocalDate enddate, Status status,
+                int subproject_id, int estimated_hours, int actual_hours) {
         this.task_id = task_id;
         this.task_name = task_name;
         this.startdate = startdate;
         this.enddate = enddate;
         this.status = status;
-        this.duration = duration;
         this.subproject_id = subproject_id;
-        this.employee_id = employee_id;
         this.estimated_hours = estimated_hours;
         this.actual_hours = actual_hours;
     }
-
 
     public int getTask_id() {
         return task_id;
@@ -70,28 +64,12 @@ public class Task {
         this.status = status;
     }
 
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
     public int getSubproject_id() {
         return subproject_id;
     }
 
     public void setSubproject_id(int subproject_id) {
         this.subproject_id = subproject_id;
-    }
-
-    public int getEmployee_id() {
-        return employee_id;
-    }
-
-    public void setEmployee_id(int employee_id) {
-        this.employee_id = employee_id;
     }
 
     public int getEstimated_hours() {
@@ -118,13 +96,9 @@ public class Task {
                 ", startdate=" + startdate +
                 ", enddate=" + enddate +
                 ", status=" + status +
-                ", duration=" + duration +
                 ", subproject_id=" + subproject_id +
-                ", employee_id=" + employee_id +
                 ", estimated_hours=" + estimated_hours +
                 ", actual_hours=" + actual_hours +
                 '}';
     }
-
-
 }
