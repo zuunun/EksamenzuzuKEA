@@ -12,7 +12,7 @@
 <table>
   <thead>
   <tr>
-    <th>Project Name</th>
+    <th>Belongs to project name:</th>
   </tr>
   </thead>
   <tbody>
@@ -47,6 +47,8 @@
 <form action="/logout" method="get">
   <button type="submit">Log out</button>
 </form>
-<a th:href="@{'/project-leader-overview'}" class="btn">Back to Project Overview</a>
+<form action="/project-leader-overview" method="get">
+  <button type="submit">Back to project overview</button>
+</form>
 </body>
 </html>

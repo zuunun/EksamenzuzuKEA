@@ -46,7 +46,7 @@ public class ProjectController {
 
         if (employeeRole == Role.PROJECTLEADER) {
             //String name = projectService.getProjectByProjectName;
-            List<Subproject> subprojects = projectService.getSubjectsByProjectId(projectId);//HENT MED DIT PROJECTID
+            List<Subproject> subprojects = projectService.getSubjectsByProjectId(projectId);//EVT EN METODE TIL AT HENTE PROJECTID getproject id where project name=
 
             model.addAttribute("subprojects", subprojects);
             model.addAttribute("projectName", projectName);
