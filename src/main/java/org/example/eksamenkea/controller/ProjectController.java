@@ -26,19 +26,30 @@ public class ProjectController {
 
     @GetMapping("/project-leader-overview")
     public String showProjectLeaderOverview(HttpSession session, Model model) throws Errorhandling {
+        // Hent brugerens rolle og medarbejderdata fra sessionen
         Role userRole = (Role) session.getAttribute("userRole");
         Employee employee = (Employee) session.getAttribute("employee");
-        System.out.println("Employee in session: " + session.getAttribute("employee"));
-        System.out.println("UserRole in session: " + session.getAttribute("userRole"));
-        System.out.println(employee.getEmployee_id());
+
+        // Debugging
+        System.out.println("Employee in session: " + employee);
+        System.out.println("UserRole in session: " + userRole);
+
+        // Tjek om brugeren er en projektleder
         if (userRole == Role.PROJECTLEADER) {
+            // Hent projekter tilknyttet projektlederen
             List<Project> projects = projectService.getAllProjectsByEmployeeId(employee.getEmployee_id());
+
+            // Tilføj projekter til modellen, så de kan vises i HTML'en
             model.addAttribute("projects", projects);
+
+            // Returnér navnet på Thymeleaf-skabelonen
             return "project-leader-overview";
         }
+
+        // Kaster fejl, hvis brugeren ikke er autoriseret
         throw new Errorhandling("User is not authorized to view this page.");
     }
-//sletmig
+
 
     @GetMapping("/project-leader-subproject-overview") //Amalie
     public String showProjectLeaderSubprojectOverview(@RequestParam("projectId") int projectId, @RequestParam("projectName") String projectName, HttpSession session, Model model) throws Errorhandling {
@@ -47,7 +58,7 @@ public class ProjectController {
 
         if (employeeRole == Role.PROJECTLEADER) {
             //String name = projectService.getProjectByProjectName;
-            List<Subproject> subprojects = projectService.getSubjectsByProjectId(projectId);//HENT MED DIT PROJECTID
+            List<Subproject> subprojects = projectService.getSubjectsByProjectId(projectId);//EVT EN METODE TIL AT HENTE PROJECTID getproject id where project name=
 
             model.addAttribute("subprojects", subprojects);
             model.addAttribute("projectName", projectName);
@@ -61,12 +72,12 @@ public class ProjectController {
     public String addNewProject(HttpSession session, Model model) throws Errorhandling {
         Project project = new Project();
         Role userRole = (Role) session.getAttribute("userRole");  // Henter "userrole" fra sessionen.
-        Employee employee = (Employee) session.getAttribute("user");  // Henter "user" fra sessionen.
-        System.out.println("User ID fra session: " + employee.getEmployee_id());
+        Employee employee = (Employee) session.getAttribute("employee");  // Henter "user" fra sessionen.
+        System.out.println("Employee in session: " + session.getAttribute("employee"));
 
         if (userRole == Role.PROJECTLEADER) {
             model.addAttribute("project", project);
-            model.addAttribute("userId", employee.getEmployee_id());
+            model.addAttribute("employeeId", employee.getEmployee_id());
             return "add-project-form";
         }
         throw new Errorhandling("cant add project");

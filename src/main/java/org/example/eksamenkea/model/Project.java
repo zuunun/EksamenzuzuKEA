@@ -7,18 +7,23 @@ public class Project {
     private double budget;
     private String project_description;
     private int employee_id;
+    private int material_cost;
+    private int employee_cost;
 
-    public Project(int project_id, String project_name, double budget, String project_description, int employee_id) {
+    public Project(int project_id, String project_name, double budget, String project_description, int employee_id, int material_cost, int employee_cost) {
         this.project_id = project_id;
         this.project_name = project_name;
         this.budget = budget;
         this.project_description = project_description;
         this.employee_id = employee_id;
+        this.material_cost = material_cost;
+        this.employee_cost = employee_cost;
     }
 
     public Project() {
 
     }
+
     public int getProject_id() {
         return project_id;
     }
@@ -59,6 +64,22 @@ public class Project {
         this.employee_id = employee_id;
     }
 
+    public int getEmployee_cost() {
+        return employee_cost;
+    }
+
+    public void setEmployee_cost(int employee_cost) {
+        this.employee_cost = employee_cost;
+    }
+
+    public int getMaterial_cost() {
+        return material_cost;
+    }
+
+    public void setMaterial_cost(int material_cost) {
+        this.material_cost = material_cost;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
@@ -70,3 +91,4 @@ public class Project {
                 '}';
     }
 }
+

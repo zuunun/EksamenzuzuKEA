@@ -14,37 +14,36 @@ import java.util.List;
 @Repository
 public class ProjectRepository implements IProjectRepository {
 
-
+    @Override
     public List<Project> getProjectsByEmployeeId(int employeeId) throws Errorhandling {
         List<Project> projects = new ArrayList<>();
         String query = "SELECT * FROM project WHERE employee_id = ?";
 
-        try {
-            Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
             preparedStatement.setInt(1, employeeId);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                projects.add(new Project(
-                        resultSet.getInt("project_id"),
-                        resultSet.getString("project_name"),
-                        resultSet.getDouble("budget"),
-                        resultSet.getString("project_description"),
-                        resultSet.getInt("employee_id")
-                ));
-
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    projects.add(new Project(
+                            resultSet.getInt("project_id"),
+                            resultSet.getString("project_name"),
+                            resultSet.getDouble("budget"),
+                            resultSet.getString("project_description"),
+                            resultSet.getInt("employee_id"),
+                            resultSet.getInt("material_cost"),
+                            resultSet.getInt("employee_cost")
+                    ));
+                }
             }
-            return projects;
         } catch (SQLException e) {
-            throw new Errorhandling("failed to get project by employee id ");
-
+            throw new Errorhandling("Failed to get projects by employee ID: " + e.getMessage());
         }
-
-
+        return projects;
     }
 
+    @Override
     public List<Subproject> getSubjectsByProjectId(int projectId) throws Errorhandling {
         List<Subproject> subprojects = new ArrayList<>();
         String query = "SELECT * FROM subproject WHERE project_id = ?";
@@ -54,43 +53,44 @@ public class ProjectRepository implements IProjectRepository {
 
             preparedStatement.setInt(1, projectId);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                subprojects.add(new Subproject(
-                        resultSet.getInt("subproject_id"),
-                        resultSet.getString("subproject_name"),
-                        resultSet.getString("subproject_description"),
-                        resultSet.getInt("project_id")
-                ));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    subprojects.add(new Subproject(
+                            resultSet.getInt("subproject_id"),
+                            resultSet.getString("subproject_name"),
+                            resultSet.getString("subproject_description"),
+                            resultSet.getInt("project_id")
+                    ));
+                }
             }
-            return subprojects;
         } catch (SQLException e) {
-            throw new Errorhandling("");
+            throw new Errorhandling("Failed to get subprojects by project ID: " + e.getMessage());
         }
+        return subprojects;
     }
 
-   
+    @Override
+    public void addProject(Project project) throws Errorhandling {
+        String sqlAddProject = "INSERT INTO project(project_name, budget, project_description, employee_id, material_cost, employee_cost) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection con = ConnectionManager.getConnection();
+             PreparedStatement statement = con.prepareStatement(sqlAddProject)) {
 
-
-    public void addProject(Project project) throws Errorhandling { //Amalie
-        System.out.println(project.getEmployee_id()); //test
-        String sqlAddProject = "INSERT INTO project(project_name, budget, project_description, employee_id) VALUES (?,?,?,?)";
-        try {
-            Connection con = ConnectionManager.getConnection();
-            PreparedStatement statement = con.prepareStatement(sqlAddProject);
             statement.setString(1, project.getProject_name());
             statement.setDouble(2, project.getBudget());
             statement.setString(3, project.getProject_description());
             statement.setInt(4, project.getEmployee_id());
+            statement.setDouble(5, project.getMaterial_cost()); // Rettet til double
+            statement.setDouble(6, project.getEmployee_cost()); // Rettet til double
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new Errorhandling("Failed to add project: " + e.getMessage());
         }
     }
 
+    @Override
     public Project getWorkerProjectFromEmployeeId(int employeeId) throws Errorhandling {
         Project project = null;
-        String query = "SELECT project_id, project_name, budget, project_description, employee_id FROM project WHERE employee_id = ?";
+        String query = "SELECT * FROM project WHERE employee_id = ?";
 
         try (Connection con = ConnectionManager.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
@@ -104,7 +104,9 @@ public class ProjectRepository implements IProjectRepository {
                             resultSet.getString("project_name"),
                             resultSet.getDouble("budget"),
                             resultSet.getString("project_description"),
-                            resultSet.getInt("employee_id")
+                            resultSet.getInt("employee_id"),
+                            resultSet.getInt("material_cost"), // Rettet til double
+                            resultSet.getInt("employee_cost") // Rettet til double
                     );
                 }
             }
@@ -113,6 +115,4 @@ public class ProjectRepository implements IProjectRepository {
         }
         return project;
     }
-
 }
-
