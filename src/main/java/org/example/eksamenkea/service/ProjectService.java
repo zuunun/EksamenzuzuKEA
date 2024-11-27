@@ -21,6 +21,9 @@ public class ProjectService {
 
     }
 
+    public String getProjectNameBySubprojectId(int subprojectId)throws Errorhandling {
+        return projectRepository.getProjectNameBySubprojectId(subprojectId);
+    }
 
 
 

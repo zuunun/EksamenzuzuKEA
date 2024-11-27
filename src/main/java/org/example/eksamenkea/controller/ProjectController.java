@@ -68,6 +68,7 @@ public class ProjectController {
         throw new Errorhandling("error");
     }
 
+
     @GetMapping("/add-project") //Amalie
     public String addNewProject(HttpSession session, Model model) throws Errorhandling {
         Project project = new Project();
