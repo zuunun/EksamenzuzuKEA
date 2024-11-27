@@ -43,32 +43,27 @@ public class ProjectRepository implements IProjectRepository {
         return projects;
     }
 
-    //getprojectnamebyprojectID og fjern //@RequestParam("projectId"
-    public String getProjectNameBySubprojectId(int subprojectId) throws Errorhandling {
-        String projectName = null;
-        String query = """
-            SELECT p.project_name
-            FROM project p
-            JOIN subproject sp ON sp.project_id = p.project_id
-            WHERE sp.subproject_id = ?
-        """;
+    public int getProjectIdByProjectName(String projectName) throws Errorhandling {
+        String query = "SELECT project_id FROM project WHERE project_name = ?";
 
         try (Connection connection = ConnectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setInt(1, subprojectId);
+            preparedStatement.setString(1, projectName);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    projectName = resultSet.getString("project_name");
+                    return resultSet.getInt("project_id");
+                } else {
+                    throw new Errorhandling("Project not found for name: " + projectName);
                 }
             }
         } catch (SQLException e) {
-            throw new Errorhandling("Failed to get project name by subproject ID: " + e.getMessage());
+            throw new Errorhandling("Failed to get project ID by project name: " + e.getMessage());
         }
-
-        return projectName;
     }
+
+
 
 
     @Override
