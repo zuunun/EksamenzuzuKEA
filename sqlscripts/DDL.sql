@@ -40,13 +40,11 @@ CREATE TABLE task (
                       task_name VARCHAR(255) NOT NULL,
                       start_date DATE,
                       end_date DATE,
-                      estimated_hours INT DEFAULT 0, -- Standardværdi for estimerede timer
-                      status ENUM('INPROGRESS', 'COMPLETE', 'OVERDUE', 'NOTSTARTED') DEFAULT 'NOTSTARTED', -- Status på opgaven
-                      actual_hours INT DEFAULT 0, -- Standardværdi for faktiske timer
+                      status ENUM('INPROGRESS', 'COMPLETE', 'OVERDUE', 'NOTSTARTED') DEFAULT 'NOTSTARTED',
+                      actual_hours INT DEFAULT 0,
+                      estimated_hours INT DEFAULT 0,
                       subproject_id INT, -- Reference til subproject_id fra Subproject tabellen
-                      employee_id INT,   -- Reference til employee_id fra Employee tabellen
-                      FOREIGN KEY (subproject_id) REFERENCES subproject(subproject_id),
-                      FOREIGN KEY (employee_id) REFERENCES employee(employee_id)
+                      FOREIGN KEY (subproject_id) REFERENCES subproject(subproject_id)
 );
 
 -- Opret Employee_Task tabel (til mange-til-mange forhold mellem Employee og Task)

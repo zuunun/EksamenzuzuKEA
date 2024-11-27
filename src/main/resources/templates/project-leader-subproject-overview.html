@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Project Leader Overview over Subpro</h1>
+<h1>Project Leader Overview over Subprojekt</h1>
 
 <h2>Projects</h2>
 <table>
@@ -26,14 +26,12 @@
   <tr>
     <th>Subproject Name</th>
     <th>Description</th>
-    <th>Parent Project ID</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="subproject : ${subprojects}">
     <td th:text="${subproject.subproject_name}"></td>
     <td th:text="${subproject.subproject_description}"></td>
-    <td th:text="${subproject.project_id}"></td>
     <td>
       <form action="/project-leader-tasks" method="get">
         <input type="hidden" name="subproject_id" th:value="${subproject.subproject_id}" />

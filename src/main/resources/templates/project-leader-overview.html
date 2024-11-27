@@ -27,7 +27,7 @@
         <td th:text="${project.project_description}"></td>
     <td>
         <form action="/project-leader-subproject-overview" method="get">
-            <input type="hidden" name="projectId" th:value="${project.project_id}" />
+           <!-- <input type="hidden" name="projectId" th:value="${project.project_id}" />-->
             <input type="hidden" name="projectName" th:value="${project.project_name}" />
             <button type="submit">See subprojects</button>
         </form>

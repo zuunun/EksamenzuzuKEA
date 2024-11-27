@@ -43,6 +43,29 @@ public class ProjectRepository implements IProjectRepository {
         return projects;
     }
 
+    public int getProjectIdByProjectName(String projectName) throws Errorhandling {
+        String query = "SELECT project_id FROM project WHERE project_name = ?";
+
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, projectName);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("project_id");
+                } else {
+                    throw new Errorhandling("Project not found for name: " + projectName);
+                }
+            }
+        } catch (SQLException e) {
+            throw new Errorhandling("Failed to get project ID by project name: " + e.getMessage());
+        }
+    }
+
+
+
+
     @Override
     public List<Subproject> getSubjectsByProjectId(int projectId) throws Errorhandling {
         List<Subproject> subprojects = new ArrayList<>();

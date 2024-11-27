@@ -50,23 +50,29 @@ public class ProjectController {
         throw new Errorhandling("User is not authorized to view this page.");
     }
 
-
-    @GetMapping("/project-leader-subproject-overview") //Amalie
-    public String showProjectLeaderSubprojectOverview(@RequestParam("projectId") int projectId, @RequestParam("projectName") String projectName, HttpSession session, Model model) throws Errorhandling {
+    @GetMapping("/project-leader-subproject-overview") // Amalie
+    public String showProjectLeaderSubprojectOverview(@RequestParam("projectName") String projectName,
+                                                      HttpSession session,
+                                                      Model model) throws Errorhandling {
         Role employeeRole = (Role) session.getAttribute("userRole"); // Henter brugerens rolle fra sessionen
         Employee employee = (Employee) session.getAttribute("employee");
 
         if (employeeRole == Role.PROJECTLEADER) {
-            //String name = projectService.getProjectByProjectName;
-            List<Subproject> subprojects = projectService.getSubjectsByProjectId(projectId);//EVT EN METODE TIL AT HENTE PROJECTID getproject id where project name=
+            // Hent projectId baseret på projectName
+            int projectId = projectService.getProjectIdByProjectName(projectName);
+
+
+            // Henter subprojekter baseret på det fundne projectId
+            List<Subproject> subprojects = projectService.getSubjectsByProjectId(projectId);
 
             model.addAttribute("subprojects", subprojects);
             model.addAttribute("projectName", projectName);
 
-            return "project-leader-subproject-overview";//returner view
+            return "project-leader-subproject-overview"; // Returnerer view
         }
-        throw new Errorhandling("error");
+        throw new Errorhandling("User is not authorized to view this page.");
     }
+
 
     @GetMapping("/add-project") //Amalie
     public String addNewProject(HttpSession session, Model model) throws Errorhandling {

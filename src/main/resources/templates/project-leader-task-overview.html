@@ -16,9 +16,8 @@
         <th>Start Date</th>
         <th>End Date</th>
         <th>Status</th>
-        <th>Duration</th>
-        <th>Employee ID</th>
-
+        <th>Estimated Hours</th>
+        <th>Actual Hours</th>
     </tr>
     </thead>
     <tbody>
@@ -27,11 +26,12 @@
         <td th:text="${task.startdate}"></td>
         <td th:text="${task.enddate}"></td>
         <td th:text="${task.status}"></td>
-        <td th:text="${task.duration}"></td>
-        <td th:text="${task.employee_id}"></td>
+        <td th:text="${task.estimated_hours}"></td>
+        <td th:text="${task.actual_hours}"></td>
     </tr>
     </tbody>
 </table>
+
 
 <a th:href="@{'/project-leader-overview'}" class="btn">Back to Project Overview</a>
 </body>
